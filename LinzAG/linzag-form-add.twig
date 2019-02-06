@@ -1,0 +1,76 @@
+{% extends "form-base.twig" %}
+{% import "forms.twig" as forms %}
+
+{% block formTitle %}
+    {% trans "LinzAG" %}
+{% endblock %}
+
+{% block formButtons %}
+    {% trans "Cancel" %}, XiboDialogClose()
+    {% trans "Save" %}, $("#linzAGAddForm").submit()
+{% endblock %}
+
+{% block formFieldActions %}
+    [{
+    "field": "useDuration",
+    "trigger": "init",
+    "value": false,
+    "operation": "is:checked",
+    "actions": {
+    ".duration-fields": { "display": "none" }
+    }
+    },{
+    "field": "useDuration",
+    "trigger": "change",
+    "value": false,
+    "operation": "is:checked",
+    "actions": {
+    ".duration-fields": { "display": "none" }
+    }
+    },{
+    "field": "useDuration",
+    "trigger": "init",
+    "value": true,
+    "operation": "is:checked",
+    "actions": {
+    ".duration-fields": { "display": "block" }
+    }
+    },{
+    "field": "useDuration",
+    "trigger": "change",
+    "value": true,
+    "operation": "is:checked",
+    "actions": {
+    ".duration-fields": { "display": "block" }
+    }
+    }]
+{% endblock %}
+
+
+{% block formHtml %}
+    <div class="row">
+        <div class="col-md-12">
+            <form id="linzAGAddForm" class="XiboForm form-horizontal" method="post" action="{{ urlFor("module.widget.add", {type: module.widget.type, id: playlist.playlistId}) }}">
+                {% set title %}{% trans "Name" %}{% endset %}
+                {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
+                {{ forms.input("destination", title, "", helpText, "") }}
+
+                {% set title %}{% trans "Destination" %}{% endset %}
+                {% set helpText %}{% trans "The ETA-Display of you disered Location" %}{% endset %}
+                {{ forms.input("destination", title, "", helpText, "", "required") }}
+
+                {% set title %}{% trans "Limit" %}{% endset %}
+                {% set helpText %}{% trans "The Limit of shown times" %}{% endset %}
+                {{ forms.input("limit", title, 10, helpText, "", "required") }}
+
+                {% set title %}{% trans "Set a duration?" %}{% endset %}
+                {% set helpText %}{% trans "Select to provide a specific duration for this Widget" %}{% endset %}
+                {{ forms.checkbox("useDuration", title, 0, helpText) }}
+
+                {% set title %}{% trans "Duration" %}{% endset %}
+                {% set helpText %}{% trans "The duration in seconds this should be displayed" %}{% endset %}
+                {{ forms.number("duration", title, module.getModule().defaultDuration, helpText, "duration-fields", "required") }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

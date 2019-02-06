@@ -1,0 +1,7 @@
+{
+  "title": "LinzAG Module",
+  "author": "Halil Bahar",
+  "description": "A module for displaying linzAG times",
+  "name": "linzag",
+  "class": "Xibo\\Custom\\LinzAG\\LinzAG"
+}
