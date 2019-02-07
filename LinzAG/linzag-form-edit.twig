@@ -56,11 +56,11 @@
                 {{ forms.input("destination", title, "", helpText, "") }}
 
                 {% set title %}{% trans "Destination" %}{% endset %}
-                {% set helpText %}{% trans "The ETA-Display of you disered Location" %}{% endset %}
+                {% set helpText %}{% trans "The ETA-Display of you desired Location. Separate by ;" %}{% endset %}
                 {{ forms.input("destination", title, "", helpText, "", "required") }}
 
                 {% set title %}{% trans "Limit" %}{% endset %}
-                {% set helpText %}{% trans "The Limit of shown times" %}{% endset %}
+                {% set helpText %}{% trans "The limit of shown rows" %}{% endset %}
                 {{ forms.input("limit", title, 10, helpText, "", "required") }}
 
                 {% set title %}{% trans "Set a duration?" %}{% endset %}
