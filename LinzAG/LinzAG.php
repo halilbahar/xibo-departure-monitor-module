@@ -2,9 +2,6 @@
 
 namespace Xibo\Custom\LinzAG;
 
-use Xibo\Exception\InvalidArgumentException;
-use Xibo\Helper\Translate;
-
 use Xibo\Widget\ModuleWidget;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -58,7 +55,6 @@ class LinzAG extends ModuleWidget {
     }
 
     public function edit() {
-        // $this->setOption('destination', $this->getSanitizer->getString('destination'));
         $this->setCommonOptions();
         // Save the widget
         $this->isValid();
@@ -76,14 +72,14 @@ class LinzAG extends ModuleWidget {
     public function getResource($displayId = 0) {
         $destinations = explode(";", $this->getOption('destination'));
         $depatureList = array();
-	$limit = $this->getOption('limit');
+        $limit = $this->getOption('limit');
 
         foreach ($destinations as $singleDestination) {
             $depatureList = array_merge($depatureList, $this->getDepatureMonitor($singleDestination, $limit));
         }
 
-        usort($depatureList, function($a, $b) { //Sort the array using a user defined function
-          return $a->countdown < $b->countdown ? -1 : 1; //Compare the scores
+        usort($depatureList, function ($a, $b) { //Sort the array using a user defined function
+            return $a->countdown < $b->countdown ? -1 : 1; //Compare the scores
         });
 
         $tbody = '<tbody>';
@@ -91,10 +87,10 @@ class LinzAG extends ModuleWidget {
         $bus = $this->getResourceUrl('bus.png');
 
         for ($i = 0; $i < 12; $i++) {
-          if(isset($depatureList[$i])){
-            $servingLine = $depatureList[$i]->servingLine;
-            $dateTime = $depatureList[$i]->dateTime;
-            $tbody .= '
+            if (isset($depatureList[$i])) {
+                $servingLine = $depatureList[$i]->servingLine;
+                $dateTime = $depatureList[$i]->dateTime;
+                $tbody .= '
             <tr>
               <td class="column1"><img src="' . ($servingLine->name == "Straßenbahn" ? $tram : $bus) . '"></td>
               <td class="column2">' . $servingLine->number . '</td>
@@ -103,7 +99,7 @@ class LinzAG extends ModuleWidget {
               <td class="column5">' . $dateTime->hour . ':' . sprintf('%02d', $dateTime->minute) . '</td>
               <td class="column6">' . $depatureList[$i]->countdown . '</td>
              </tr>';
-          }
+            }
         }
         $tbody .= '</tbody>';
 
@@ -176,12 +172,6 @@ class LinzAG extends ModuleWidget {
                 text-align:right;
                 padding-right: 4%;
             }
-
-            /* Icons */
-            /* .station {
-                width: 8%;
-                margin-right: 40%;
-            } */
 
             img {
                 width: 62%;
@@ -284,7 +274,6 @@ class LinzAG extends ModuleWidget {
             }
             ')
             ->appendBody("<div id='wrapper'>
-                    <!-- Bus/Bim, Linie, Haltestelle, Ankunftszeit, Minuten bis Ankunft -->
                     <table id='traffic-schedule'>
                         <thead>
                             <tr>
@@ -314,7 +303,6 @@ class LinzAG extends ModuleWidget {
             $result = json_decode($response->getBody()->getContents());
 
             return $result->parameters[1]->value;
-
         } catch (RequestException $requestException) {
             $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
             return false;
@@ -330,7 +318,6 @@ class LinzAG extends ModuleWidget {
             $result = json_decode($response->getBody()->getContents());
 
             return $result->departureList;
-
         } catch (RequestException $requestException) {
             $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
             return false;
