@@ -53,15 +53,15 @@
             <form id="linzAGAddForm" class="XiboForm form-horizontal" method="put" action="{{ urlFor("module.widget.edit", {id: module.widget.widgetId}) }}">
                 {% set title %}{% trans "Name" %}{% endset %}
                 {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
-                {{ forms.input("destination", title, "", helpText, "") }}
+                {{ forms.input("destination", title, module.getOption("name"), helpText, "") }}
 
                 {% set title %}{% trans "Destination" %}{% endset %}
                 {% set helpText %}{% trans "The ETA-Display of you desired Location. Separate by ;" %}{% endset %}
-                {{ forms.input("destination", title, "", helpText, "", "required") }}
+                {{ forms.input("destination", title, module.getOption("destination"), helpText, "") }}
 
                 {% set title %}{% trans "Limit" %}{% endset %}
                 {% set helpText %}{% trans "The limit of shown rows" %}{% endset %}
-                {{ forms.input("limit", title, 10, helpText, "", "required") }}
+                {{ forms.input("limit", title, module.getOption("limit"), helpText, "") }}
 
                 {% set title %}{% trans "Set a duration?" %}{% endset %}
                 {% set helpText %}{% trans "Select to provide a specific duration for this Widget" %}{% endset %}
