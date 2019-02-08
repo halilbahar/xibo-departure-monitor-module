@@ -86,7 +86,7 @@ class LinzAG extends ModuleWidget {
         $tram = $this->getResourceUrl('bim.png');
         $bus = $this->getResourceUrl('bus.png');
 
-        for ($i = 0; $i < 12; $i++) {
+        for ($i = 0; $i < $limit; $i++) {
             if (isset($depatureList[$i])) {
                 $servingLine = $depatureList[$i]->servingLine;
                 $dateTime = $depatureList[$i]->dateTime;
