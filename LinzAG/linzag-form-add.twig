@@ -53,7 +53,7 @@
             <form id="linzAGAddForm" class="XiboForm form-horizontal" method="post" action="{{ urlFor("module.widget.add", {type: module.widget.type, id: playlist.playlistId}) }}">
                 {% set title %}{% trans "Name" %}{% endset %}
                 {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
-                {{ forms.input("destination", title, "", helpText, "") }}
+                {{ forms.input("name", title, "", helpText, "") }}
 
                 {% set title %}{% trans "Destination" %}{% endset %}
                 {% set helpText %}{% trans "The ETA-Display of you desired Location. Separate by ;" %}{% endset %}
