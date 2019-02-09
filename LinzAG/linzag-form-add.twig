@@ -61,7 +61,7 @@
 
                 {% set title %}{% trans "Limit" %}{% endset %}
                 {% set helpText %}{% trans "The limit of shown rows" %}{% endset %}
-                {{ forms.input("limit", title, 10, helpText, "", "required") }}
+                {{ forms.number("limit", title, 10, helpText, "", "required") }}
 
                 {% set title %}{% trans "Set a duration?" %}{% endset %}
                 {% set helpText %}{% trans "Select to provide a specific duration for this Widget" %}{% endset %}
