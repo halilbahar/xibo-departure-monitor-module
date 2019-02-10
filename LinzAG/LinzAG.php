@@ -101,7 +101,7 @@ class LinzAG extends ModuleWidget {
               <td class="column2">' . $servingLine->number . '</td>
               <td class="column3">' . $depatureList[$i]->nameWO . '</td>
               <td class="column4">' . $servingLine->direction . '</td>
-              <td class="column5">' . $dateTime->hour . ':' . sprintf('%02d', $dateTime->minute) . '</td>
+              <td class="column5">' . sprintf('%02d', $dateTime->hour) . ':' . sprintf('%02d', $dateTime->minute) . '</td>
               <td class="column6">' . $depatureList[$i]->countdown . '</td>
              </tr>';
             }
