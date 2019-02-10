@@ -114,7 +114,60 @@ class LinzAG extends ModuleWidget {
             ->appendViewPortWidth($this->region->width)
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendFontCss()
-            ->appendCss('* {
+            ->appendCss($this->getCss())
+            ->appendBody("<div id='wrapper'>
+                    <table id='traffic-schedule'>
+                        <thead>
+                            <tr>
+                                <th id='tbl-head1'></th>
+                                <th id='tbl-head2' style='text-align:right;'>Linie</th>
+                                <th id='tbl-head3' style='text-align:left; padding-left: 3%;'>Nach</th>
+                                <th id='tbl-head4' style='text-align:left; padding-left: 10%;'>Von</th>
+                                <th id='tbl-head5' style='text-align:right;'>Ab</th>
+                                <th id='tbl-head6' style='text-align:right; padding-right: 4%;'>verbleibend</th>
+                            </tr>
+                        </thead>" . $tbody . "
+                    </table>
+                </div>");
+        return $this->finaliseGetResource();
+    }
+
+    public function isValid() {
+        return 1;
+    }
+
+    public function getSessionID($destination, $limit) {
+        try {
+            $client = new Client($this->getConfig()->getGuzzleProxy());
+            $url = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=0&locationServerActive=1&type_dm=stop&name_dm=' . $destination . '&outputFormat=JSON&limit=' . $limit;
+            $response = $client->request('GET', $url);
+
+            $result = json_decode($response->getBody()->getContents());
+
+            return $result->parameters[1]->value;
+        } catch (RequestException $requestException) {
+            $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
+            return false;
+        }
+    }
+
+    public function getDepatureMonitor($destination, $limit) {
+        try {
+            $client = new Client($this->getConfig()->getGuzzleProxy());
+            $url = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=' . $this->getSessionID($destination, $limit) . '&requestID=1&dmLineSelectionAll=1';
+            $response = $client->request('GET', $url);
+
+            $result = json_decode($response->getBody()->getContents());
+
+            return $result->departureList;
+        } catch (RequestException $requestException) {
+            $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
+            return false;
+        }
+    }
+
+    public function getCss() {
+        return '* {
                 padding: 0;
                 margin: 0;
                 font-family:' . $this->getOption('fontFamily') . ', Arial, Helvetica, sans-serif;
@@ -272,55 +325,6 @@ class LinzAG extends ModuleWidget {
                     text-align: left;
                 }
             }
-            ')
-            ->appendBody("<div id='wrapper'>
-                    <table id='traffic-schedule'>
-                        <thead>
-                            <tr>
-                                <th id='tbl-head1'></th>
-                                <th id='tbl-head2' style='text-align:right;'>Linie</th>
-                                <th id='tbl-head3' style='text-align:left; padding-left: 3%;'>Nach</th>
-                                <th id='tbl-head4' style='text-align:left; padding-left: 10%;'>Von</th>
-                                <th id='tbl-head5' style='text-align:right;'>Ab</th>
-                                <th id='tbl-head6' style='text-align:right; padding-right: 4%;'>verbleibend</th>
-                            </tr>
-                        </thead>" . $tbody . "
-                    </table>
-                </div>");
-        return $this->finaliseGetResource();
-    }
-
-    public function isValid() {
-        return 1;
-    }
-
-    public function getSessionID($destination, $limit) {
-        try {
-            $client = new Client($this->getConfig()->getGuzzleProxy());
-            $url = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=0&locationServerActive=1&type_dm=stop&name_dm=' . $destination . '&outputFormat=JSON&limit=' . $limit;
-            $response = $client->request('GET', $url);
-
-            $result = json_decode($response->getBody()->getContents());
-
-            return $result->parameters[1]->value;
-        } catch (RequestException $requestException) {
-            $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
-            return false;
-        }
-    }
-
-    public function getDepatureMonitor($destination, $limit) {
-        try {
-            $client = new Client($this->getConfig()->getGuzzleProxy());
-            $url = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=' . $this->getSessionID($destination, $limit) . '&requestID=1&dmLineSelectionAll=1';
-            $response = $client->request('GET', $url);
-
-            $result = json_decode($response->getBody()->getContents());
-
-            return $result->departureList;
-        } catch (RequestException $requestException) {
-            $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
-            return false;
-        }
+            ';
     }
 }
