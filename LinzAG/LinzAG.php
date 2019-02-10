@@ -99,8 +99,8 @@ class LinzAG extends ModuleWidget {
             <tr>
               <td class="column1"><img src="' . ($servingLine->name == "Straßenbahn" ? $tram : $bus) . '"></td>
               <td class="column2">' . $servingLine->number . '</td>
-              <td class="column3">' . $servingLine->direction . '</td>
-              <td class="column4">' . $depatureList[$i]->nameWO . '</td>
+              <td class="column3">' . $depatureList[$i]->nameWO . '</td>
+              <td class="column4">' . $servingLine->direction . '</td>
               <td class="column5">' . $dateTime->hour . ':' . sprintf('%02d', $dateTime->minute) . '</td>
               <td class="column6">' . $depatureList[$i]->countdown . '</td>
              </tr>';
@@ -121,8 +121,8 @@ class LinzAG extends ModuleWidget {
                             <tr>
                                 <th id='tbl-head1'></th>
                                 <th id='tbl-head2' style='text-align:right;'>Linie</th>
-                                <th id='tbl-head3' style='text-align:left; padding-left: 3%;'>Nach</th>
-                                <th id='tbl-head4' style='text-align:left; padding-left: 10%;'>Von</th>
+                                <th id='tbl-head3' style='text-align:left; padding-left: 3%;'>Von</th>
+                                <th id='tbl-head4' style='text-align:left; padding-left: 10%;'>Nach</th>
                                 <th id='tbl-head5' style='text-align:right;'>Ab</th>
                                 <th id='tbl-head6' style='text-align:right; padding-right: 4%;'>verbleibend</th>
                             </tr>
