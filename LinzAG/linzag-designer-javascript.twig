@@ -1,0 +1,20 @@
+<script type="text/javascript">
+    function linzagFormSetup(dialog) {
+        var $fontFamily = $(dialog).find("#fontFamily");
+        $.ajax({
+            method: "GET",
+            url: $fontFamily.data('searchUrl'),
+            success: function(res) {
+                if (res.success) {
+                    $.each(res.data, function(index, element) {
+                        if ($fontFamily.data('value') === element.familyName) {
+                            $fontFamily.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
+                        } else {
+                            $fontFamily.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                        }
+                    });
+                }
+            }
+        });
+    }
+</script>

@@ -67,6 +67,11 @@ class LinzAG extends ModuleWidget {
         $this->setOption('name', $this->getSanitizer()->getString('name'));
         $this->setOption('destination', $this->getSanitizer()->getString('destination'));
         $this->setOption('limit', $this->getSanitizer()->getInt('limit'));
+        $this->setOption('fontFamily', $this->getSanitizer()->getString('fontFamily'));
+    }
+
+    public function layoutDesignerJavaScript() {
+        return 'linzag-designer-javascript';
     }
 
     public function getResource($displayId = 0) {
@@ -108,10 +113,11 @@ class LinzAG extends ModuleWidget {
             ->initialiseGetResource()
             ->appendViewPortWidth($this->region->width)
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
+            ->appendFontCss()
             ->appendCss('* {
                 padding: 0;
                 margin: 0;
-                font-family: "Varela", Arial, Helvetica, sans-serif;
+                font-family:' . $this->getOption('fontFamily') . ', Arial, Helvetica, sans-serif;
                 font-weight: bold;
                 font-size: 25px;
             }
@@ -175,12 +181,6 @@ class LinzAG extends ModuleWidget {
 
             img {
                 width: 62%;
-            }
-
-            /* Font */
-            @font-face {
-                font-family: "Varela";
-                src: url("VarelaRound-Regular.ttf");
             }
 
             /* Responsive */
