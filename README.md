@@ -1,5 +1,15 @@
 # Xibo LinzAG Module
 
+## Anwendungsfalldiagramm
+<p>
+    <img src="./images/LinzAG-Module-Use-Case.png">
+</p>
+
+## Systemarchitektur
+<p>
+    <img src="./images/system_architecture_linzag.png">
+</p>
+
 ## Installation
 Nach dem Klonen muss der Ordner "LinzAG" und die JSON-Datei "linzag.json" in den Xibo "/Custom" Ordner hineingegeben werden.
 Danach kann man das Modul unter "Module-Modul installieren" hinzufügen.
