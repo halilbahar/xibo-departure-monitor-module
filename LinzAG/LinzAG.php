@@ -87,9 +87,18 @@ class LinzAG extends ModuleWidget {
             return $a->countdown < $b->countdown ? -1 : 1; //Compare the scores
         });
 
+        $isPreview = $this->getSanitizer()->getCheckbox('preview') == 1;
+
+        $tramId = $this->mediaFactory->getByName('bim.png')->mediaId;
+        $busId = $this->mediaFactory->getByName('bus.png')->mediaId;
+
+        $this->assignMedia($tramId);
+        $this->assignMedia($busId);
+
+        $tram = $isPreview ? $this->getResourceUrl('bim.png') : $tramId . '.png';
+        $bus = $isPreview ? $this->getResourceUrl('bus.png') : $busId . '.png';
+
         $tbody = '<tbody>';
-        $tram = $this->getResourceUrl('bim.png');
-        $bus = $this->getResourceUrl('bus.png');
 
         for ($i = 0; $i < $limit; $i++) {
             if (isset($depatureList[$i])) {
