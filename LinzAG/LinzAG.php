@@ -166,6 +166,10 @@ class LinzAG extends ModuleWidget {
         }
     }
 
+    public function getCacheDuration(){
+        return 60;
+    }
+
     public function getCss() {
         return '* {
                 padding: 0;
