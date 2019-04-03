@@ -122,18 +122,46 @@ class LinzAG extends ModuleWidget {
             ->initialiseGetResource()
             ->appendViewPortWidth($this->region->width)
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
+            ->appendJavaScript('
+                $(() => {
+                    let rows = document.getElementById("traffic-schedule").rows;
+                    for(let i = 0; i < rows.length; i++) {
+                        if(i % 2 == 0){
+                            rows[i].style.backgroundColor = "#f5f5f5";
+                        }
+                    }
+                });
+                setInterval(() => {
+                    let tableRows = Object.values(document.getElementById("traffic-schedule").rows);
+                    let minuteIndex = 5;
+                    for (let tableRowsKey of tableRows.slice(1)) {
+                        if (parseInt(tableRowsKey.cells[minuteIndex].innerHTML) === 0) {
+                            $("#traffic-schedule tr:eq(1)")
+                                .children("td")
+                                .animate( { paddingBottom: 0, paddingTop: 0 } )
+                                .wrapInner("<div />")
+                                .children()
+                                .slideUp(function () {
+                                    $(this).closest("tr").remove();
+                                });
+                        } else {
+                            tableRowsKey.cells[minuteIndex].innerHTML--;
+                        }
+                    }
+                }, 1000 * 60);
+            ')
             ->appendFontCss()
             ->appendCss($this->getCss())
             ->appendBody("<div id='wrapper'>
                     <table id='traffic-schedule'>
                         <thead>
                             <tr>
-                                <th id='tbl-head1'></th>
-                                <th id='tbl-head2' style='text-align:right;'>Linie</th>
-                                <th id='tbl-head3' style='text-align:left; padding-left: 3%;'>Von</th>
-                                <th id='tbl-head4' style='text-align:left; padding-left: 10%;'>Nach</th>
-                                <th id='tbl-head5' style='text-align:right;'>Ab</th>
-                                <th id='tbl-head6' style='text-align:right; padding-right: 4%;'>verbleibend</th>
+                                <th id='tbl-head1' width='15%'></th>
+                                <th id='tbl-head2' width='10%' style='text-align:right; padding-right: 5%'>Linie</th>
+                                <th id='tbl-head3' width='25%' style='text-align:left; padding-left: 0%;'>Von</th>
+                                <th id='tbl-head4' width='25%' style='text-align:left; padding-left: 0%;'>Nach</th>
+                                <th id='tbl-head5' width='12.5%' style='text-align:left;'>Ab</th>
+                                <th id='tbl-head6' width='12.5%' style='text-align:right; padding-right: 4%;'>verbleibend</th>
                             </tr>
                         </thead>" . $tbody . "
                     </table>
@@ -176,164 +204,168 @@ class LinzAG extends ModuleWidget {
     }
 
     public function getCss() {
-        return '* {
-                padding: 0;
-                margin: 0;
-                font-family:' . $this->getOption('fontFamily') . ', Arial, Helvetica, sans-serif;
-                font-weight: bold;
-                font-size: 25px;
+        return '
+        * {
+            padding: 0;
+            margin: 0;
+            font - family:' . $this->getOption('fontFamily') . ', Arial, Helvetica, sans - serif;
+            font-weight: bold;
+            font-size: 30px;
+        }
+        
+        body {
+            width: 100%;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+        
+        #wrapper {
+            width: 100%;
+        }
+        
+        /* Tabelle */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+        
+        table thead tr th{
+            padding: .5% 0;
+            background: #36304a;
+            color: #f5f5f5;
+            font-size: 30px;
+        }
+        
+        td {
+            padding-top: .5%;
+            padding-bottom: .5%; 
+        }
+          
+        .column2 {
+            text-align: right;
+            padding-right: 5%;
+        }
+          
+        .column3 {
+            padding-left: 0%;
+        }
+          
+        .column4 {
+            padding-left: 0%;
+        }
+          
+        .column5 {
+            text-align: left;
+            padding-right: 0%;
+        }
+          
+        .column6 {
+            text-align:right; 
+            padding-right: 4%;
+        }
+        
+        /* Icons */
+        /* .station {
+            width: 8%;
+            margin-right: 40%;
+        } */
+        
+        img {
+            width: 27%;
+            display: block;
+            float: right;
+            padding-right: 40%;
+        }
+        
+        /* Responsive */
+        /* 4K */
+        @media only screen and (min-width: 2202px) {
+            table thead tr th {
+                font-size: 50px;
             }
-
-            body {
-                background-color: white;
-                width: 100%;
-                overflow: hidden;
-            }
-
-            #wrapper {
-                width: 100%;
-            }
-
-            /* Tabelle */
-            table {
-                border-collapse: collapse;
-                width: 100%;
-            }
-
-            table thead tr th{
-                padding: .5% 0;
-                background: #36304a;
-                color: #f5f5f5;
-            }
-
-            tbody tr:nth-child(even) {
-                background-color: #f5f5f5;
-            }
-
+            
             td {
+                font-size: 40px;
+                padding: .1% 0;
+            }
+        }
+        
+        /* Full HD */
+        @media only screen and (min-width: 1921px) and (max-width: 2217px) {
+            table thead tr th {
+                font-size: 30px;
+            }
+            
+            td {
+                font-size: 30px;
+                padding: .13% 0;
+            }
+        }
+        
+        /* medium */
+        @media only screen and (min-width: 890px) and (max-width: 1135px){
+            table thead tr th {
+                font-size: 18px;
+            }
+            
+            td {
+                font-size: 20px;
+                padding: 1% 0;
+            }
+        }
+        
+        /* small */
+        @media only screen and (max-width: 890px){
+            table thead tr th {
+                font-size: 12px;
+            }
+            
+            td {
+                font-size: 15px;
+                padding: .8% 0;
+            }
+            
+            img {
+                display: none;
+            }
+        
+            #tbl-head1, .column1 {
+                display: none;
+            }
+        
+            #tbl-head2, .column2 {
                 padding-left: 1%;
-            }
-
-            .column1 {
-                width: 10%;
-                padding-top: .2%;
-                padding-left: 4%;
-            }
-
-            .column2 {
                 text-align: right;
             }
-
-            .column3 {
+        
+            #tbl-head3, .column3 {
+                padding-left: 3%;
+                text-align: left;
+            }
+            .column4 {
                 padding-left: 3%;
             }
-
-            .column4 {
-                padding-left: 10%;
+        
+            #tbl-head5 {
+                padding-right: 5%;
+                text-align: left;
             }
-
+        
             .column5 {
-                text-align: right;
+                padding-right: 3%;
+                text-align: left;
             }
-
+        
+            #tbl-head6 {
+                padding-right: 50%;
+                text-align: left;
+            }
+        
             .column6 {
-                text-align:right;
-                padding-right: 4%;
+                padding-left: 0;
+                text-align: left;
             }
-
-            img {
-                width: 62%;
-            }
-
-            /* Responsive */
-            /* 4K */
-            @media only screen and (min-width: 2202px) {
-                th {
-                    font-size: 50px;
-                }
-
-                td {
-                    font-size: 50px;
-                    padding: .8% 0;
-                }
-            }
-
-            /* Full HD */
-            @media only screen and (min-width: 1921px) and (max-width: 2217px) {
-                th {
-                    font-size: 30px;
-                }
-
-                td {
-                    font-size: 35px;
-                    padding: .8% 0;
-                }
-            }
-
-            /* medium */
-            @media only screen and (min-width: 890px) and (max-width: 1135px){
-                th {
-                    font-size: 18px;
-                }
-
-                td {
-                    font-size: 20px;
-                    padding: 1% 0;
-                }
-            }
-
-            /* small */
-            @media only screen and (max-width: 890px){
-                th {
-                    font-size: 12px;
-                }
-
-                td {
-                    font-size: 15px;
-                    padding: .8% 0;
-                }
-
-                img {
-                    display: none;
-                }
-
-                #tbl-head1, .column1 {
-                    display: none;
-                }
-
-                #tbl-head2, .column2 {
-                    padding-left: 1%;
-                    text-align: right;
-                }
-
-                #tbl-head3, .column3 {
-                    padding-left: 3%;
-                    text-align: left;
-                }
-                .column4 {
-                    padding-left: 3%;
-                }
-
-                #tbl-head5 {
-                    padding-right: 5%;
-                    text-align: left;
-                }
-
-                .column5 {
-                    padding-right: 3%;
-                    text-align: left;
-                }
-
-                #tbl-head6 {
-                    padding-right: 50%;
-                    text-align: left;
-                }
-
-                .column6 {
-                    padding-left: 0;
-                    text-align: left;
-                }
-            }
-            ';
+        }';
     }
 }
