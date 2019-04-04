@@ -71,7 +71,7 @@ class DepartureMonitor extends ModuleWidget {
     }
 
     public function layoutDesignerJavaScript() {
-        return 'linzag-designer-javascript';
+        return 'departuremonitor-designer-javascript';
     }
 
     public function getResource($displayId = 0) {

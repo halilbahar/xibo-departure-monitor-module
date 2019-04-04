@@ -79,7 +79,7 @@
 
                 {% set title %}{% trans "Duration" %}{% endset %}
                 {% set helpText %}{% trans "The duration in seconds this should be displayed" %}{% endset %}
-                {{ forms.number("duration", title, module.getModule().defaultDuration, helpText, "duration-fields", "required") }}
+                {{ forms.number("duration", title, module.getOption("duration"), helpText, "duration-fields", "required") }}
             </form>
         </div>
     </div>
