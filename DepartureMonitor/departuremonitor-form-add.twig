@@ -57,11 +57,11 @@
                 {{ forms.input("name", title, "", helpText, "") }}
 
                 {% set title %}{% trans "Destination" %}{% endset %}
-                {% set helpText %}{% trans "The ETA-Display of you desired Location. Separate by ;" %}{% endset %}
+                {% set helpText %}{% trans "The Departure Monitor of you desired Location. Separate by ; for multiple destinations" %}{% endset %}
                 {{ forms.input("destination", title, "", helpText, "", "required") }}
 
                 {% set title %}{% trans "Limit" %}{% endset %}
-                {% set helpText %}{% trans "The limit of shown rows" %}{% endset %}
+                {% set helpText %}{% trans "The limit of requested rows" %}{% endset %}
                 {{ forms.number("limit", title, 10, helpText, "", "required") }}
 
                 {% set title %}{% trans "Font" %}{% endset %}
