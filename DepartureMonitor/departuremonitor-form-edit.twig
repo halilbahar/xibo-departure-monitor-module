@@ -2,13 +2,13 @@
 {% import "forms.twig" as forms %}
 
 {% block formTitle %}
-    {% trans "LinzAG" %}
+    {% trans "Departure-Monitor" %}
 {% endblock %}
 
 {% block formButtons %}
     {% trans "Cancel" %}, XiboDialogClose()
-    {% trans "Apply" %}, XiboDialogApply("#linzAGAddForm")
-    {% trans "Save" %}, $("#linzAGAddForm").submit()
+    {% trans "Apply" %}, XiboDialogApply("#departureMonitorAddForm")
+    {% trans "Save" %}, $("#departureMonitorAddForm").submit()
 {% endblock %}
 
 {% block formFieldActions %}
@@ -47,12 +47,12 @@
     }]
 {% endblock %}
 
-{% block callBack %}linzagFormSetup{% endblock %}
+{% block callBack %}departureMonitorFormSetup{% endblock %}
 
 {% block formHtml %}
     <div class="row">
         <div class="col-md-12">
-            <form id="linzAGAddForm" class="XiboForm form-horizontal" method="put" action="{{ urlFor("module.widget.edit", {id: module.widget.widgetId}) }}">
+            <form id="departureMonitorAddForm" class="XiboForm form-horizontal" method="put" action="{{ urlFor("module.widget.edit", {id: module.widget.widgetId}) }}">
                 {% set title %}{% trans "Name" %}{% endset %}
                 {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
                 {{ forms.input("name", title, module.getOption("name"), helpText, "") }}
