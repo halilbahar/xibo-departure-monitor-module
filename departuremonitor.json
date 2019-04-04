@@ -1,0 +1,7 @@
+{
+  "title": "Departure Monitor Module",
+  "author": "Halil Bahar, Sonja Cao",
+  "description": "A module for displaying Departure-Monitors",
+  "name": "departuremonitor",
+  "class": "Xibo\\Custom\\DepartureMonitor\\DepartureMonitor"
+}

@@ -1,23 +1,23 @@
 <?php
 
-namespace Xibo\Custom\LinzAG;
+namespace Xibo\Custom\DepartureMonitor;
 
 use Xibo\Widget\ModuleWidget;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 
-class LinzAG extends ModuleWidget {
+class DepartureMonitor extends ModuleWidget {
 
 
     public function installOrUpdate($moduleFactory) {
         if ($this->module == null) {
             // Install
             $module = $moduleFactory->createEmpty();
-            $module->name = 'LinzAG';
-            $module->type = 'linzag';
-            $module->class = 'Xibo\Custom\LinzAG\LinzAG';
-            $module->description = 'A module for displaying LinzAG times.';
+            $module->name = 'Departure-Monitor';
+            $module->type = 'departuremonitor';
+            $module->class = 'Xibo\Custom\DepartureMonitor\DepartureMonitor';
+            $module->description = 'A module for displaying Departure-Monitors.';
             $module->imageUri = 'forms/library.gif';
             $module->enabled = 1;
             $module->previewEnabled = 1;
@@ -27,7 +27,7 @@ class LinzAG extends ModuleWidget {
             $module->schemaVersion = $this->codeSchemaVersion;
             $module->defaultDuration = 60;
             $module->settings = [];
-            $module->viewPath = '../custom/LinzAG';
+            $module->viewPath = '../custom/DepartureMonitor';
 
             // Set the newly created module and then call install
             $this->setModule($module);
