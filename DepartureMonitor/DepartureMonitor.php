@@ -123,32 +123,32 @@ class DepartureMonitor extends ModuleWidget {
             ->appendViewPortWidth($this->region->width)
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
-                $(() => {
+                setInterval(function () {
                     let rows = document.getElementById("traffic-schedule").rows;
-                    for(let i = 0; i < rows.length; i++) {
-                        if(i % 2 == 0){
+                    for (let i = 0; i < rows.length; i++) {
+                        if (i % 2 === 0) {
                             rows[i].style.backgroundColor = "#f5f5f5";
                         }
                     }
-                });
-                setInterval(() => {
-                    let tableRows = Object.values(document.getElementById("traffic-schedule").rows);
+                    let tableRows = document.getElementById("traffic-schedule").rows;
                     let minuteIndex = 5;
-                    for (let tableRowsKey of tableRows.slice(1)) {
-                        if (parseInt(tableRowsKey.cells[minuteIndex].innerHTML) === 0) {
+                    for (let i = 1; i < tableRows.length; i++) {
+                        if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === 0) {
+                            debugTest("hit");
                             $("#traffic-schedule tr:eq(1)")
                                 .children("td")
-                                .animate( { paddingBottom: 0, paddingTop: 0 } )
+                                .animate({paddingBottom: 0, paddingTop: 0})
                                 .wrapInner("<div />")
                                 .children()
                                 .slideUp(function () {
                                     $(this).closest("tr").remove();
                                 });
                         } else {
-                            tableRowsKey.cells[minuteIndex].innerHTML--;
+                            tableRows[i].cells[minuteIndex].innerHTML--;
                         }
                     }
-                }, 1000 * 60);
+                }, 1000);
+
             ')
             ->appendFontCss()
             ->appendCss($this->getCss())
