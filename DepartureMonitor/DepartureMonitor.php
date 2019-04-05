@@ -135,7 +135,7 @@ class DepartureMonitor extends ModuleWidget {
                         let minuteIndex = 5;
                         for (let i = 1; i < tableRows.length; i++) {
                             if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === 0) {
-                                $("#traffic-schedule tr:eq(1)")
+                                $("#traffic-schedule tr:eq(" + i + ")")
                                     .children("td")
                                     .animate({paddingBottom: 0, paddingTop: 0})
                                     .wrapInner("<div />")
