@@ -123,31 +123,32 @@ class DepartureMonitor extends ModuleWidget {
             ->appendViewPortWidth($this->region->width)
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
-                setInterval(function () {
+                $(function () {
                     let rows = document.getElementById("traffic-schedule").rows;
                     for (let i = 0; i < rows.length; i++) {
                         if (i % 2 === 0) {
                             rows[i].style.backgroundColor = "#f5f5f5";
                         }
                     }
-                    let tableRows = document.getElementById("traffic-schedule").rows;
-                    let minuteIndex = 5;
-                    for (let i = 1; i < tableRows.length; i++) {
-                        if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === 0) {
-                            $("#traffic-schedule tr:eq(1)")
-                                .children("td")
-                                .animate({paddingBottom: 0, paddingTop: 0})
-                                .wrapInner("<div />")
-                                .children()
-                                .slideUp(function () {
-                                    $(this).closest("tr").remove();
-                                });
-                        } else {
-                            tableRows[i].cells[minuteIndex].innerHTML--;
+                    setInterval(function () {
+                        let tableRows = document.getElementById("traffic-schedule").rows;
+                        let minuteIndex = 5;
+                        for (let i = 1; i < tableRows.length; i++) {
+                            if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === 0) {
+                                $("#traffic-schedule tr:eq(1)")
+                                    .children("td")
+                                    .animate({paddingBottom: 0, paddingTop: 0})
+                                    .wrapInner("<div />")
+                                    .children()
+                                    .slideUp(function () {
+                                        $(this).closest("tr").remove();
+                                    });
+                            } else {
+                                tableRows[i].cells[minuteIndex].innerHTML--;
+                            }
                         }
-                    }
-                }, 1000);
-
+                    }, 1000 * 60);
+                });
             ')
             ->appendFontCss()
             ->appendCss($this->getCss())
