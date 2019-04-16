@@ -100,19 +100,18 @@ class DepartureMonitor extends ModuleWidget {
 
         $tbody = '<tbody>';
 
+        $data = array();
         for ($i = 0; $i < $limit; $i++) {
             if (isset($depatureList[$i])) {
-                $servingLine = $depatureList[$i]->servingLine;
-                $dateTime = $depatureList[$i]->dateTime;
-                $tbody .= '
-            <tr>
-              <td class="column1"><img src="' . ($servingLine->name == "Straßenbahn" ? $tram : $bus) . '"></td>
-              <td class="column2">' . $servingLine->number . '</td>
-              <td class="column3">' . $depatureList[$i]->nameWO . '</td>
-              <td class="column4">' . $servingLine->direction . '</td>
-              <td class="column5">' . sprintf('%02d', $dateTime->hour) . ':' . sprintf('%02d', $dateTime->minute) . '</td>
-              <td class="column6">' . $depatureList[$i]->countdown . '</td>
-             </tr>';
+                $entry = new \stdClass();
+                $entry->type = $depatureList[$i]->servingLine->name;
+                $entry->number = $depatureList[$i]->servingLine->number;
+                $entry->from = $depatureList[$i]->nameWO;
+                $entry->to = $depatureList[$i]->servingLine->direction;
+                $entry->arrivalTime = new  \stdClass();
+                $entry->arrivalTime->hour = (int)$depatureList[$i]->dateTime->hour;
+                $entry->arrivalTime->minute = (int)$depatureList[$i]->dateTime->minute;
+                $data[] = $entry;
             }
         }
         $tbody .= '</tbody>';
@@ -124,12 +123,44 @@ class DepartureMonitor extends ModuleWidget {
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
                 $(function () {
-                    let rows = document.getElementById("traffic-schedule").rows;
-                    for (let i = 0; i < rows.length; i++) {
-                        if (i % 2 === 0) {
-                            rows[i].style.backgroundColor = "#f5f5f5";
+                    let data = ' . json_encode($data) . '
+            
+                    //Look for expired entries, if you find one delete it
+                    let currentTime = new Date();
+                    let currentTimeMinutes = currentTime.getHours() * 60 + currentTime.getMinutes();
+                    let index = 0;
+                    while (index < data.length) {
+                        if (data[index].arrivalTime.hour * 60 + data[index].arrivalTime.minute - currentTimeMinutes < 0) {
+                            data.splice(index, 1);
+                        } else {
+                            index++;
                         }
                     }
+            
+                    //Generate rows for every entry
+                    let table = document.getElementById("traffic-schedule");
+                    for (let i = 0; i < data.length; i++) {
+                        let tr = table.getElementsByTagName(\'tbody\')[0].insertRow(-1);
+                        let td = [];
+                        for (let j = 0; j < 6; j++) {
+                            td[j] = tr.insertCell(j);
+                            td[j].classList.add("column" + (j + 1));
+                        }
+                        let hour = data[i].arrivalTime.hour;
+                        let minute = data[i].arrivalTime.minute;
+                        td[0].innerHTML = "<img src=\'" + getImageSrc(data[i].type) + "\'>";
+                        td[1].innerHTML = data[i].number;
+                        td[2].innerHTML = data[i].from;
+                        td[3].innerHTML = data[i].to;
+                        td[4].innerHTML = hour + ":" + minute;
+                        let entryTime = hour * 60 + minute;
+                        td[5].innerHTML = entryTime - currentTimeMinutes;
+                    }
+            
+                    //Set the backgroundcolor of every second row
+                    colorBackground(table.rows);
+            
+                    //Count down. Every minute if entry has been expired, animate it out
                     setInterval(function () {
                         let tableRows = document.getElementById("traffic-schedule").rows;
                         let minuteIndex = 5;
@@ -149,6 +180,30 @@ class DepartureMonitor extends ModuleWidget {
                         }
                     }, 1000 * 60);
                 });
+            
+                function colorBackground(rows) {
+                    for (let i = 0; i < rows.length; i++) {
+                        if (i % 2 === 0) {
+                            rows[i].style.backgroundColor = "#f5f5f5";
+                        }
+                    }
+                }
+            
+                function getImageSrc(type) {
+                    let src = "";
+                    switch (type) {
+                        case "Straßenbahn":
+                            src = "' . $tram . '";
+                            break;
+                        case "Autobus":
+                        case "Stadtteilbus":
+                            src = "' . $bus . '";
+                            break;
+                        default:
+                            src = "";
+                    }
+                    return src;
+                }
             ')
             ->appendFontCss()
             ->appendCss($this->getCss())
@@ -203,7 +258,7 @@ class DepartureMonitor extends ModuleWidget {
         }
     }
 
-    public function getCacheDuration(){
+    public function getCacheDuration() {
         return 1;
     }
 
