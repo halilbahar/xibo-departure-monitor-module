@@ -75,17 +75,6 @@ class DepartureMonitor extends ModuleWidget {
     }
 
     public function getResource($displayId = 0) {
-        $destinations = explode(";", $this->getOption('destination'));
-        $depatureList = array();
-        $limit = $this->getOption('limit');
-
-        foreach ($destinations as $singleDestination) {
-            $depatureList = array_merge($depatureList, $this->getDepatureMonitor($singleDestination, $limit));
-        }
-
-        usort($depatureList, function ($a, $b) { //Sort the array using a user defined function
-            return $a->countdown < $b->countdown ? -1 : 1; //Compare the scores
-        });
 
         $isPreview = $this->getSanitizer()->getCheckbox('preview') == 1;
 
@@ -98,24 +87,6 @@ class DepartureMonitor extends ModuleWidget {
         $tram = $isPreview ? $this->getResourceUrl('bim.png') : $tramId . '.png';
         $bus = $isPreview ? $this->getResourceUrl('bus.png') : $busId . '.png';
 
-        $tbody = '<tbody>';
-
-        $data = array();
-        for ($i = 0; $i < $limit; $i++) {
-            if (isset($depatureList[$i])) {
-                $entry = new \stdClass();
-                $entry->type = $depatureList[$i]->servingLine->name;
-                $entry->number = $depatureList[$i]->servingLine->number;
-                $entry->from = $depatureList[$i]->nameWO;
-                $entry->to = $depatureList[$i]->servingLine->direction;
-                $entry->arrivalTime = new  \stdClass();
-                $entry->arrivalTime->hour = (int)$depatureList[$i]->dateTime->hour;
-                $entry->arrivalTime->minute = (int)$depatureList[$i]->dateTime->minute;
-                $data[] = $entry;
-            }
-        }
-        $tbody .= '</tbody>';
-
         // Start building the template
         $this
             ->initialiseGetResource()
@@ -123,7 +94,7 @@ class DepartureMonitor extends ModuleWidget {
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
                 $(function () {
-                    let data = ' . json_encode($data) . '
+                    let data = ' . json_encode($this->getLinzAGData()) . '
             
                     //Look for expired entries, if you find one delete it
                     let currentTime = new Date();
@@ -218,7 +189,8 @@ class DepartureMonitor extends ModuleWidget {
                                 <th id='tbl-head5' width='12.5%' style='text-align:left;'>Ab</th>
                                 <th id='tbl-head6' width='12.5%' style='text-align:right; padding-right: 4%;'>verbleibend</th>
                             </tr>
-                        </thead>" . $tbody . "
+                        </thead>
+                        <tbody></tbody>
                     </table>
                 </div>");
         return $this->finaliseGetResource();
@@ -243,7 +215,7 @@ class DepartureMonitor extends ModuleWidget {
         }
     }
 
-    public function getDepatureMonitor($destination, $limit) {
+    public function getLinzAGDepatureMonitor($destination, $limit) {
         try {
             $client = new Client($this->getConfig()->getGuzzleProxy());
             $url = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=' . $this->getSessionID($destination, $limit) . '&requestID=1&dmLineSelectionAll=1';
@@ -256,6 +228,36 @@ class DepartureMonitor extends ModuleWidget {
             $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
             return false;
         }
+    }
+
+    public function getLinzAGData() {
+        $destinations = explode(";", $this->getOption('destination'));
+        $depatureList = array();
+        $limit = $this->getOption('limit');
+
+        foreach ($destinations as $singleDestination) {
+            $depatureList = array_merge($depatureList, $this->getLinzAGDepatureMonitor($singleDestination, $limit));
+        }
+
+        usort($depatureList, function ($a, $b) { //Sort the array using a user defined function
+            return $a->countdown < $b->countdown ? -1 : 1; //Compare the scores
+        });
+
+        $data = array();
+        for ($i = 0; $i < $limit; $i++) {
+            if (isset($depatureList[$i])) {
+                $entry = new \stdClass();
+                $entry->type = $depatureList[$i]->servingLine->name;
+                $entry->number = $depatureList[$i]->servingLine->number;
+                $entry->from = $depatureList[$i]->nameWO;
+                $entry->to = $depatureList[$i]->servingLine->direction;
+                $entry->arrivalTime = new  \stdClass();
+                $entry->arrivalTime->hour = (int)$depatureList[$i]->dateTime->hour;
+                $entry->arrivalTime->minute = (int)$depatureList[$i]->dateTime->minute;
+                $data[] = $entry;
+            }
+        }
+        return $data;
     }
 
     public function getCacheDuration() {
