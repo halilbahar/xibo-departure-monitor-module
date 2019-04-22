@@ -97,11 +97,11 @@ class DepartureMonitor extends ModuleWidget {
                     let data = ' . json_encode($this->getLinzAGData()) . '
             
                     //Look for expired entries, if you find one delete it
-                    let currentTime = new Date();
-                    let currentTimeMinutes = currentTime.getHours() * 60 + currentTime.getMinutes();
+                    let currentDate = new Date();
+                    let currentMinutes = currentDate.getHours() * 60 + currentDate.getMinutes();
                     let index = 0;
                     while (index < data.length) {
-                        if (data[index].arrivalTime.hour * 60 + data[index].arrivalTime.minute - currentTimeMinutes < 0) {
+                        if (data[index].arrivalTime.hour * 60 + data[index].arrivalTime.minute - currentMinutes < 0) {
                             data.splice(index, 1);
                         } else {
                             index++;
@@ -125,32 +125,41 @@ class DepartureMonitor extends ModuleWidget {
                         td[3].innerHTML = data[i].to;
                         td[4].innerHTML = hour + ":" + minute;
                         let entryTime = hour * 60 + minute;
-                        td[5].innerHTML = entryTime - currentTimeMinutes;
+                        td[5].innerHTML = entryTime - currentMinutes;
                     }
             
                     //Set the backgroundcolor of every second row
                     colorBackground(table.rows);
             
-                    //Count down. Every minute if entry has been expired, animate it out
-                    setInterval(function () {
-                        let tableRows = document.getElementById("traffic-schedule").rows;
-                        let minuteIndex = 5;
-                        for (let i = 1; i < tableRows.length; i++) {
-                            if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === 0) {
-                                $("#traffic-schedule tr:eq(" + i + ")")
-                                    .children("td")
-                                    .animate({paddingBottom: 0, paddingTop: 0})
-                                    .wrapInner("<div />")
-                                    .children()
-                                    .slideUp(function () {
-                                        $(this).closest("tr").remove();
-                                    });
-                            } else {
-                                tableRows[i].cells[minuteIndex].innerHTML--;
-                            }
-                        }
-                    }, 1000 * 60);
+                    let nextMinuteDate = new Date();
+                    nextMinuteDate.setMinutes(currentDate.getMinutes() + 1, 0, 0);
+                    let waitTime = nextMinuteDate.getTime() - currentDate.getTime();
+                    //Wait for the minute to finish and count down
+                    setTimeout(() => {
+                        countDown();
+                        //Count down every minute if entry has been expired, animate it out
+                        setInterval(countDown, 1000 * 60);
+                    }, waitTime);
                 });
+            
+                function countDown() {
+                    let tableRows = document.getElementById("traffic-schedule").rows;
+                    let minuteIndex = 5;
+                    for (let i = 1; i < tableRows.length; i++) {
+                        if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === 0) {
+                            $("#traffic-schedule tr:eq(" + i + ")")
+                                .children("td")
+                                .animate({paddingBottom: 0, paddingTop: 0})
+                                .wrapInner("<div />")
+                                .children()
+                                .slideUp(function () {
+                                    $(this).closest("tr").remove();
+                                });
+                        } else {
+                            tableRows[i].cells[minuteIndex].innerHTML--;
+                        }
+                    }
+                }
             
                 function colorBackground(rows) {
                     for (let i = 0; i < rows.length; i++) {
