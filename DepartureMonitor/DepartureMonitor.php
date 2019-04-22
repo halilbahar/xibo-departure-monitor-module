@@ -123,7 +123,7 @@ class DepartureMonitor extends ModuleWidget {
                         td[1].innerHTML = data[i].number;
                         td[2].innerHTML = data[i].from;
                         td[3].innerHTML = data[i].to;
-                        td[4].innerHTML = hour + ":" + minute;
+                        td[4].innerHTML = (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute);
                         let entryTime = hour * 60 + minute;
                         td[5].innerHTML = entryTime - currentMinutes;
                     }
