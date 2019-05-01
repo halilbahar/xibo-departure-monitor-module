@@ -44,6 +44,12 @@ class DepartureMonitor extends ModuleWidget {
     public function installFiles() {
         $this->mediaFactory->createModuleSystemFile(PROJECT_ROOT . '/modules/vendor/jquery-1.11.1.min.js')->save();
         $this->mediaFactory->createModuleSystemFile(PROJECT_ROOT . '/modules/xibo-text-render.js')->save();
+
+        //Install files from a folder
+        $folder = PROJECT_ROOT . '/custom/DepartureMonitor/resources';
+        foreach ($this->mediaFactory->createModuleFileFromFolder($folder) as $media) {
+            $media->save();
+        }
     }
 
 
@@ -198,7 +204,7 @@ class DepartureMonitor extends ModuleWidget {
                 }
             ')
             ->appendFontCss()
-            ->appendCss($this->getCss())
+            ->appendCssFile('departure_monitor.css')
             ->appendBody("<div id='wrapper'>
                     <table id='traffic-schedule'>
                         <thead>
@@ -379,168 +385,6 @@ class DepartureMonitor extends ModuleWidget {
     }
 
     public function getCss() {
-        return '
-        * {
-            padding: 0;
-            margin: 0;
-            font - family:' . $this->getOption('fontFamily') . ', Arial, Helvetica, sans - serif;
-            font-weight: bold;
-            font-size: 30px;
-        }
-        
-        body {
-            width: 100%;
-            overflow: hidden;
-            background-color: #ffffff;
-        }
-        
-        #wrapper {
-            width: 100%;
-        }
-        
-        /* Tabelle */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            table-layout: fixed;
-        }
-        
-        table thead tr th{
-            padding: .5% 0;
-            background: #36304a;
-            color: #f5f5f5;
-            font-size: 30px;
-        }
-        
-        td {
-            padding-top: .5%;
-            padding-bottom: .5%; 
-        }
-          
-        .column2 {
-            text-align: right;
-            padding-right: 5%;
-        }
-          
-        .column3 {
-            padding-left: 0%;
-        }
-          
-        .column4 {
-            padding-left: 0%;
-        }
-          
-        .column5 {
-            text-align: left;
-            padding-right: 0%;
-        }
-          
-        .column6 {
-            text-align:right; 
-            padding-right: 4%;
-        }
-        
-        /* Icons */
-        /* .station {
-            width: 8%;
-            margin-right: 40%;
-        } */
-        
-        img {
-            width: 27%;
-            display: block;
-            float: right;
-            padding-right: 40%;
-        }
-        
-        /* Responsive */
-        /* 4K */
-        @media only screen and (min-width: 2202px) {
-            table thead tr th {
-                font-size: 50px;
-            }
-            
-            td {
-                font-size: 40px;
-                padding: .1% 0;
-            }
-        }
-        
-        /* Full HD */
-        @media only screen and (min-width: 1921px) and (max-width: 2217px) {
-            table thead tr th {
-                font-size: 30px;
-            }
-            
-            td {
-                font-size: 30px;
-                padding: .13% 0;
-            }
-        }
-        
-        /* medium */
-        @media only screen and (min-width: 890px) and (max-width: 1135px){
-            table thead tr th {
-                font-size: 18px;
-            }
-            
-            td {
-                font-size: 20px;
-                padding: 1% 0;
-            }
-        }
-        
-        /* small */
-        @media only screen and (max-width: 890px){
-            table thead tr th {
-                font-size: 12px;
-            }
-            
-            td {
-                font-size: 15px;
-                padding: .8% 0;
-            }
-            
-            img {
-                display: none;
-            }
-        
-            #tbl-head1, .column1 {
-                display: none;
-            }
-        
-            #tbl-head2, .column2 {
-                padding-left: 1%;
-                text-align: right;
-            }
-        
-            #tbl-head3, .column3 {
-                padding-left: 3%;
-                text-align: left;
-            }
-            .column4 {
-                padding-left: 3%;
-            }
-        
-            #tbl-head5 {
-                padding-right: 5%;
-                text-align: left;
-            }
-        
-            .column5 {
-                padding-right: 3%;
-                text-align: left;
-            }
-        
-            #tbl-head6 {
-                padding-right: 50%;
-                text-align: left;
-            }
-        
-            .column6 {
-                padding-left: 0;
-                text-align: left;
-            }
-        }';
+        return ;
     }
 }
