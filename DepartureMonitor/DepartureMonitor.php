@@ -64,6 +64,7 @@ class DepartureMonitor extends ModuleWidget {
     private function setCommonOptions() {
         $this->setDuration($this->getSanitizer()->getInt('duration', $this->getDuration()));
         $this->setUseDuration($this->getSanitizer()->getCheckbox('useDuration'));
+        $this->setOption('serviceId', $this->getSanitizer()->getInt('serviceId', 1));
         $this->setOption('name', $this->getSanitizer()->getString('name'));
         $this->setOption('destination', $this->getSanitizer()->getString('destination'));
         $this->setOption('limit', $this->getSanitizer()->getInt('limit'));
@@ -87,6 +88,17 @@ class DepartureMonitor extends ModuleWidget {
         $tram = $isPreview ? $this->getResourceUrl('bim.png') : $tramId . '.png';
         $bus = $isPreview ? $this->getResourceUrl('bus.png') : $busId . '.png';
 
+        $jsonData = "";
+        switch ($this->getOption('serviceId', 1)) {
+            //LinzAG
+            case 1:
+                $jsonData = $this->getLinzAGData();
+                break;
+            //Wiener Linien
+            case 2:
+                $jsonData = $this->getWienerLinienData();
+        }
+
         // Start building the template
         $this
             ->initialiseGetResource()
@@ -94,7 +106,7 @@ class DepartureMonitor extends ModuleWidget {
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
                 $(function () {
-                    let data = ' . json_encode($this->getWienerLinienData()) . '
+                    let data = ' . json_encode($jsonData) . '
             
                     //Look for expired entries, if you find one delete it
                     let currentDate = new Date();
