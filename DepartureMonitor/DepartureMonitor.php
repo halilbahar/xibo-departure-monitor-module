@@ -94,7 +94,7 @@ class DepartureMonitor extends ModuleWidget {
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
                 $(function () {
-                    let data = ' . json_encode($this->getLinzAGData()) . '
+                    let data = ' . json_encode($this->getWienerLinienData()) . '
             
                     //Look for expired entries, if you find one delete it
                     let currentDate = new Date();
@@ -233,6 +233,7 @@ class DepartureMonitor extends ModuleWidget {
             $result = json_decode($response->getBody()->getContents());
 
             return $result->departureList;
+
         } catch (RequestException $requestException) {
             $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
             return false;
@@ -267,6 +268,98 @@ class DepartureMonitor extends ModuleWidget {
             }
         }
         return $data;
+    }
+
+    public function getWienerLinienData() {
+        $destinationArray = preg_split('@;@', $this->getOption('destination'), NULL, PREG_SPLIT_NO_EMPTY);
+
+        $stops = $this->getCsvAs2DArray('https://data.wien.gv.at/csv/wienerlinien-ogd-haltestellen.csv');
+        $stopIDs = $this->findCsvColumnByColumn($stops, $destinationArray, 'NAME', 'HALTESTELLEN_ID');
+
+        $this->getLog()->error("Stopid count" . count($stopIDs));
+
+        $rbl = $this->getCsvAs2DArray('https://data.wien.gv.at/csv/wienerlinien-ogd-steige.csv');
+
+        $RBLNumbers = $this->findCsvColumnByColumn($rbl, $stopIDs, 'FK_HALTESTELLEN_ID', 'RBL_NUMMER');
+
+        $RBLString = '';
+        foreach ($RBLNumbers as $RBLNumber) {
+            $RBLString .= '&rbl=' . $RBLNumber;
+        }
+
+        try {
+            $client = new Client($this->getConfig()->getGuzzleProxy());
+            $key = '<Key für Wiener Linien>';
+            $url = 'http://www.wienerlinien.at/ogd_realtime/monitor?sender=' . $key . $RBLString;
+            $response = $client->request('GET', $url);
+
+            $result = json_decode($response->getBody());
+
+            $data = array();
+            foreach ($result->data->monitors as $monitor) {
+                foreach ($monitor->lines[0]->departures->departure as $departure) {
+                    $entry = new \stdClass();
+                    $entry->type = $monitor->lines[0]->type;
+                    $entry->number = $monitor->lines[0]->name;
+                    $entry->from = $monitor->locationStop->properties->title;
+                    $entry->to = $monitor->lines[0]->towards;
+                    $entry->arrivalTime = new \stdClass();
+
+                    $arrivalTime = strtotime($departure->departureTime->timePlanned);
+                    $entry->arrivalTime->hour = (int)date('H', $arrivalTime);
+                    $entry->arrivalTime->minute = (int)date('i', $arrivalTime);
+
+                    $data[] = $entry;
+                }
+            }
+
+            usort($data, function ($a, $b) {
+                $timeA = $a->arrivalTime->hour * 60 + $a->arrivalTime->minute;
+                $timeB = $b->arrivalTime->hour * 60 + $b->arrivalTime->minute;
+                return $timeA < $timeB ? -1 : 1;
+            });
+
+            return $data;
+        } catch (RequestException $requestException) {
+            $this->getLog()->error('Wiener Linien API Request returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
+            return false;
+        }
+    }
+
+    public function getCsvAs2DArray($url) {
+        try {
+            $client = new Client($this->getConfig()->getGuzzleProxy());
+            $csv = $client->request('GET', $url);
+
+            $lines = explode(PHP_EOL, $csv->getBody());
+            $head = str_getcsv(array_shift($lines), ';');
+
+            $array = array();
+            foreach ($lines as $line) {
+                $row = array_pad(str_getcsv($line, ';'), count($head), '');
+                $array[] = array_combine($head, $row);
+            }
+
+            return $array;
+
+        } catch (RequestException $requestException) {
+            $this->getLog()->error('Wiener Linien CSV Request returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
+            return false;
+        }
+    }
+
+    public function findCsvColumnByColumn($csv, $values, $serachColumn, $returnColumn) {
+        $result = array();
+        foreach ($csv as $row) {
+            foreach ($values as $value) {
+                if (strtolower($value) == strtolower($row[$serachColumn])) {
+                    if ($row[$returnColumn] != '') {
+                        $result[] = $row[$returnColumn];
+                    }
+                }
+            }
+        }
+        return $result;
     }
 
     public function getCacheDuration() {
