@@ -57,6 +57,16 @@
                 {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
                 {{ forms.input("name", title, module.getOption("name"), helpText, "") }}
 
+                {% set title %}{% trans "Departure Monitor Service" %}{% endset %}
+                {% set helpText %}{% trans "Please select the service you want to use." %}{% endset %}
+                {% set linzag %}{% trans "LinzAG" %}{% endset %}
+                {% set wienerlinien %}{% trans "Wiener Linien" %}{% endset %}
+                {% set options = [
+                    { id: 1, value: linzag },
+                    { id: 2, value: wienerlinien },
+                ] %}
+                {{ forms.dropdown("serviceId", "single", title, module.getOption("serviceId"), options, "id", "value", helpText) }}
+
                 {% set title %}{% trans "Destination" %}{% endset %}
                 {% set helpText %}{% trans "The Departure Monitor of you desired Location. Separate by ; for multiple destinations" %}{% endset %}
                 {{ forms.input("destination", title, module.getOption("destination"), helpText, "") }}
