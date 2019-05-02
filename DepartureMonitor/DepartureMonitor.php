@@ -140,44 +140,19 @@ class DepartureMonitor extends ModuleWidget {
         return 1;
     }
 
-    public function getSessionID($destination, $limit) {
-        try {
-            $client = new Client($this->getConfig()->getGuzzleProxy());
-            $url = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=0&locationServerActive=1&type_dm=stop&name_dm=' . $destination . '&outputFormat=JSON&limit=' . $limit;
-            $response = $client->request('GET', $url);
-
-            $result = json_decode($response->getBody()->getContents());
-
-            return $result->parameters[1]->value;
-        } catch (RequestException $requestException) {
-            $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
-            return false;
-        }
-    }
-
-    public function getLinzAGDepatureMonitor($destination, $limit) {
-        try {
-            $client = new Client($this->getConfig()->getGuzzleProxy());
-            $url = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=' . $this->getSessionID($destination, $limit) . '&requestID=1&dmLineSelectionAll=1';
-            $response = $client->request('GET', $url);
-
-            $result = json_decode($response->getBody()->getContents());
-
-            return $result->departureList;
-
-        } catch (RequestException $requestException) {
-            $this->getLog()->error('LinzAG API returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
-            return false;
-        }
-    }
-
     public function getLinzAGData() {
         $destinations = explode(";", $this->getOption('destination'));
         $depatureList = array();
         $limit = $this->getOption('limit');
 
         foreach ($destinations as $singleDestination) {
-            $depatureList = array_merge($depatureList, $this->getLinzAGDepatureMonitor($singleDestination, $limit));
+            $sessionIDUrl = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=0&locationServerActive=1&type_dm=stop&name_dm=' . $singleDestination . '&outputFormat=JSON&limit=';
+            $sessionID = $this->requstGetJSON($sessionIDUrl)->parameters[1]->value;
+
+            $departureMonitorUrl = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=' . $sessionID . '&requestID=1&dmLineSelectionAll=1';
+            $departureMontior = $this->requstGetJSON($departureMonitorUrl)->departureList;
+
+            $depatureList = array_merge($depatureList, $departureMontior);
         }
 
         usort($depatureList, function ($a, $b) { //Sort the array using a user defined function
@@ -288,6 +263,21 @@ class DepartureMonitor extends ModuleWidget {
             }
         }
         return $result;
+    }
+
+    public function requstGetJSON($url){
+        try {
+            $client = new Client($this->getConfig()->getGuzzleProxy());
+            $response = $client->request('GET', $url);
+
+            $result = json_decode($response->getBody()->getContents());
+
+            return $result;
+
+        } catch (RequestException $requestException) {
+            $this->getLog()->error('Departure-Monitor returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
+            return false;
+        }
     }
 
     public function getCacheDuration() {
