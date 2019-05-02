@@ -207,10 +207,7 @@ class DepartureMonitor extends ModuleWidget {
         $stops = $this->getCsvAs2DArray('https://data.wien.gv.at/csv/wienerlinien-ogd-haltestellen.csv');
         $stopIDs = $this->findCsvColumnByColumn($stops, $destinationArray, 'NAME', 'HALTESTELLEN_ID');
 
-        $this->getLog()->error("Stopid count" . count($stopIDs));
-
         $rbl = $this->getCsvAs2DArray('https://data.wien.gv.at/csv/wienerlinien-ogd-steige.csv');
-
         $RBLNumbers = $this->findCsvColumnByColumn($rbl, $stopIDs, 'FK_HALTESTELLEN_ID', 'RBL_NUMMER');
 
         $RBLString = '';
