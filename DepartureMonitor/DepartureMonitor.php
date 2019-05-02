@@ -193,12 +193,9 @@ class DepartureMonitor extends ModuleWidget {
         }
 
         try {
-            $client = new Client($this->getConfig()->getGuzzleProxy());
             $key = '<Key für Wiener Linien>';
             $url = 'http://www.wienerlinien.at/ogd_realtime/monitor?sender=' . $key . $RBLString;
-            $response = $client->request('GET', $url);
-
-            $result = json_decode($response->getBody());
+            $result = $this->requstGetJSON($url);
 
             $data = array();
             foreach ($result->data->monitors as $monitor) {
