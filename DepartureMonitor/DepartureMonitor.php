@@ -296,8 +296,4 @@ class DepartureMonitor extends ModuleWidget {
     public function getCacheDuration() {
         return 1;
     }
-
-    public function getCss() {
-        return ;
-    }
 }
