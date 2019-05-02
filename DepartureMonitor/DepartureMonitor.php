@@ -192,35 +192,29 @@ class DepartureMonitor extends ModuleWidget {
             $RBLString .= '&rbl=' . $RBLNumber;
         }
 
-        try {
-            $key = '<Key für Wiener Linien>';
-            $url = 'http://www.wienerlinien.at/ogd_realtime/monitor?sender=' . $key . $RBLString;
-            $result = $this->requstGetJSON($url);
+        $key = '<Key für Wiener Linien>';
+        $url = 'http://www.wienerlinien.at/ogd_realtime/monitor?sender=' . $key . $RBLString;
+        $result = $this->requstGetJSON($url);
 
-            $data = array();
-            foreach ($result->data->monitors as $monitor) {
-                foreach ($monitor->lines[0]->departures->departure as $departure) {
-                    $entry = new \stdClass();
-                    $entry->type = $monitor->lines[0]->type;
-                    $entry->number = $monitor->lines[0]->name;
-                    $entry->from = $monitor->locationStop->properties->title;
-                    $entry->to = $monitor->lines[0]->towards;
-                    $entry->arrivalTime = new \stdClass();
+        $data = array();
+        foreach ($result->data->monitors as $monitor) {
+            foreach ($monitor->lines[0]->departures->departure as $departure) {
+                $entry = new \stdClass();
+                $entry->type = $monitor->lines[0]->type;
+                $entry->number = $monitor->lines[0]->name;
+                $entry->from = $monitor->locationStop->properties->title;
+                $entry->to = $monitor->lines[0]->towards;
+                $entry->arrivalTime = new \stdClass();
 
-                    $arrivalTime = strtotime($departure->departureTime->timePlanned);
-                    $entry->arrivalTime->hour = (int)date('H', $arrivalTime);
-                    $entry->arrivalTime->minute = (int)date('i', $arrivalTime);
+                $arrivalTime = strtotime($departure->departureTime->timePlanned);
+                $entry->arrivalTime->hour = (int)date('H', $arrivalTime);
+                $entry->arrivalTime->minute = (int)date('i', $arrivalTime);
 
-                    $data[] = $entry;
-                }
+                $data[] = $entry;
             }
-
-            return $data;
-
-        } catch (RequestException $requestException) {
-            $this->getLog()->error('Wiener Linien API Request returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
-            return false;
         }
+
+        return $data;
     }
 
     public function getCsvAs2DArray($url) {
@@ -259,7 +253,7 @@ class DepartureMonitor extends ModuleWidget {
         return $result;
     }
 
-    public function requstGetJSON($url){
+    public function requstGetJSON($url) {
         try {
             $client = new Client($this->getConfig()->getGuzzleProxy());
             $response = $client->request('GET', $url);
