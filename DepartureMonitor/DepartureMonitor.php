@@ -94,15 +94,16 @@ class DepartureMonitor extends ModuleWidget {
         $tram = $isPreview ? $this->getResourceUrl('bim.png') : $tramId . '.png';
         $bus = $isPreview ? $this->getResourceUrl('bus.png') : $busId . '.png';
 
+        $destinations = preg_split('@;@', $this->getOption('destination'), NULL, PREG_SPLIT_NO_EMPTY);
         $jsonData = "";
         switch ($this->getOption('serviceId', 1)) {
             //LinzAG
             case 1:
-                $jsonData = $this->getLinzAGData();
+                $jsonData = $this->getLinzAGData($destinations);
                 break;
             //Wiener Linien
             case 2:
-                $jsonData = $this->getWienerLinienData();
+                $jsonData = $this->getWienerLinienData($destinations);
         }
 
         // Start building the template
@@ -140,8 +141,7 @@ class DepartureMonitor extends ModuleWidget {
         return 1;
     }
 
-    public function getLinzAGData() {
-        $destinations = explode(";", $this->getOption('destination'));
+    public function getLinzAGData($destinations) {
         $depatureList = array();
         $limit = $this->getOption('limit');
 
@@ -176,11 +176,10 @@ class DepartureMonitor extends ModuleWidget {
         return $data;
     }
 
-    public function getWienerLinienData() {
-        $destinationArray = preg_split('@;@', $this->getOption('destination'), NULL, PREG_SPLIT_NO_EMPTY);
+    public function getWienerLinienData($destinations) {
 
         $stops = $this->getCsvAs2DArray('https://data.wien.gv.at/csv/wienerlinien-ogd-haltestellen.csv');
-        $stopIDs = $this->findCsvColumnByColumn($stops, $destinationArray, 'NAME', 'HALTESTELLEN_ID');
+        $stopIDs = $this->findCsvColumnByColumn($stops, $destinations, 'NAME', 'HALTESTELLEN_ID');
 
         $rbl = $this->getCsvAs2DArray('https://data.wien.gv.at/csv/wienerlinien-ogd-steige.csv');
         $RBLNumbers = $this->findCsvColumnByColumn($rbl, $stopIDs, 'FK_HALTESTELLEN_ID', 'RBL_NUMMER');
