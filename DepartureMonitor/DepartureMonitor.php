@@ -106,6 +106,13 @@ class DepartureMonitor extends ModuleWidget {
                 $jsonData = $this->getWienerLinienData($destinations);
         }
 
+        //Sort Monitor after getting it
+        usort($jsonData, function ($a, $b) {
+            $timeA = $a->arrivalTime->hour * 60 + $a->arrivalTime->minute;
+            $timeB = $b->arrivalTime->hour * 60 + $b->arrivalTime->minute;
+            return $timeA < $timeB ? -1 : 1;
+        });
+
         // Start building the template
         $this
             ->initialiseGetResource()
@@ -154,10 +161,6 @@ class DepartureMonitor extends ModuleWidget {
 
             $depatureList = array_merge($depatureList, $departureMontior);
         }
-
-        usort($depatureList, function ($a, $b) { //Sort the array using a user defined function
-            return $a->countdown < $b->countdown ? -1 : 1; //Compare the scores
-        });
 
         $data = array();
         for ($i = 0; $i < $limit; $i++) {
@@ -215,13 +218,8 @@ class DepartureMonitor extends ModuleWidget {
                 }
             }
 
-            usort($data, function ($a, $b) {
-                $timeA = $a->arrivalTime->hour * 60 + $a->arrivalTime->minute;
-                $timeB = $b->arrivalTime->hour * 60 + $b->arrivalTime->minute;
-                return $timeA < $timeB ? -1 : 1;
-            });
-
             return $data;
+
         } catch (RequestException $requestException) {
             $this->getLog()->error('Wiener Linien API Request returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
             return false;
