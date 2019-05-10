@@ -120,7 +120,7 @@ class DepartureMonitor extends ModuleWidget {
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
                 let data = ' . json_encode($jsonData) . ';
-                let bus = "' . $bus . '";
+                let motorbus = "' . $bus . '";
                 let tram = "' . $tram . '";
             ')
             ->appendJavaScriptFile('dm_script.js')
