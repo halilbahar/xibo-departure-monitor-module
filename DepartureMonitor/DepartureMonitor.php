@@ -166,7 +166,21 @@ class DepartureMonitor extends ModuleWidget {
         for ($i = 0; $i < $limit; $i++) {
             if (isset($depatureList[$i])) {
                 $entry = new \stdClass();
-                $entry->type = $depatureList[$i]->servingLine->name;
+                switch ($depatureList[$i]->servingLine->name) {
+                    case 'Straßenbahn':
+                        $entry->type = 'tram';
+                        break;
+                    case 'Stadtteilbus':
+                        $entry->type = 'citybus';
+                        break;
+                    case 'Obus':
+                    case 'Autobus':
+                        $entry->type = 'motorbus';
+                        break;
+                    default:
+                        $entry->type = '';
+                }
+
                 $entry->number = $depatureList[$i]->servingLine->number;
                 $entry->from = $depatureList[$i]->nameWO;
                 $entry->to = $depatureList[$i]->servingLine->direction;
