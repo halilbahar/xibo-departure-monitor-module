@@ -76,12 +76,20 @@ function colorBackground(rows) {
 function getImageSrc(type) {
     let src = "";
     switch (type) {
-        case "Straßenbahn":
+        case "tram":
             src = tram;
             break;
-        case "Autobus":
-        case "Stadtteilbus":
-            src = bus;
+        case "motorbus":
+            src = motorbus;
+            break;
+        case "citybus":
+            src = citybus;
+            break;
+        case "train":
+            src = train;
+            break;
+        case "underground":
+            src = underground;
             break;
         default:
             src = "";
