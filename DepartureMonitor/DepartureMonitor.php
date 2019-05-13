@@ -217,7 +217,20 @@ class DepartureMonitor extends ModuleWidget {
         foreach ($result->data->monitors as $monitor) {
             foreach ($monitor->lines[0]->departures->departure as $departure) {
                 $entry = new \stdClass();
-                $entry->type = $monitor->lines[0]->type;
+                switch ($monitor->lines[0]->type) {
+                    case 'ptMetro':
+                        $entry->type = 'underground';
+                        break;
+                    case 'ptTram':
+                        $entry->type = 'tram';
+                        break;
+                    case 'ptBusCity':
+                        $entry->type = 'motorbus';
+                        break;
+                    default:
+                        $entry->type = '';
+                        break;
+                }
                 $entry->number = $monitor->lines[0]->name;
                 $entry->from = $monitor->locationStop->properties->title;
                 $entry->to = $monitor->lines[0]->towards;
