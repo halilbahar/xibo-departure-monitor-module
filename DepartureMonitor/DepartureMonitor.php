@@ -83,16 +83,12 @@ class DepartureMonitor extends ModuleWidget {
 
     public function getResource($displayId = 0) {
 
-        $isPreview = $this->getSanitizer()->getCheckbox('preview') == 1;
+        $tram = $this->getResourceUrl('bim.png');
+        $bus = $this->getResourceUrl('bus.png');
+        $citybus = $this->getResourceUrl('citybus.png');
+        $train = $this->getResourceUrl('train.png');
+        $underground = $this->getResourceUrl('underground.png');
 
-        $tramId = $this->mediaFactory->getByName('bim.png')->mediaId;
-        $busId = $this->mediaFactory->getByName('bus.png')->mediaId;
-
-        $this->assignMedia($tramId);
-        $this->assignMedia($busId);
-
-        $tram = $isPreview ? $this->getResourceUrl('bim.png') : $tramId . '.png';
-        $bus = $isPreview ? $this->getResourceUrl('bus.png') : $busId . '.png';
 
         $destinations = preg_split('@;@', $this->getOption('destination'), NULL, PREG_SPLIT_NO_EMPTY);
         $jsonData = "";
@@ -122,9 +118,9 @@ class DepartureMonitor extends ModuleWidget {
                 let data = ' . json_encode($jsonData) . ';
                 let tram = "' . $tram . '";
                 let motorbus = "' . $bus . '";
-                let citybus = "";
-                let train = "";
-                let underground = "";
+                let citybus = "' . $citybus .'";
+                let train = "' . $train .'";
+                let underground = "' . $underground .'";
             ')
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
