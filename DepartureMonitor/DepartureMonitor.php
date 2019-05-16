@@ -73,7 +73,6 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('serviceId', $this->getSanitizer()->getInt('serviceId', 1));
         $this->setOption('name', $this->getSanitizer()->getString('name'));
         $this->setOption('destination', $this->getSanitizer()->getString('destination'));
-        $this->setOption('limit', $this->getSanitizer()->getInt('limit'));
         $this->setOption('fontFamily', $this->getSanitizer()->getString('fontFamily'));
     }
 

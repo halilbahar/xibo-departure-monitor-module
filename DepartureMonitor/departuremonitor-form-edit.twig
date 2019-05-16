@@ -71,10 +71,6 @@
                 {% set helpText %}{% trans "The Departure Monitor of you desired Location. Separate by ; for multiple destinations" %}{% endset %}
                 {{ forms.input("destination", title, module.getOption("destination"), helpText, "") }}
 
-                {% set title %}{% trans "Limit" %}{% endset %}
-                {% set helpText %}{% trans "The limit of requested rows" %}{% endset %}
-                {{ forms.number("limit", title, module.getOption("limit"), helpText, "") }}
-
                 {% set title %}{% trans "Font" %}{% endset %}
                 {% set attributes = [
                     { name: "data-search-url", value: urlFor("library.font.list") },
