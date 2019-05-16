@@ -149,45 +149,43 @@ class DepartureMonitor extends ModuleWidget {
 
     public function getLinzAGData($destinations) {
         $depatureList = array();
-        $limit = $this->getOption('limit');
 
         foreach ($destinations as $singleDestination) {
-            $sessionIDUrl = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=0&locationServerActive=1&type_dm=stop&name_dm=' . $singleDestination . '&outputFormat=JSON&limit=';
+            $sessionIDUrl = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=0&locationServerActive=1&type_dm=stop&name_dm=' . $singleDestination . '&outputFormat=JSON';
             $sessionID = $this->requstGetJSON($sessionIDUrl)->parameters[1]->value;
 
             $departureMonitorUrl = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=' . $sessionID . '&requestID=1&dmLineSelectionAll=1';
             $departureMontior = $this->requstGetJSON($departureMonitorUrl)->departureList;
 
-            $depatureList = array_merge($depatureList, $departureMontior);
+            if(isset($departureMontior)){
+                $depatureList = array_merge($depatureList, $departureMontior);
+            }
         }
 
         $data = array();
-        for ($i = 0; $i < $limit; $i++) {
-            if (isset($depatureList[$i])) {
-                $entry = new \stdClass();
-                switch ($depatureList[$i]->servingLine->name) {
-                    case 'Straßenbahn':
-                        $entry->type = 'tram';
-                        break;
-                    case 'Stadtteilbus':
-                        $entry->type = 'citybus';
-                        break;
-                    case 'Obus':
-                    case 'Autobus':
-                        $entry->type = 'motorbus';
-                        break;
-                    default:
-                        $entry->type = '';
-                }
-
-                $entry->number = $depatureList[$i]->servingLine->number;
-                $entry->from = $depatureList[$i]->nameWO;
-                $entry->to = $depatureList[$i]->servingLine->direction;
-                $entry->arrivalTime = new  \stdClass();
-                $entry->arrivalTime->hour = (int)$depatureList[$i]->dateTime->hour;
-                $entry->arrivalTime->minute = (int)$depatureList[$i]->dateTime->minute;
-                $data[] = $entry;
+        foreach($depatureList as $departure){
+            $entry = new \stdClass();
+            switch ($departure->servingLine->name) {
+                case 'Straßenbahn':
+                    $entry->type = 'tram';
+                    break;
+                case 'Stadtteilbus':
+                    $entry->type = 'citybus';
+                    break;
+                case 'Obus':
+                case 'Autobus':
+                    $entry->type = 'motorbus';
+                    break;
+                default:
+                    $entry->type = '';
             }
+            $entry->number = $departure->servingLine->number;
+            $entry->from = $departure->nameWO;
+            $entry->to = $departure->servingLine->direction;
+            $entry->arrivalTime = new  \stdClass();
+            $entry->arrivalTime->hour = (int)$departure->dateTime->hour;
+            $entry->arrivalTime->minute = (int)$departure->dateTime->minute;
+            $data[] = $entry;
         }
         return $data;
     }
