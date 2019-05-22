@@ -128,12 +128,12 @@ class DepartureMonitor extends ModuleWidget {
                     <table id='traffic-schedule'>
                         <thead>
                             <tr>
-                                <th id='tbl-head1' width='15%'></th>
-                                <th id='tbl-head2' width='10%' style='text-align:right; padding-right: 5%'>Linie</th>
-                                <th id='tbl-head3' width='25%' style='text-align:left; padding-left: 0%;'>Von</th>
-                                <th id='tbl-head4' width='25%' style='text-align:left; padding-left: 0%;'>Nach</th>
-                                <th id='tbl-head5' width='12.5%' style='text-align:left;'>Ab</th>
-                                <th id='tbl-head6' width='12.5%' style='text-align:right; padding-right: 4%;'>verbleibend</th>
+                                <th id='tbl-head1'></th>
+                                <th id='tbl-head2'>Linie</th>
+                                <th id='tbl-head3'>Von</th>
+                                <th id='tbl-head4'>Nach</th>
+                                <th id='tbl-head5'>Ab</th>
+                                <th id='tbl-head6'>verbleibend</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

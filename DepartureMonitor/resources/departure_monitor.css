@@ -29,6 +29,39 @@ table thead tr th {
     font-size: 30px;
 }
 
+#tbl-head1 {
+    width: 15%;
+}
+
+#tbl-head2 {
+    width: 10%;
+    padding-right: 5%;
+    text-align: right;
+}
+
+#tbl-head3 {
+    width: 25%;
+    padding-left: 0;
+    text-align: left;
+}
+
+#tbl-head4 {
+    width: 25%;
+    padding-left: 0;
+    text-align: left;
+}
+
+#tbl-head5 {
+    width: 12.5%;
+    text-align: left;
+}
+
+#tbl-head6 {
+    width: 12.5%;
+    text-align: right;
+    padding-right: 4%;
+}
+
 td {
     padding-top: .5%;
     padding-bottom: .5%;
