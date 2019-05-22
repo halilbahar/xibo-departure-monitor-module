@@ -51,41 +51,65 @@
 {% block formHtml %}
     <div class="row">
         <div class="col-md-12">
-            <form id="departureMonitorAddForm" class="XiboForm form-horizontal" method="post"
-                  action="{{ urlFor("module.widget.add", {type: module.widget.type, id: playlist.playlistId}) }}">
-                {% set title %}{% trans "Name" %}{% endset %}
-                {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
-                {{ forms.input("name", title, "", helpText, "") }}
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#general" role="tab" data-toggle="tab"><span>{% trans "General" %}</span></a></li>
+                <li><a href="#appearanceTab" role="tab" data-toggle="tab"><span>{% trans "Appearance" %}</span></a></li>
+            </ul>
+            <form id="departureMonitorAddForm" class="XiboForm form-horizontal" method="post" action="{{ urlFor("module.widget.add", {type: module.widget.type, id: playlist.playlistId}) }}">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="general">
+                        {% set title %}{% trans "Name" %}{% endset %}
+                        {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
+                        {{ forms.input("name", title, "", helpText, "") }}
 
-                {% set title %}{% trans "Departure Monitor Service" %}{% endset %}
-                {% set helpText %}{% trans "Please select the service you want to use." %}{% endset %}
-                {% set linzag %}{% trans "LinzAG" %}{% endset %}
-                {% set wienerlinien %}{% trans "Wiener Linien" %}{% endset %}
-                {% set options = [
-                    { id: 1, value: linzag },
-                    { id: 2, value: wienerlinien },
-                ] %}
-                {{ forms.dropdown("serviceId", "single", title, "", options, "id", "value", helpText) }}
+                        {% set title %}{% trans "Departure Monitor Service" %}{% endset %}
+                        {% set helpText %}{% trans "Please select the service you want to use." %}{% endset %}
+                        {% set linzag %}{% trans "LinzAG" %}{% endset %}
+                        {% set wienerlinien %}{% trans "Wiener Linien" %}{% endset %}
+                        {% set options = [
+                            { id: 1, value: linzag },
+                            { id: 2, value: wienerlinien },
+                        ] %}
+                        {{ forms.dropdown("serviceId", "single", title, "", options, "id", "value", helpText) }}
 
-                {% set title %}{% trans "Destination" %}{% endset %}
-                {% set helpText %}{% trans "The Departure Monitor of you desired Location. Separate by ; for multiple destinations" %}{% endset %}
-                {{ forms.input("destination", title, "", helpText, "", "required") }}
+                        {% set title %}{% trans "Destination" %}{% endset %}
+                        {% set helpText %}{% trans "The Departure Monitor of you desired Location. Separate by ; for multiple destinations" %}{% endset %}
+                        {{ forms.input("destination", title, "", helpText, "", "required") }}
 
-                {% set title %}{% trans "Font" %}{% endset %}
-                {% set attributes = [
-                    { name: "data-search-url", value: urlFor("library.font.list") },
-                    { name: "data-value", value: module.getOption("fontFamily") }
-                ] %}
-                {% set helpText %}{% trans "Select a custom font - leave empty to use the default font." %}{% endset %}
-                {{ forms.dropdown("fontFamily", "single", title, "", [{id: "", value: ""}], "id", "value", helpText, "", "", "", "", attributes) }}
+                        {% set title %}{% trans "Set a duration?" %}{% endset %}
+                        {% set helpText %}{% trans "Select to provide a specific duration for this Widget" %}{% endset %}
+                        {{ forms.checkbox("useDuration", title, 0, helpText) }}
 
-                {% set title %}{% trans "Set a duration?" %}{% endset %}
-                {% set helpText %}{% trans "Select to provide a specific duration for this Widget" %}{% endset %}
-                {{ forms.checkbox("useDuration", title, 0, helpText) }}
+                        {% set title %}{% trans "Duration" %}{% endset %}
+                        {% set helpText %}{% trans "The duration in seconds this should be displayed" %}{% endset %}
+                        {{ forms.number("duration", title, module.getModule().defaultDuration, helpText, "duration-fields", "required") }}
+                    </div>
+                    <div class="tab-pane" id="appearanceTab">
+                        {% set title %}{% trans "Font" %}{% endset %}
+                        {% set attributes = [
+                            { name: "data-search-url", value: urlFor("library.font.list") },
+                            { name: "data-value", value: module.getOption("fontFamily") }
+                        ] %}
+                        {% set helpText %}{% trans "Select a custom font - leave empty to use the default font." %}{% endset %}
+                        {{ forms.dropdown("fontFamily", "single", title, "", [{id: "", value: ""}], "id", "value", helpText, "", "", "", "", attributes) }}
 
-                {% set title %}{% trans "Duration" %}{% endset %}
-                {% set helpText %}{% trans "The duration in seconds this should be displayed" %}{% endset %}
-                {{ forms.number("duration", title, module.getModule().defaultDuration, helpText, "duration-fields", "required") }}
+                        {% set title %}{% trans "Table Head Background Color" %}{% endset %}
+                        {% set helpText %}{% trans "Select the background color of the table head" %}{% endset %}
+                        {{ forms.input("theadBackgroundColor", title, "#36304a", helpText, "", "required") }}
+
+                        {% set title %}{% trans "Table Head Font Color" %}{% endset %}
+                        {% set helpText %}{% trans "Select the font color of the table head" %}{% endset %}
+                        {{ forms.input("theadFontColor", title, "#f5f5f5", helpText, "", "required") }}
+
+                        {% set title %}{% trans "Table Body Font Color" %}{% endset %}
+                        {% set helpText %}{% trans "Select the font color of the table body" %}{% endset %}
+                        {{ forms.input("tbodyFontColor", title, "#000000", helpText, "", "required") }}
+
+                        {% set title %}{% trans "Table Row Background Color" %}{% endset %}
+                        {% set helpText %}{% trans "Select the background color of every second row" %}{% endset %}
+                        {{ forms.input("trBackgroundColor", title, "#f5f5f5", helpText, "", "required") }}
+                    </div>
+                </div>
             </form>
         </div>
     </div>

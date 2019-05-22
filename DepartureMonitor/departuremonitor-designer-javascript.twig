@@ -1,5 +1,10 @@
 <script type="text/javascript">
     function departureMonitorFormSetup(dialog) {
+        $(dialog).find("#theadBackgroundColor").colorpicker();
+        $(dialog).find("#theadFontColor").colorpicker();
+        $(dialog).find("#tbodyFontColor").colorpicker();
+        $(dialog).find("#trBackgroundColor").colorpicker();
+
         var $fontFamily = $(dialog).find("#fontFamily");
         $.ajax({
             method: "GET",
