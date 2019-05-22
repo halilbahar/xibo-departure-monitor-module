@@ -66,9 +66,9 @@ function countDown() {
 }
 
 function colorBackground(rows) {
-    for (let i = 0; i < rows.length; i++) {
+    for (let i = 1; i < rows.length; i++) {
         if (i % 2 === 0) {
-            rows[i].style.backgroundColor = "#f5f5f5";
+            rows[i].style.backgroundColor = trBackgroundColor;
         }
     }
 }

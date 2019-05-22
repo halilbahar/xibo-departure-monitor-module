@@ -111,6 +111,7 @@ class DepartureMonitor extends ModuleWidget {
             return $timeA < $timeB ? -1 : 1;
         });
 
+        $font = $this->getOption('fontFamily');
         // Start building the template
         $this
             ->initialiseGetResource()
@@ -122,10 +123,23 @@ class DepartureMonitor extends ModuleWidget {
                 let citybus = "' . $citybus . '";
                 let train = "' . $train . '";
                 let underground = "' . $underground . '";
+                let trBackgroundColor = "' . $this->getOption('trBackgroundColor') . '";
             ')
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
             ->appendCssFile('departure_monitor.css')
+            ->appendCss('
+                body {
+                    font-family: ' . (!empty($font) ? $font . ',' : '') . ' Arial, sans-serif;;
+                }
+                thead tr{
+                    background-color: ' . $this->getOption('theadBackgroundColor') . ';
+                    color: ' . $this->getOption('theadFontColor') . ';
+                }
+                tbody {
+                    color: ' . $this->getOption('tbodyFontColor') . ';
+                }
+            ')
             ->appendBody("<div id='wrapper'>
                     <table id='traffic-schedule'>
                         <thead>
