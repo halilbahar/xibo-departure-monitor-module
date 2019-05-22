@@ -49,15 +49,15 @@ class DepartureMonitor extends ModuleWidget {
         }
     }
 
-
     public function add() {
-        $this->setCommonOptions();
-        // Save the widget
-        $this->isValid();
-        $this->saveWidget();
+        $this->change();
     }
 
     public function edit() {
+        $this->change();
+    }
+
+    public function change() {
         $this->setCommonOptions();
         // Save the widget
         $this->isValid();
@@ -115,9 +115,9 @@ class DepartureMonitor extends ModuleWidget {
                 let data = ' . json_encode($jsonData) . ';
                 let tram = "' . $tram . '";
                 let motorbus = "' . $bus . '";
-                let citybus = "' . $citybus .'";
-                let train = "' . $train .'";
-                let underground = "' . $underground .'";
+                let citybus = "' . $citybus . '";
+                let train = "' . $train . '";
+                let underground = "' . $underground . '";
             ')
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
@@ -220,14 +220,14 @@ class DepartureMonitor extends ModuleWidget {
             $departureMontior = $this->requstGetJSON($departureMonitorUrl)->departureList;
 
             //Put it in the results if a departure monitor was returned
-            if(isset($departureMontior)){
+            if (isset($departureMontior)) {
                 $depatureList = array_merge($depatureList, $departureMontior);
             }
         }
 
         //Create a json array
         $data = array();
-        foreach($depatureList as $departure){
+        foreach ($depatureList as $departure) {
             $entry = new stdClass();
             switch ($departure->servingLine->name) {
                 case 'Straßenbahn':
