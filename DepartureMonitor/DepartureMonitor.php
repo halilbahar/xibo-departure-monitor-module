@@ -148,6 +148,69 @@ class DepartureMonitor extends ModuleWidget {
         return 1;
     }
 
+    public function getCacheDuration() {
+        return 1;
+    }
+
+    //////////////////////
+    /// Util-Functions ///
+    //////////////////////
+
+    public function getCsvAs2DArray($url) {
+        try {
+            $client = new Client($this->getConfig()->getGuzzleProxy());
+            $csv = $client->request('GET', $url);
+
+            $lines = explode(PHP_EOL, $csv->getBody());
+            $head = str_getcsv(array_shift($lines), ';');
+
+            $array = array();
+            foreach ($lines as $line) {
+                $row = array_pad(str_getcsv($line, ';'), count($head), '');
+                $array[] = array_combine($head, $row);
+            }
+
+            return $array;
+
+        } catch (RequestException $requestException) {
+            $this->getLog()->error('Wiener Linien CSV Request returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
+            return false;
+        }
+    }
+
+    public function findCsvColumnByColumn($csv, $values, $serachColumn, $returnColumn) {
+        $result = array();
+        foreach ($csv as $row) {
+            foreach ($values as $value) {
+                if (strtolower($value) == strtolower($row[$serachColumn])) {
+                    if ($row[$returnColumn] != '') {
+                        $result[] = $row[$returnColumn];
+                    }
+                }
+            }
+        }
+        return $result;
+    }
+
+    public function requstGetJSON($url) {
+        try {
+            $client = new Client($this->getConfig()->getGuzzleProxy());
+            $response = $client->request('GET', $url);
+
+            $result = json_decode($response->getBody()->getContents());
+
+            return $result;
+
+        } catch (RequestException $requestException) {
+            $this->getLog()->error('Departure-Monitor returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
+            return false;
+        }
+    }
+
+    //////////////
+    /// LinzAG ///
+    //////////////
+
     public function getLinzAGData($destinations) {
         $depatureList = array();
 
@@ -194,6 +257,10 @@ class DepartureMonitor extends ModuleWidget {
         }
         return $data;
     }
+
+    /////////////////////
+    /// Wiener Linien ///
+    /////////////////////
 
     public function getWienerLinienData($destinations) {
         //Get stop-csv and see if the destinations exist and get their id
@@ -247,60 +314,5 @@ class DepartureMonitor extends ModuleWidget {
         }
 
         return $data;
-    }
-
-    public function getCsvAs2DArray($url) {
-        try {
-            $client = new Client($this->getConfig()->getGuzzleProxy());
-            $csv = $client->request('GET', $url);
-
-            $lines = explode(PHP_EOL, $csv->getBody());
-            $head = str_getcsv(array_shift($lines), ';');
-
-            $array = array();
-            foreach ($lines as $line) {
-                $row = array_pad(str_getcsv($line, ';'), count($head), '');
-                $array[] = array_combine($head, $row);
-            }
-
-            return $array;
-
-        } catch (RequestException $requestException) {
-            $this->getLog()->error('Wiener Linien CSV Request returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
-            return false;
-        }
-    }
-
-    public function findCsvColumnByColumn($csv, $values, $serachColumn, $returnColumn) {
-        $result = array();
-        foreach ($csv as $row) {
-            foreach ($values as $value) {
-                if (strtolower($value) == strtolower($row[$serachColumn])) {
-                    if ($row[$returnColumn] != '') {
-                        $result[] = $row[$returnColumn];
-                    }
-                }
-            }
-        }
-        return $result;
-    }
-
-    public function requstGetJSON($url) {
-        try {
-            $client = new Client($this->getConfig()->getGuzzleProxy());
-            $response = $client->request('GET', $url);
-
-            $result = json_decode($response->getBody()->getContents());
-
-            return $result;
-
-        } catch (RequestException $requestException) {
-            $this->getLog()->error('Departure-Monitor returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
-            return false;
-        }
-    }
-
-    public function getCacheDuration() {
-        return 1;
     }
 }
