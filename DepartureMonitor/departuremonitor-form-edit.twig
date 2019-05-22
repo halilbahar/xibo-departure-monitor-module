@@ -71,11 +71,11 @@
                             { id: 1, value: linzag },
                             { id: 2, value: wienerlinien },
                         ] %}
-                        {{ forms.dropdown("serviceId", "single", title, "", options, "id", "value", helpText) }}
+                        {{ forms.dropdown("serviceId", "single", title, module.getOption("serviceId"), options, "id", "value", helpText) }}
 
                         {% set title %}{% trans "Destination" %}{% endset %}
                         {% set helpText %}{% trans "The Departure Monitor of you desired Location. Separate by ; for multiple destinations" %}{% endset %}
-                        {{ forms.input("destination", title, "", helpText, "", "required") }}
+                        {{ forms.input("destination", title, module.getOption("destination"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Set a duration?" %}{% endset %}
                         {% set helpText %}{% trans "Select to provide a specific duration for this Widget" %}{% endset %}
