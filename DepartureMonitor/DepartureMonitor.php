@@ -2,6 +2,7 @@
 
 namespace Xibo\Custom\DepartureMonitor;
 
+use stdClass;
 use Xibo\Widget\ModuleWidget;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -232,7 +233,7 @@ class DepartureMonitor extends ModuleWidget {
         //Create a json array
         $data = array();
         foreach($depatureList as $departure){
-            $entry = new \stdClass();
+            $entry = new stdClass();
             switch ($departure->servingLine->name) {
                 case 'Straßenbahn':
                     $entry->type = 'tram';
@@ -250,7 +251,7 @@ class DepartureMonitor extends ModuleWidget {
             $entry->number = $departure->servingLine->number;
             $entry->from = $departure->nameWO;
             $entry->to = $departure->servingLine->direction;
-            $entry->arrivalTime = new  \stdClass();
+            $entry->arrivalTime = new  stdClass();
             $entry->arrivalTime->hour = (int)$departure->dateTime->hour;
             $entry->arrivalTime->minute = (int)$departure->dateTime->minute;
             $data[] = $entry;
@@ -285,7 +286,7 @@ class DepartureMonitor extends ModuleWidget {
         $data = array();
         foreach ($result->data->monitors as $monitor) {
             foreach ($monitor->lines[0]->departures->departure as $departure) {
-                $entry = new \stdClass();
+                $entry = new stdClass();
                 switch ($monitor->lines[0]->type) {
                     case 'ptMetro':
                         $entry->type = 'underground';
@@ -303,7 +304,7 @@ class DepartureMonitor extends ModuleWidget {
                 $entry->number = $monitor->lines[0]->name;
                 $entry->from = $monitor->locationStop->properties->title;
                 $entry->to = $monitor->lines[0]->towards;
-                $entry->arrivalTime = new \stdClass();
+                $entry->arrivalTime = new stdClass();
 
                 $arrivalTime = strtotime($departure->departureTime->timePlanned);
                 $entry->arrivalTime->hour = (int)date('H', $arrivalTime);
