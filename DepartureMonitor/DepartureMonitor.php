@@ -81,15 +81,17 @@ class DepartureMonitor extends ModuleWidget {
     }
 
     public function getResource($displayId = 0) {
-
+        //Get image URLs
         $tram = $this->getResourceUrl('bim.png');
         $bus = $this->getResourceUrl('bus.png');
         $citybus = $this->getResourceUrl('citybus.png');
         $train = $this->getResourceUrl('train.png');
         $underground = $this->getResourceUrl('underground.png');
 
-
+        //Get the destination string and turn it into an array
         $destinations = preg_split('@;@', $this->getOption('destination'), NULL, PREG_SPLIT_NO_EMPTY);
+
+        //Look up what api was selected. Get JSON array from that api
         $jsonData = "";
         switch ($this->getOption('serviceId', 1)) {
             //LinzAG
@@ -150,17 +152,21 @@ class DepartureMonitor extends ModuleWidget {
         $depatureList = array();
 
         foreach ($destinations as $singleDestination) {
+            //Request for a session id
             $sessionIDUrl = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=0&locationServerActive=1&type_dm=stop&name_dm=' . $singleDestination . '&outputFormat=JSON';
             $sessionID = $this->requstGetJSON($sessionIDUrl)->parameters[1]->value;
 
+            //Use the session id to request the departure monitor
             $departureMonitorUrl = 'http://www.linzag.at/static/XML_DM_REQUEST?sessionID=' . $sessionID . '&requestID=1&dmLineSelectionAll=1';
             $departureMontior = $this->requstGetJSON($departureMonitorUrl)->departureList;
 
+            //Put it in the results if a departure monitor was returned
             if(isset($departureMontior)){
                 $depatureList = array_merge($depatureList, $departureMontior);
             }
         }
 
+        //Create a json array
         $data = array();
         foreach($depatureList as $departure){
             $entry = new \stdClass();
@@ -190,13 +196,15 @@ class DepartureMonitor extends ModuleWidget {
     }
 
     public function getWienerLinienData($destinations) {
-
+        //Get stop-csv and see if the destinations exist and get their id
         $stops = $this->getCsvAs2DArray('https://data.wien.gv.at/csv/wienerlinien-ogd-haltestellen.csv');
         $stopIDs = $this->findCsvColumnByColumn($stops, $destinations, 'NAME', 'HALTESTELLEN_ID');
 
+        //Get the RBL numbers from the ids
         $rbl = $this->getCsvAs2DArray('https://data.wien.gv.at/csv/wienerlinien-ogd-steige.csv');
         $RBLNumbers = $this->findCsvColumnByColumn($rbl, $stopIDs, 'FK_HALTESTELLEN_ID', 'RBL_NUMMER');
 
+        //Build the rbl parameters with their values
         $RBLString = '';
         foreach ($RBLNumbers as $RBLNumber) {
             $RBLString .= '&rbl=' . $RBLNumber;
@@ -206,6 +214,7 @@ class DepartureMonitor extends ModuleWidget {
         $url = 'http://www.wienerlinien.at/ogd_realtime/monitor?sender=' . $key . $RBLString;
         $result = $this->requstGetJSON($url);
 
+        //Create json array
         $data = array();
         foreach ($result->data->monitors as $monitor) {
             foreach ($monitor->lines[0]->departures->departure as $departure) {
