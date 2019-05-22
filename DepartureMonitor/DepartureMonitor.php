@@ -39,12 +39,8 @@ class DepartureMonitor extends ModuleWidget {
         $this->installFiles();
     }
 
-    /**
-     * Install Files
-     */
     public function installFiles() {
         $this->mediaFactory->createModuleSystemFile(PROJECT_ROOT . '/modules/vendor/jquery-1.11.1.min.js')->save();
-        $this->mediaFactory->createModuleSystemFile(PROJECT_ROOT . '/modules/xibo-text-render.js')->save();
 
         //Install files from a folder
         $folder = PROJECT_ROOT . '/custom/DepartureMonitor/resources';
@@ -114,7 +110,6 @@ class DepartureMonitor extends ModuleWidget {
         // Start building the template
         $this
             ->initialiseGetResource()
-            ->appendViewPortWidth($this->region->width)
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
                 let data = ' . json_encode($jsonData) . ';
