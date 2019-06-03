@@ -1,50 +1,27 @@
-# Xibo LinzAG Module
-
-## Anwendungsfalldiagramm
-<p>
-    <img src="./images/LinzAG-Module-Use-Case.png">
-</p>
-
-## Systemarchitektur
-<p>
-    <img src="./images/system_architecture_linzag.png">
-</p>
+# Xibo Departure-Monitor Module
 
 ## Installation
-Nach dem Klonen muss der Ordner "LinzAG" und die JSON-Datei "linzag.json" in den Xibo "/Custom" Ordner hineingegeben werden.
-Danach kann man das Modul unter "Module-Modul installieren" hinzufügen.
+Clone this repository into your **custom** folder in xibo and execute the [install.sh](install.sh) (You may need root privileges)
 
-<p>
-    <img src="./images/screen1.png">
-    <hr>
-</p>
-<p>
-    <img src="./images/screen2.png">
-    <hr>
-</p>
-<p>
-    <img src="./images/screen3.png">
-    <hr>
-</p>
+If you want to use **Wiener Linien** you need to write the key into the install.sh to the **wienerLinienKey** variable.
 
-Nach der Installation müssen die Icons hochgeladen werden. Diese befinden sich im "resource"-Ordner.
 
-<p>
-    <img src="./images/screen4.png">
-    <hr>
-</p>
+```bash
+$ sudo ./install.sh
+```
 
-Anschließend ist es möglich das Modul einem Layout zuzuweisen. Dabei kann man mehrere Haltestellen inkludieren.<br>
-Diese müssen aber mit einem ";" getrennt werden.<br>
-Die maximale Zeilenanzahl bei der Ausgabe ist hier festzulegen.
+After that you can delete the **xibo-departure-monitor-module** folder.
 
-<p>
-    <img src="./images/screen5.png">
-    <hr>
-</p>
 
-Am Ende sollte es in etwa so aussehen:
+On the left panel, under administration, go to Modules and click on Install Module and select Departure-Monitor. Now the module is installed.
+xibo-departure-monitor-module
 
-<p>
-    <img src="./images/screen6.png">
-</p>
+<img src="./images/image1.png">
+
+## Usage
+
+### Single region
+If you have only one region it's recommended to set the time high so the layout isn't done too fast.
+
+### Multiple regions
+When you have multiple regions disable the loop option for the region with this module and don't make the duration too long.
