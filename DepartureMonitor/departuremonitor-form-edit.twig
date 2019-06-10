@@ -73,6 +73,10 @@
                         ] %}
                         {{ forms.dropdown("serviceId", "single", title, module.getOption("serviceId"), options, "id", "value", helpText) }}
 
+                        {% set title %}{% trans "API-Key" %}{% endset %}
+                        {% set helpText %}{% trans "Please specify a key if the service needs one" %}{% endset %}
+                        {{ forms.input("apiKey", title, module.getOption("apiKey"), helpText, "", "required") }}
+
                         {% set title %}{% trans "Destination" %}{% endset %}
                         {% set helpText %}{% trans "The Departure Monitor of you desired Location. Separate by ; for multiple destinations" %}{% endset %}
                         {{ forms.input("destination", title, module.getOption("destination"), helpText, "", "required") }}

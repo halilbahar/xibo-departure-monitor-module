@@ -52,10 +52,12 @@
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#general" role="tab" data-toggle="tab"><span>{% trans "General" %}</span></a></li>
+                <li class="active"><a href="#general" role="tab"
+                                      data-toggle="tab"><span>{% trans "General" %}</span></a></li>
                 <li><a href="#appearanceTab" role="tab" data-toggle="tab"><span>{% trans "Appearance" %}</span></a></li>
             </ul>
-            <form id="departureMonitorAddForm" class="XiboForm form-horizontal" method="post" action="{{ urlFor("module.widget.add", {type: module.widget.type, id: playlist.playlistId}) }}">
+            <form id="departureMonitorAddForm" class="XiboForm form-horizontal" method="post"
+                  action="{{ urlFor("module.widget.add", {type: module.widget.type, id: playlist.playlistId}) }}">
                 <div class="tab-content">
                     <div class="tab-pane active" id="general">
                         {% set title %}{% trans "Name" %}{% endset %}
@@ -71,6 +73,10 @@
                             { id: 2, value: wienerlinien },
                         ] %}
                         {{ forms.dropdown("serviceId", "single", title, "", options, "id", "value", helpText) }}
+
+                        {% set title %}{% trans "API-Key" %}{% endset %}
+                        {% set helpText %}{% trans "Please specify a key if the service needs one" %}{% endset %}
+                        {{ forms.input("apiKey", title, "", helpText, "", "required") }}
 
                         {% set title %}{% trans "Destination" %}{% endset %}
                         {% set helpText %}{% trans "The Departure Monitor of you desired Location. Separate by ; for multiple destinations" %}{% endset %}

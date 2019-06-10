@@ -70,6 +70,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('serviceId', $this->getSanitizer()->getInt('serviceId', 1));
         $this->setOption('name', $this->getSanitizer()->getString('name'));
         $this->setOption('destination', $this->getSanitizer()->getString('destination'));
+        $this->setOption('apiKey', $this->getSanitizer()->getString('apiKey'));
         $this->setOption('fontFamily', $this->getSanitizer()->getString('fontFamily'));
         $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
         $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
@@ -91,6 +92,8 @@ class DepartureMonitor extends ModuleWidget {
 
         //Get the destination string and turn it into an array
         $destinations = preg_split('@;@', $this->getOption('destination'), NULL, PREG_SPLIT_NO_EMPTY);
+        //
+        $key = $this->getOption('apiKey');
 
         //Look up what api was selected. Get JSON array from that api
         $jsonData = "";
@@ -101,7 +104,8 @@ class DepartureMonitor extends ModuleWidget {
                 break;
             //Wiener Linien
             case 2:
-                $jsonData = $this->getWienerLinienData($destinations);
+                $jsonData = $this->getWienerLinienData($destinations, $key);
+                break;
         }
 
         //Sort Monitor after getting it
@@ -276,7 +280,7 @@ class DepartureMonitor extends ModuleWidget {
     /// Wiener Linien ///
     /////////////////////
 
-    public function getWienerLinienData($destinations) {
+    public function getWienerLinienData($destinations, $key) {
         //Get stop-csv and see if the destinations exist and get their id
         $stops = $this->getCsvAs2DArray('https://data.wien.gv.at/csv/wienerlinien-ogd-haltestellen.csv');
         $stopIDs = $this->findCsvColumnByColumn($stops, $destinations, 'NAME', 'HALTESTELLEN_ID');
@@ -291,7 +295,6 @@ class DepartureMonitor extends ModuleWidget {
             $RBLString .= '&rbl=' . $RBLNumber;
         }
 
-        $key = '<Key für Wiener Linien>';
         $url = 'http://www.wienerlinien.at/ogd_realtime/monitor?sender=' . $key . $RBLString;
         $result = $this->requstGetJSON($url);
 
