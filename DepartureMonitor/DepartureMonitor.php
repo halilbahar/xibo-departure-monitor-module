@@ -119,6 +119,7 @@ class DepartureMonitor extends ModuleWidget {
         // Start building the template
         $this
             ->initialiseGetResource()
+            ->appendViewPortWidth($this->region->width)
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
                 let data = ' . json_encode($jsonData) . ';
