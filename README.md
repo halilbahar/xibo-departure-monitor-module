@@ -20,7 +20,7 @@ $ sudo ./install.sh
 
 After that you can delete the **xibo-departure-monitor-module** folder.
 
-
+###After getting the files to custom folder
 On the left panel, under administration, go to Modules and click on Install Module and select Departure-Monitor. Now the module is installed.
 xibo-departure-monitor-module
 
