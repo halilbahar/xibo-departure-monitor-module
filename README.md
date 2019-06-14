@@ -2,13 +2,14 @@
 
 ## Installation
 
-###First method:
+### First method:
+
 Download the latest release [here](https://github.com/halilbahar/xibo-departure-monitor-module/releases/latest) and extract it to the custom folder. You may need root privileges.
 ```
 sudo tar -zxvf departure-monitor.tar.gz -C /path/to/xibo/custom/
 ```
 
-###Second method:
+### Second method:
 Clone this repository into your **custom** folder in xibo and execute the [install.sh](install.sh) (You may need root privileges)
 
 If you want to use **Wiener Linien** you need to write the key into the install.sh to the **wienerLinienKey** variable.
@@ -20,7 +21,7 @@ $ sudo ./install.sh
 
 After that you can delete the **xibo-departure-monitor-module** folder.
 
-###After getting the files to custom folder
+### After getting the files to custom folder:
 On the left panel, under administration, go to Modules and click on Install Module and select Departure-Monitor. Now the module is installed.
 xibo-departure-monitor-module
 
