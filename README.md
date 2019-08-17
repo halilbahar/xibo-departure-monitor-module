@@ -11,7 +11,7 @@ On the left panel, under administration, go to Modules and click on Install Modu
 xibo-departure-monitor-module
 
 <div>
-    <img src="./images/image1.png">
+    <img src="./images/image01.png">
     <img src="./images/image02.png">
 </div>
 ## Usage
@@ -52,7 +52,7 @@ Moreover you can change the color theme and font as you like, but please keep in
 ## Updating
 Repeat the first [installation](#installation) step. After downloading and extracting go to Modules - Verify All
 <div>
-    <img src="./images/image1.png">
+    <img src="./images/image01.png">
     <img src="./images/image02.png">
 </div> 
 
