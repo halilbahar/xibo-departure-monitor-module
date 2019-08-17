@@ -2,6 +2,7 @@
 
 namespace Xibo\Custom\DepartureMonitor;
 
+use DateTime;
 use stdClass;
 use Xibo\Widget\ModuleWidget;
 use GuzzleHttp\Client;
@@ -323,11 +324,12 @@ class DepartureMonitor extends ModuleWidget {
                 $entry->number = $monitor->lines[0]->name;
                 $entry->from = $monitor->locationStop->properties->title;
                 $entry->to = $monitor->lines[0]->towards;
-                $entry->arrivalTime = new stdClass();
+//                $entry->arrivalTime = new stdClass();
 
-                $arrivalTime = strtotime($departure->departureTime->timePlanned);
-                $entry->arrivalTime->hour = (int)date('H', $arrivalTime);
-                $entry->arrivalTime->minute = (int)date('i', $arrivalTime);
+                $entry->arrivalTime = (new DateTime($departure->departureTime->timePlanned))->format(DateTime::ATOM);
+//                $arrivalTime = strtotime($departure->departureTime->timePlanned);
+//                $entry->arrivalTime->hour = (int)date('H', $arrivalTime);
+//                $entry->arrivalTime->minute = (int)date('i', $arrivalTime);
 
                 $data[] = $entry;
             }
