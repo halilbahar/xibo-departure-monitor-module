@@ -99,6 +99,20 @@ switch ($this->getOption('serviceId', 1)) {
 You could change the id in the forms to anything and check for that case but for simplicity's sake we just increment.
 
 Now we have to create the function which returns an array of objects (JSON) with data. If you have never worked with JSON in PHP before please refer to [this site](https://www.w3schools.com/js/js_json_php.asp). 
+
+You will need atleast 1 parameter. 
+The first would be **destinations** which is an array of the destinations as strings. The second optional one is the **key**.
+If the API you use needs a key this would the be second parameter.
+
+```php
+public function getMyNewServiceData($destinations) {
+    $data = array();
+    // Here comes your code where you request your data and fill up the array
+    return $data;
+}
+```
+
+This is how a single data should look like. The type determines which icon will be used.
 ```json
 {
     "type": "tram | motorbus | citybus | train | underground",
@@ -109,17 +123,6 @@ Now we have to create the function which returns an array of objects (JSON) with
         "hour": 12,
         "minute": 30
     }
-}
-```
-You will need atleast 1 parameter. 
-The first would be **destinations** which is an array of the destinations as strings. The second optional one is the **key**.
-If the API you use needs a key this would the be second parameter.
-
-```php
-public function getMyNewServiceData($destinations) {
-    $data = array();
-    // Here comes your code where you request your data and fill up the array
-    return $data;
 }
 ```
 There are 2 useful util functions already. The first one makes a get request and returns the result as a JSON.
