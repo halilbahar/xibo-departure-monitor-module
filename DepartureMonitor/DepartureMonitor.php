@@ -93,7 +93,6 @@ class DepartureMonitor extends ModuleWidget {
 
         //Get the destination string and turn it into an array
         $destinations = preg_split('@;@', $this->getOption('destination'), NULL, PREG_SPLIT_NO_EMPTY);
-        //
         $key = $this->getOption('apiKey');
 
         //Look up what api was selected. Get JSON array from that api
@@ -113,8 +112,6 @@ class DepartureMonitor extends ModuleWidget {
         usort($jsonData, function ($a, $b) {
             $timeA = new DateTime($a->arrivalTime);
             $timeB = new DateTime($b->arrivalTime);
-//            $timeA = $a->arrivalTime->hour * 60 + $a->arrivalTime->minute;
-//            $timeB = $b->arrivalTime->hour * 60 + $b->arrivalTime->minute;
             return $timeA < $timeB ? -1 : 1;
         });
 
@@ -331,12 +328,7 @@ class DepartureMonitor extends ModuleWidget {
                 $entry->number = $monitor->lines[0]->name;
                 $entry->from = $monitor->locationStop->properties->title;
                 $entry->to = $monitor->lines[0]->towards;
-//                $entry->arrivalTime = new stdClass();
-
                 $entry->arrivalTime = (new DateTime($departure->departureTime->timePlanned))->format(DateTime::ATOM);
-//                $arrivalTime = strtotime($departure->departureTime->timePlanned);
-//                $entry->arrivalTime->hour = (int)date('H', $arrivalTime);
-//                $entry->arrivalTime->minute = (int)date('i', $arrivalTime);
 
                 $data[] = $entry;
             }
