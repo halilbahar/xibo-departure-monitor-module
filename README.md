@@ -1,32 +1,19 @@
 # Xibo Departure-Monitor Module
 
 ## Installation
-
-### First method:
-
 Download the latest release [here](https://github.com/halilbahar/xibo-departure-monitor-module/releases/latest) and extract it to the custom folder. You may need root privileges.
 ```
 sudo tar -zxvf departure-monitor.tar.gz -C /path/to/xibo/custom/
 ```
 
-### Second method:
-Clone this repository into your **custom** folder in xibo and execute the [install.sh](install.sh) (You may need root privileges)
-
-If you want to use **Wiener Linien** you need to write the key into the install.sh to the **wienerLinienKey** variable.
-
-
-```bash
-$ sudo ./install.sh
-```
-
-After that you can delete the **xibo-departure-monitor-module** folder.
-
-### After getting the files to custom folder:
+### After getting the files to the custom folder:
 On the left panel, under administration, go to Modules and click on Install Module and select Departure-Monitor. Now the module is installed.
 xibo-departure-monitor-module
 
-<img src="./images/image1.png">
-
+<div>
+    <img src="./images/image1.png">
+    <img src="./images/image02.png">
+</div>
 ## Usage
 
 ### Single region
@@ -61,6 +48,13 @@ Moreover you can change the color theme and font as you like, but please keep in
 3. The third field defines the color code for the font of the table body.
 
 4. Lastly you can choose a background color for the rows of this table.
+
+## Updating
+Repeat the first [installation](#installation) step. After downloading and extracting go to Modules - Verify All
+<div>
+    <img src="./images/image1.png">
+    <img src="./images/image02.png">
+</div> 
 
 ## Development
 This section only demonstrates how to add a service for your monitor not extend the module.
