@@ -68,7 +68,7 @@ This section only demonstrates how to add a service for your monitor not extend 
 First add your service to the forms ([add](DepartureMonitor/departuremonitor-form-add.twig) & [edit](DepartureMonitor/departuremonitor-form-edit.twig)) so they appear on the list.
 
 Under the part **Departure Monitor Service** you have to add a variable and assign it to the options and increment the id:
-```html
+```twig
 {% set linzag %}{% trans "LinzAG" %}{% endset %}
 {% set wienerlinien %}{% trans "Wiener Linien" %}{% endset %}
 {% set mynewservice %}{% trans "My New Service " %}{% endset %}
