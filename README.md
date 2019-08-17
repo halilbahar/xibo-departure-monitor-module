@@ -127,11 +127,11 @@ This is how a single data should look like. The type determines which icon will 
 ```
 There are 2 useful util functions already. The first one makes a get request and returns the result as a JSON.
 ```php
-requstGetJSON($url);
+public function requstGetJSON($url);
 ```
 
 The second function makes a get request to a CSV and returns the result as a 2D-Array:
 
 ```php
-getCsvAs2DArray($url);
+public function getCsvAs2DArray($url);
 ```
