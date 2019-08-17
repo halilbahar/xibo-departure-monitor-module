@@ -110,8 +110,10 @@ class DepartureMonitor extends ModuleWidget {
 
         //Sort Monitor after getting it
         usort($jsonData, function ($a, $b) {
-            $timeA = $a->arrivalTime->hour * 60 + $a->arrivalTime->minute;
-            $timeB = $b->arrivalTime->hour * 60 + $b->arrivalTime->minute;
+            $timeA = new DateTime($a->arrivalTime);
+            $timeB = new DateTime($b->arrivalTime);
+//            $timeA = $a->arrivalTime->hour * 60 + $a->arrivalTime->minute;
+//            $timeB = $b->arrivalTime->hour * 60 + $b->arrivalTime->minute;
             return $timeA < $timeB ? -1 : 1;
         });
 
