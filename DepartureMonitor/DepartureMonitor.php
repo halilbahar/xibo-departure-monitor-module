@@ -229,6 +229,10 @@ class DepartureMonitor extends ModuleWidget {
         }
     }
 
+    public function getLeadingZero($number) {
+        return $number < 10 ? "0" . $number : $number;
+    }
+
     //////////////
     /// LinzAG ///
     //////////////
@@ -272,9 +276,12 @@ class DepartureMonitor extends ModuleWidget {
             $entry->number = $departure->servingLine->number;
             $entry->from = $departure->nameWO;
             $entry->to = $departure->servingLine->direction;
-            $entry->arrivalTime = new  stdClass();
-            $entry->arrivalTime->hour = (int)$departure->dateTime->hour;
-            $entry->arrivalTime->minute = (int)$departure->dateTime->minute;
+            $entry->arrivalTime =
+                $departure->dateTime->year . "-" .
+                $this->getLeadingZero($departure->dateTime->month) . "-" .
+                $this->getLeadingZero($departure->dateTime->day) . "T" .
+                $this->getLeadingZero($departure->dateTime->hour) . ":" .
+                $this->getLeadingZero($departure->dateTime->minute) . ":00+02:00";
             $data[] = $entry;
         }
         return $data;
