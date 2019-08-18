@@ -107,17 +107,14 @@ public function getMyNewServiceData($destinations) {
 }
 ```
 
-This is how a single data should look like. The type determines which icon will be used.
+This is how a single data should look like. The **type** determines which icon will be used. The **arrivalTime** needs to be formated as ISO 8601.
 ```json
 {
     "type": "tram | motorbus | citybus | train | underground",
     "number": "88S",
     "from": "from",
     "to": "to",
-    "arrivalTime": {
-        "hour": 12,
-        "minute": 30
-    }
+    "arrivalTime": "2019-08-18T18:00:00+02:00"
 }
 ```
 There are 2 useful util functions already. The first one makes a get request and returns the result as a JSON.
