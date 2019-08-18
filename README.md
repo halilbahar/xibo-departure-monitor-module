@@ -14,6 +14,7 @@ xibo-departure-monitor-module
     <img src="./images/image01.png">
     <img src="./images/image02.png">
 </div>
+
 ## Usage
 
 ### Single region
