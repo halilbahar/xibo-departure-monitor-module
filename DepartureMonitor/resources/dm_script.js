@@ -2,9 +2,11 @@ $(function () {
 
     //Copy only the valid data to the new Array
     let currentDate = new Date();
+    let currenDateWithoutSeconds = new Date();
+    currenDateWithoutSeconds.setSeconds(0, 0);
     let filteredData = [];
     for (let i = 0; i < data.length; i++) {
-        if (currentDate < new Date(data[i].arrivalTime)) {
+        if (currenDateWithoutSeconds <= new Date(data[i].arrivalTime)) {
             filteredData.push(data[i]);
         }
     }
