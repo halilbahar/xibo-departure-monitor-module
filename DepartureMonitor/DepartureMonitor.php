@@ -20,13 +20,12 @@ class DepartureMonitor extends ModuleWidget {
             $module->type = 'departuremonitor';
             $module->class = 'Xibo\Custom\DepartureMonitor\DepartureMonitor';
             $module->description = 'A module for displaying Departure-Monitors.';
-            $module->imageUri = 'forms/library.gif';
             $module->enabled = 1;
             $module->previewEnabled = 1;
             $module->assignable = 1;
             $module->regionSpecific = 1;
             $module->renderAs = 'html';
-            $module->schemaVersion = $this->codeSchemaVersion;
+            $module->schemaVersion = 1;
             $module->defaultDuration = 60;
             $module->settings = [];
             $module->viewPath = '../custom/DepartureMonitor';
@@ -50,20 +49,13 @@ class DepartureMonitor extends ModuleWidget {
         }
     }
 
-    public function add() {
-        $this->change();
-    }
-
     public function edit() {
-        $this->change();
-    }
-
-    public function change() {
         $this->setCommonOptions();
         // Save the widget
         $this->isValid();
         $this->saveWidget();
     }
+
 
     private function setCommonOptions() {
         $this->setDuration($this->getSanitizer()->getInt('duration', $this->getDuration()));
@@ -73,7 +65,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('destination', $this->getSanitizer()->getString('destination'));
         $this->setOption('apiKey', $this->getSanitizer()->getString('apiKey'));
         $this->setOption('fontFamily', $this->getSanitizer()->getString('fontFamily'));
-        $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
+        $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor') ?: '#36304a');
         $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
         $this->setOption('trBackgroundColor', $this->getSanitizer()->getString('trBackgroundColor'));

@@ -1,17 +1,20 @@
 <script type="text/javascript">
-    function departureMonitorFormSetup(dialog) {
-        $(dialog).find("#theadBackgroundColor").colorpicker();
-        $(dialog).find("#theadFontColor").colorpicker();
-        $(dialog).find("#tbodyFontColor").colorpicker();
-        $(dialog).find("#trBackgroundColor").colorpicker();
+    function departuremonitor_form_edit_open() {
 
-        var $fontFamily = $(dialog).find("#fontFamily");
+        formHelpers.setupCheckboxInputFields($(this).find('form'), '#useDuration', '.duration-fields');
+
+        $(this).find("#theadBackgroundColor").colorpicker();
+        $(this).find("#theadFontColor").colorpicker();
+        $(this).find("#tbodyFontColor").colorpicker();
+        $(this).find("#trBackgroundColor").colorpicker();
+
+        var $fontFamily = $(this).find("#fontFamily");
         $.ajax({
             method: "GET",
             url: $fontFamily.data('searchUrl'),
-            success: function(res) {
+            success: function (res) {
                 if (res.success) {
-                    $.each(res.data, function(index, element) {
+                    $.each(res.data, function (index, element) {
                         if ($fontFamily.data('value') === element.familyName) {
                             $fontFamily.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
                         } else {

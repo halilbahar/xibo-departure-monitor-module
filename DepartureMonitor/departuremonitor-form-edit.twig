@@ -5,60 +5,23 @@
     {% trans "Departure-Monitor" %}
 {% endblock %}
 
-{% block formButtons %}
-    {% trans "Cancel" %}, XiboDialogClose()
-    {% trans "Apply" %}, XiboDialogApply("#departureMonitorAddForm")
-    {% trans "Save" %}, $("#departureMonitorAddForm").submit()
-{% endblock %}
-
-{% block formFieldActions %}
-    [{
-    "field": "useDuration",
-    "trigger": "init",
-    "value": false,
-    "operation": "is:checked",
-    "actions": {
-    ".duration-fields": { "display": "none" }
-    }
-    },{
-    "field": "useDuration",
-    "trigger": "change",
-    "value": false,
-    "operation": "is:checked",
-    "actions": {
-    ".duration-fields": { "display": "none" }
-    }
-    },{
-    "field": "useDuration",
-    "trigger": "init",
-    "value": true,
-    "operation": "is:checked",
-    "actions": {
-    ".duration-fields": { "display": "block" }
-    }
-    },{
-    "field": "useDuration",
-    "trigger": "change",
-    "value": true,
-    "operation": "is:checked",
-    "actions": {
-    ".duration-fields": { "display": "block" }
-    }
-    }]
-{% endblock %}
-
 {% block callBack %}departureMonitorFormSetup{% endblock %}
 
 {% block formHtml %}
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#general" role="tab" data-toggle="tab"><span>{% trans "General" %}</span></a></li>
-                <li><a href="#appearanceTab" role="tab" data-toggle="tab"><span>{% trans "Appearance" %}</span></a></li>
+                <li class="active">
+                    <a href="#generalTab" role="tab" data-toggle="tab"><span>{% trans "General" %}</span></a>
+                </li>
+                <li>
+                    <a href="#appearanceTab" role="tab" data-toggle="tab"><span>{% trans "Appearance" %}</span></a>
+                </li>
             </ul>
-            <form id="departureMonitorAddForm" class="XiboForm form-horizontal" method="put" action="{{ urlFor("module.widget.edit", {id: module.widget.widgetId}) }}">
+            <form id="departureMonitorEditForm" class="XiboForm form-horizontal" method="put"
+                  action="{{ urlFor("module.widget.edit", {id: module.widget.widgetId}) }}">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="general">
+                    <div class="tab-pane active" id="generalTab">
                         {% set title %}{% trans "Name" %}{% endset %}
                         {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
                         {{ forms.input("name", title, "", helpText, "") }}
@@ -83,11 +46,11 @@
 
                         {% set title %}{% trans "Set a duration?" %}{% endset %}
                         {% set helpText %}{% trans "Select to provide a specific duration for this Widget" %}{% endset %}
-                        {{ forms.checkbox("useDuration", title, 0, helpText) }}
+                        {{ forms.checkbox("useDuration", title, module.getUseDuration(), helpText) }}
 
                         {% set title %}{% trans "Duration" %}{% endset %}
                         {% set helpText %}{% trans "The duration in seconds this should be displayed" %}{% endset %}
-                        {{ forms.number("duration", title, module.getModule().defaultDuration, helpText, "duration-fields", "required") }}
+                        {{ forms.number("duration", title, module.getDuration(), helpText, "duration-fields", "required") }}
                     </div>
                     <div class="tab-pane" id="appearanceTab">
                         {% set title %}{% trans "Font" %}{% endset %}
@@ -100,19 +63,19 @@
 
                         {% set title %}{% trans "Table Head Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of the table head" %}{% endset %}
-                        {{ forms.input("theadBackgroundColor", title, module.getOption("theadBackgroundColor"), helpText, "", "required") }}
+                        {{ forms.input("theadBackgroundColor", title, module.getOption("theadBackgroundColor", "#36304a"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Table Head Font Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the font color of the table head" %}{% endset %}
-                        {{ forms.input("theadFontColor", title, module.getOption("theadFontColor"), helpText, "", "required") }}
+                        {{ forms.input("theadFontColor", title, module.getOption("theadFontColor", "#f5f5f5"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Table Body Font Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the font color of the table body" %}{% endset %}
-                        {{ forms.input("tbodyFontColor", title, module.getOption("tbodyFontColor"), helpText, "", "required") }}
+                        {{ forms.input("tbodyFontColor", title, module.getOption("tbodyFontColor", "#000000"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Table Row Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of every second row" %}{% endset %}
-                        {{ forms.input("trBackgroundColor", title, module.getOption("trBackgroundColor"), helpText, "", "required") }}
+                        {{ forms.input("trBackgroundColor", title, module.getOption("trBackgroundColor", "#f5f5f5"), helpText, "", "required") }}
                     </div>
                 </div>
             </form>
