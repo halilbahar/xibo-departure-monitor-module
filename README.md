@@ -60,7 +60,7 @@ Repeat the first [installation](#installation) step. After downloading and extra
 ## Development
 This section only demonstrates how to add a service for your monitor not extend the module.
 
-First add your service to the forms ([add](DepartureMonitor/departuremonitor-form-add.twig) & [edit](DepartureMonitor/departuremonitor-form-edit.twig)) so they appear on the list.
+First add your service to the [edit-form](DepartureMonitor/departuremonitor-form-edit.twig).
 
 Under the part **Departure Monitor Service** you have to add a variable and assign it to the options and increment the id:
 ```twig
@@ -95,8 +95,9 @@ You could change the id in the forms to anything and check for that case but for
 
 Now we have to create the function which returns an array of objects (JSON) with data. If you have never worked with JSON in PHP before please refer to [this site](https://www.w3schools.com/js/js_json_php.asp). 
 
-You will need atleast 1 parameter. 
-The first would be **destinations** which is an array of the destinations as strings. The second optional one is the **key**.
+You will need atleast 1 parameter. The first would be **destinations** which is an array of the destinations as strings. 
+You don't have to validate this array, the module is already doing all the work for you.
+The second optional one is the **key**.
 If the API you use needs a key this would the be second parameter.
 
 ```php
