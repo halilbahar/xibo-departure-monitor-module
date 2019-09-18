@@ -7,7 +7,7 @@ use stdClass;
 use Xibo\Widget\ModuleWidget;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-
+use Xibo\Exception\InvalidArgumentException;
 
 class DepartureMonitor extends ModuleWidget {
 
@@ -156,7 +156,10 @@ class DepartureMonitor extends ModuleWidget {
     }
 
     public function isValid() {
-        return 1;
+        if ($this->getUseDuration() == 1 && $this->getDuration() <= 0) {
+            throw new InvalidArgumentException(__('You must enter a duration.'), 'duration');
+        }
+        return self::$STATUS_PLAYER;
     }
 
     public function getCacheDuration() {
