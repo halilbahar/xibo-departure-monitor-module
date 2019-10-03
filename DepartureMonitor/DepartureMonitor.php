@@ -42,8 +42,14 @@ class DepartureMonitor extends ModuleWidget {
     public function installFiles() {
         $this->mediaFactory->createModuleSystemFile(PROJECT_ROOT . '/modules/vendor/jquery-1.11.1.min.js')->save();
 
-        //Install files from a folder
+        //Install resource files
         $folder = PROJECT_ROOT . '/custom/DepartureMonitor/resources';
+        foreach ($this->mediaFactory->createModuleFileFromFolder($folder) as $media) {
+            $media->save();
+        }
+
+        //Install image files
+        $folder = PROJECT_ROOT . '/custom/DepartureMonitor/resources/images';
         foreach ($this->mediaFactory->createModuleFileFromFolder($folder) as $media) {
             $media->save();
         }
@@ -77,11 +83,11 @@ class DepartureMonitor extends ModuleWidget {
 
     public function getResource($displayId = 0) {
         //Get image URLs
-        $tram = $this->getResourceUrl('bim.png');
-        $bus = $this->getResourceUrl('bus.png');
-        $citybus = $this->getResourceUrl('citybus.png');
-        $train = $this->getResourceUrl('train.png');
-        $underground = $this->getResourceUrl('underground.png');
+        $tram = $this->getResourceUrl('bim_b.png');
+        $bus = $this->getResourceUrl('bus_b.png');
+        $citybus = $this->getResourceUrl('citybus_b.png');
+        $train = $this->getResourceUrl('train_b.png');
+        $underground = $this->getResourceUrl('underground_b.png');
 
         //Get the destination string and turn it into an array
         $destinations = preg_split('@;@', $this->getOption('destination'), NULL, PREG_SPLIT_NO_EMPTY);
