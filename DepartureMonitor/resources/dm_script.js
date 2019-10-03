@@ -12,13 +12,13 @@ $(function () {
     }
 
     //Generate rows for every entry
-    let table = document.getElementById("traffic-schedule");
+    let table = document.getElementById("table-main");
     for (let i = 0; i < filteredData.length; i++) {
         let tr = table.getElementsByTagName("tbody")[0].insertRow(-1);
+        tr.classList.add("tr-content");
         let td = [];
         for (let j = 0; j < 6; j++) {
             td[j] = tr.insertCell(j);
-            td[j].classList.add("column" + (j + 1));
         }
         let dataDate = new Date(filteredData[i].arrivalTime);
         let hour = dataDate.getHours();
@@ -46,11 +46,12 @@ $(function () {
 });
 
 function countDown() {
-    let tableRows = document.getElementById("traffic-schedule").rows;
+    let tableRows = document.getElementById("table-main").rows;
     let minuteIndex = 5;
     for (let i = 1; i < tableRows.length; i++) {
         if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === 0) {
-            $(`#traffic-schedule tr:eq(${i})`)
+            console.log(tableRows[i]);
+            $(`#table-main tr:eq(${i})`)
                 .children("td")
                 .animate({paddingBottom: 0, paddingTop: 0})
                 .wrapInner("<div />")

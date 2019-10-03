@@ -126,32 +126,34 @@ class DepartureMonitor extends ModuleWidget {
             ->appendFontCss()
             ->appendCssFile('departure_monitor.css')
             ->appendCss('
-                body {
-                    font-family: ' . (!empty($font) ? $font . ',' : '') . ' Arial, sans-serif;;
+                body { 
+                    font-family: ' . (!empty($font) ? $font . ',' : '') . ' Arial, sans-serif;
                 }
-                thead tr{
+                
+                #table-main tbody {
+                    color: ' . $this->getOption('tbodyFontColor') . ';
+                }
+                
+                #table-main thead tr {
                     background-color: ' . $this->getOption('theadBackgroundColor') . ';
                     color: ' . $this->getOption('theadFontColor') . ';
                 }
-                tbody {
-                    color: ' . $this->getOption('tbodyFontColor') . ';
-                }
             ')
-            ->appendBody("<div id='wrapper'>
-                    <table id='traffic-schedule'>
-                        <thead>
-                            <tr>
-                                <th id='tbl-head1'></th>
-                                <th id='tbl-head2'>Linie</th>
-                                <th id='tbl-head3'>Von</th>
-                                <th id='tbl-head4'>Nach</th>
-                                <th id='tbl-head5'>Ab</th>
-                                <th id='tbl-head6'>verbleibend</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>");
+            ->appendBody('
+                <table id="table-main">
+                    <thead>
+                        <tr>
+                            <td class="row-10"></td>
+                            <td class="row-10">Linie</td>
+                            <td class="row-24">von</td>
+                            <td class="row-26">Bis</td>
+                            <td class="row-15">Ab</td>
+                            <td class="row-15">verbleibend</td>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            ');
         return $this->finaliseGetResource();
     }
 
