@@ -71,7 +71,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('destination', $this->getSanitizer()->getString('destination'));
         $this->setOption('apiKey', $this->getSanitizer()->getString('apiKey'));
         $this->setOption('fontFamily', $this->getSanitizer()->getString('fontFamily'));
-        $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor') ?: '#36304a');
+        $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
         $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
         $this->setOption('trBackgroundColor', $this->getSanitizer()->getString('trBackgroundColor'));

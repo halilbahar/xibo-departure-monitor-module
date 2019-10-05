@@ -56,7 +56,6 @@ function countDown() {
     let minuteIndex = 5;
     for (let i = 1; i < tableRows.length; i++) {
         if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === 0) {
-            console.log(tableRows[i]);
             $(`#table-main tr:eq(${i})`)
                 .children("td")
                 .animate({paddingBottom: 0, paddingTop: 0})
