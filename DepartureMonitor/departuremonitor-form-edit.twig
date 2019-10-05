@@ -27,7 +27,7 @@
                     <div class="tab-pane active" id="generalTab">
                         {% set title %}{% trans "Name" %}{% endset %}
                         {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
-                        {{ forms.input("name", title, "", helpText, "") }}
+                        {{ forms.input("name", title, module.getOption("name"), helpText, "") }}
 
                         {% set title %}{% trans "Departure Monitor Service" %}{% endset %}
                         {% set helpText %}{% trans "Please select the service you want to use." %}{% endset %}
