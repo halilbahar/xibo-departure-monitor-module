@@ -74,6 +74,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
         $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
+        $this->setOption('tbodyBackgroundColor', $this->getSanitizer()->getString('tbodyBackgroundColor'));
         $this->setOption('tbodySecondBackgroundColor', $this->getSanitizer()->getString('tbodySecondBackgroundColor'));
     }
 
@@ -138,6 +139,10 @@ class DepartureMonitor extends ModuleWidget {
                 
                 #table-main tbody {
                     color: ' . $this->getOption('tbodyFontColor') . ';
+                }
+                
+                #table-main .tr-content {
+                    background-color: ' . $this->getOption('tbodyBackgroundColor') . ';
                 }
                 
                 #table-main thead tr {
