@@ -88,7 +88,7 @@ class DepartureMonitor extends ModuleWidget {
     public function getResource($displayId = 0) {
         $iconSuffix = $this->getOption('reverseIcons') ? '_w.png' : '_b.png';
         //Get image URLs
-        $tram = $this->getResourceUrl('bim' . $iconSuffix);
+        $tram = $this->getResourceUrl('tram' . $iconSuffix);
         $bus = $this->getResourceUrl('bus' . $iconSuffix);
         $citybus = $this->getResourceUrl('citybus' . $iconSuffix);
         $train = $this->getResourceUrl('train' . $iconSuffix);
