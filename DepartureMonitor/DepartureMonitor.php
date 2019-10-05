@@ -74,7 +74,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
         $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
-        $this->setOption('trBackgroundColor', $this->getSanitizer()->getString('trBackgroundColor'));
+        $this->setOption('tbodySecondBackgroundColor', $this->getSanitizer()->getString('tbodySecondBackgroundColor'));
     }
 
     public function layoutDesignerJavaScript() {
