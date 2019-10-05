@@ -152,9 +152,9 @@ class DepartureMonitor extends ModuleWidget {
                             <td class="row-10"></td>
                             <td class="row-10">Linie</td>
                             <td class="row-24">von</td>
-                            <td class="row-26">Bis</td>
-                            <td class="row-15">Ab</td>
-                            <td class="row-15">verbleibend</td>
+                            <td class="row-26 td-align-right-padding-3">Bis</td>
+                            <td class="row-15 td-align-center">Ab</td>
+                            <td class="row-15 td-align-right-padding-3">verbleibend</td>
                         </tr>
                     </thead>
                     <tbody></tbody>

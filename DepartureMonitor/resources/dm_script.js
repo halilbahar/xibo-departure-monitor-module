@@ -26,9 +26,15 @@ $(function () {
         td[0].innerHTML = `<img src='${getImageSrc(data[i].type)}'>`;
         td[1].innerHTML = data[i].number;
         td[2].innerHTML = data[i].from;
+
         td[3].innerHTML = data[i].to;
+        td[3].classList.add("td-align-right-padding-3");
+
         td[4].innerHTML = getLeadingZero(hour) + ":" + getLeadingZero(minute);
+        td[4].classList.add("td-align-center");
+
         td[5].innerHTML = Math.ceil((dataDate.getTime() - currentDate.getTime()) / 1000 / 60);
+        td[5].classList.add("td-align-right-padding-3");
     }
 
     //Set the backgroundcolor of every second row

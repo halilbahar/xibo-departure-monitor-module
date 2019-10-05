@@ -35,16 +35,11 @@ body {
     display: block;
 }
 
-#table-main tr td:nth-child(4) {
-    text-align: right;
-    padding-right: 3%;
-}
-
-#table-main tr td:nth-child(5) {
+#table-main tr .td-align-center {
     text-align: center;
 }
 
-#table-main tr td:nth-child(6) {
+#table-main tr .td-align-right-padding-3 {
     text-align: right;
     padding-right: 3%;
 }
