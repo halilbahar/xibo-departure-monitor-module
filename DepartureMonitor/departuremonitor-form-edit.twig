@@ -61,15 +61,15 @@
                             { name: "data-search-url", value: urlFor("library.font.list") },
                             { name: "data-value", value: module.getOption("headFont") }
                         ] %}
-                        {% set helpText %}{% trans "Select a custom font- leave empty to use the default font." %}{% endset %}
+                        {% set helpText %}{% trans "Select a font for the head - leave empty to use the default font" %}{% endset %}
                         {{ forms.dropdown("headFont", "single", title, "", [{id: "", value: ""}], "id", "value", helpText, "", "", "", "", attributes) }}
 
                         {% set title %}{% trans "Font Color" %}{% endset %}
-                        {% set helpText %}{% trans "Select the font color of the table head" %}{% endset %}
+                        {% set helpText %}{% trans "Select the color of your font" %}{% endset %}
                         {{ forms.input("theadFontColor", title, module.getOption("theadFontColor", "#f5f5f5"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Background Color" %}{% endset %}
-                        {% set helpText %}{% trans "Select the background color of the table head" %}{% endset %}
+                        {% set helpText %}{% trans "Select the background color for the head" %}{% endset %}
                         {{ forms.input("theadBackgroundColor", title, module.getOption("theadBackgroundColor", "#36304a"), helpText, "", "required") }}
                     </div>
                     <div class="tab-pane" id="tableBodyTab">
@@ -78,11 +78,11 @@
                             { name: "data-search-url", value: urlFor("library.font.list") },
                             { name: "data-value", value: module.getOption("bodyFont") }
                         ] %}
-                        {% set helpText %}{% trans "Select a custom font - leave empty to use the default font." %}{% endset %}
+                        {% set helpText %}{% trans "Select a font for the body - leave empty to use the default font" %}{% endset %}
                         {{ forms.dropdown("bodyFont", "single", title, "", [{id: "", value: ""}], "id", "value", helpText, "", "", "", "", attributes) }}
 
                         {% set title %}{% trans "Font Color" %}{% endset %}
-                        {% set helpText %}{% trans "Select the font color of the table body" %}{% endset %}
+                        {% set helpText %}{% trans "Select the color of your font" %}{% endset %}
                         {{ forms.input("tbodyFontColor", title, module.getOption("tbodyFontColor", "#000000"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Odd Row Background Color" %}{% endset %}
