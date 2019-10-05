@@ -76,6 +76,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
         $this->setOption('tbodyBackgroundColor', $this->getSanitizer()->getString('tbodyBackgroundColor'));
         $this->setOption('tbodySecondBackgroundColor', $this->getSanitizer()->getString('tbodySecondBackgroundColor'));
+        $this->setOption('headFont', $this->getSanitizer()->getString('headFont'));
     }
 
     public function layoutDesignerJavaScript() {
@@ -115,6 +116,7 @@ class DepartureMonitor extends ModuleWidget {
         });
 
         $bodyFont = $this->getOption('bodyFont');
+        $headFont = $this->getOption('headFont');
         // Start building the template
         $this
             ->initialiseGetResource()
@@ -142,9 +144,13 @@ class DepartureMonitor extends ModuleWidget {
                     background-color: ' . $this->getOption('tbodyBackgroundColor') . ';
                 }
                 
+                #table-main thead {
+                    font-family: ' . (!empty($headFont) ? $headFont . ',' : '') . ' Arial, sans-serif;
+                    color: ' . $this->getOption('theadFontColor') . ';
+                }
+                
                 #table-main thead tr {
                     background-color: ' . $this->getOption('theadBackgroundColor') . ';
-                    color: ' . $this->getOption('theadFontColor') . ';
                 }
             ')
             ->appendBody('

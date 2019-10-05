@@ -10,17 +10,25 @@
         $(this).find("#tbodySecondBackgroundColor").colorpicker({format: 'rgba'});
 
         var bodyFont = $(this).find("#bodyFont");
+        var headFont = $(this).find("#headFont");
         $.ajax({
             method: "GET",
             url: bodyFont.data('searchUrl'),
             success: function (res) {
                 if (res.success) {
                     $.each(res.data, function (index, element) {
+                        if (headFont.data('value') === element.familyName) {
+                            headFont.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
+                            return;
+                        }
+
                         if (bodyFont.data('value') === element.familyName) {
                             bodyFont.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
-                        } else {
-                            bodyFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                            return;
                         }
+
+                        headFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                        bodyFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
                     });
                 }
             }
