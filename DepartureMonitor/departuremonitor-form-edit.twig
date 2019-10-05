@@ -20,6 +20,9 @@
                 <li>
                     <a href="#tableBodyTab" role="tab" data-toggle="tab"><span>{% trans "Table Body" %}</span></a>
                 </li>
+                <li>
+                    <a href="#iconsTab" role="tab" data-toggle="tab"><span>{% trans "Icons" %}</span></a>
+                </li>
             </ul>
             <form id="departureMonitorEditForm" class="XiboForm form-horizontal" method="put"
                   action="{{ urlFor("module.widget.edit", {id: module.widget.widgetId}) }}">
@@ -92,6 +95,15 @@
                         {% set title %}{% trans "Even Row Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of the even rows" %}{% endset %}
                         {{ forms.input("tbodySecondBackgroundColor", title, module.getOption("tbodySecondBackgroundColor", "#f5f5f5"), helpText, "", "required") }}
+                    </div>
+                    <div class="tab-pane" id="iconsTab">
+                        {% set title %}{% trans "Hide Icons" %}{% endset %}
+                        {% set helpText %}{% trans "Check if you don't want the icons to appear" %}{% endset %}
+                        {{ forms.checkbox("hideIcons", title, module.getOption('hideIcons'), helpText) }}
+
+                        {% set title %}{% trans "Reverse Icons" %}{% endset %}
+                        {% set helpText %}{% trans "Check if Icons should appear white instead of black" %}{% endset %}
+                        {{ forms.checkbox("reverseIcons", title, module.getOption('reverseIcons'), helpText) }}
                     </div>
                 </div>
             </form>

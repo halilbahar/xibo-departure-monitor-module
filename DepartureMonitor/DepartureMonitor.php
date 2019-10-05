@@ -77,6 +77,8 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('tbodyBackgroundColor', $this->getSanitizer()->getString('tbodyBackgroundColor'));
         $this->setOption('tbodySecondBackgroundColor', $this->getSanitizer()->getString('tbodySecondBackgroundColor'));
         $this->setOption('headFont', $this->getSanitizer()->getString('headFont'));
+        $this->setOption('hideIcons', $this->getSanitizer()->getCheckbox('hideIcons'));
+        $this->setOption('reverseIcons', $this->getSanitizer()->getCheckbox('reverseIcons'));
     }
 
     public function layoutDesignerJavaScript() {
