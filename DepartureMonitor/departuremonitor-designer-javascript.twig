@@ -9,17 +9,17 @@
         $(this).find("#tbodyBackgroundColor").colorpicker({format: 'rgba'});
         $(this).find("#tbodySecondBackgroundColor").colorpicker({format: 'rgba'});
 
-        var $fontFamily = $(this).find("#fontFamily");
+        var bodyFont = $(this).find("#bodyFont");
         $.ajax({
             method: "GET",
-            url: $fontFamily.data('searchUrl'),
+            url: bodyFont.data('searchUrl'),
             success: function (res) {
                 if (res.success) {
                     $.each(res.data, function (index, element) {
-                        if ($fontFamily.data('value') === element.familyName) {
-                            $fontFamily.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
+                        if (bodyFont.data('value') === element.familyName) {
+                            bodyFont.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
                         } else {
-                            $fontFamily.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                            bodyFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
                         }
                     });
                 }

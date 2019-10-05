@@ -70,7 +70,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('name', $this->getSanitizer()->getString('name'));
         $this->setOption('destination', $this->getSanitizer()->getString('destination'));
         $this->setOption('apiKey', $this->getSanitizer()->getString('apiKey'));
-        $this->setOption('fontFamily', $this->getSanitizer()->getString('fontFamily'));
+        $this->setOption('bodyFont', $this->getSanitizer()->getString('bodyFont'));
         $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
         $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
@@ -114,7 +114,7 @@ class DepartureMonitor extends ModuleWidget {
             return $timeA < $timeB ? -1 : 1;
         });
 
-        $font = $this->getOption('fontFamily');
+        $bodyFont = $this->getOption('bodyFont');
         // Start building the template
         $this
             ->initialiseGetResource()
@@ -132,12 +132,9 @@ class DepartureMonitor extends ModuleWidget {
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
             ->appendCssFile('departure_monitor.css')
-            ->appendCss('
-                body { 
-                    font-family: ' . (!empty($font) ? $font . ',' : '') . ' Arial, sans-serif;
-                }
-                
+            ->appendCss('                
                 #table-main tbody {
+                    font-family: ' . (!empty($bodyFont) ? $bodyFont . ',' : '') . ' Arial, sans-serif;
                     color: ' . $this->getOption('tbodyFontColor') . ';
                 }
                 
