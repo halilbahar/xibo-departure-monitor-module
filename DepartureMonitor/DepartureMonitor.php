@@ -86,12 +86,13 @@ class DepartureMonitor extends ModuleWidget {
     }
 
     public function getResource($displayId = 0) {
+        $iconSuffix = $this->getOption('reverseIcons') ? '_w.png' : '_b.png';
         //Get image URLs
-        $tram = $this->getResourceUrl('bim_b.png');
-        $bus = $this->getResourceUrl('bus_b.png');
-        $citybus = $this->getResourceUrl('citybus_b.png');
-        $train = $this->getResourceUrl('train_b.png');
-        $underground = $this->getResourceUrl('underground_b.png');
+        $tram = $this->getResourceUrl('bim' . $iconSuffix);
+        $bus = $this->getResourceUrl('bus' . $iconSuffix);
+        $citybus = $this->getResourceUrl('citybus' . $iconSuffix);
+        $train = $this->getResourceUrl('train' . $iconSuffix);
+        $underground = $this->getResourceUrl('underground' . $iconSuffix);
 
         //Get the destination string and turn it into an array
         $destinations = preg_split('@;@', $this->getOption('destination'), NULL, PREG_SPLIT_NO_EMPTY);
