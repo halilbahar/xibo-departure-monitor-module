@@ -3,10 +3,10 @@
 
         formHelpers.setupCheckboxInputFields($(this).find('form'), '#useDuration', '.duration-fields');
 
-        $(this).find("#theadBackgroundColor").colorpicker();
-        $(this).find("#theadFontColor").colorpicker();
-        $(this).find("#tbodyFontColor").colorpicker();
-        $(this).find("#trBackgroundColor").colorpicker();
+        $(this).find("#theadBackgroundColor").colorpicker({format: 'rgba'});
+        $(this).find("#theadFontColor").colorpicker({format: 'rgba'});
+        $(this).find("#tbodyFontColor").colorpicker({format: 'rgba'});
+        $(this).find("#trBackgroundColor").colorpicker({format: 'rgba'});
 
         var $fontFamily = $(this).find("#fontFamily");
         $.ajax({
