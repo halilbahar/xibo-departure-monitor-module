@@ -77,7 +77,7 @@ function countDown() {
 function colorBackground(rows) {
     for (let i = 1; i < rows.length; i++) {
         if (i % 2 === 0) {
-            rows[i].style.backgroundColor = trBackgroundColor;
+            rows[i].style.backgroundColor = tbodySecondBackgroundColor;
         }
     }
 }

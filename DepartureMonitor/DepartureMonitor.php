@@ -151,7 +151,7 @@ class DepartureMonitor extends ModuleWidget {
                 let citybus = "' . $citybus . '";
                 let train = "' . $train . '";
                 let underground = "' . $underground . '";
-                let trBackgroundColor = "' . $this->getOption('trBackgroundColor') . '";
+                let tbodySecondBackgroundColor = "' . $this->getOption('tbodySecondBackgroundColor') . '";
                 let hideIcons = ' . ($this->getOption('hideIcons') == 0 ? 'false' : 'true') . ';
             ')
             ->appendJavaScriptFile('dm_script.js')
