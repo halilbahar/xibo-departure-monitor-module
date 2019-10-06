@@ -120,6 +120,25 @@ class DepartureMonitor extends ModuleWidget {
 
         $bodyFont = $this->getOption('bodyFont');
         $headFont = $this->getOption('headFont');
+
+        $tableHeadIcons = '
+            <td class="row-10"></td>
+            <td class="row-10">Linie</td>
+            <td class="row-24">von</td>
+            <td class="row-26 td-align-right-padding-3">Bis</td>
+            <td class="row-15 td-align-center">Ab</td>
+            <td class="row-15 td-align-right-padding-3">verbleibend</td>
+        ';
+
+        $tableHeadNoIcons = '
+            <td class="td-empty"></td>
+            <td class="row-15 td-padding-left-3">Linie</td>
+            <td class="row-27-5">von</td>
+            <td class="row-27-5 td-align-right-padding-3">Bis</td>
+            <td class="row-15 td-align-center">Ab</td>
+            <td class="row-15 td-align-right-padding-3">verbleibend</td>
+        ';
+
         // Start building the template
         $this
             ->initialiseGetResource()
@@ -133,6 +152,7 @@ class DepartureMonitor extends ModuleWidget {
                 let train = "' . $train . '";
                 let underground = "' . $underground . '";
                 let trBackgroundColor = "' . $this->getOption('trBackgroundColor') . '";
+                let hideIcons = ' . ($this->getOption('hideIcons') == 0 ? 'false' : 'true') . ';
             ')
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
@@ -160,12 +180,7 @@ class DepartureMonitor extends ModuleWidget {
                 <table id="table-main">
                     <thead>
                         <tr>
-                            <td class="row-10"></td>
-                            <td class="row-10">Linie</td>
-                            <td class="row-24">von</td>
-                            <td class="row-26 td-align-right-padding-3">Bis</td>
-                            <td class="row-15 td-align-center">Ab</td>
-                            <td class="row-15 td-align-right-padding-3">verbleibend</td>
+                            ' . ($this->getOption('hideIcons') ? $tableHeadNoIcons : $tableHeadIcons) . '
                         </tr>
                     </thead>
                     <tbody></tbody>

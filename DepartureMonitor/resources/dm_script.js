@@ -23,8 +23,12 @@ $(function () {
         let dataDate = new Date(filteredData[i].arrivalTime);
         let hour = dataDate.getHours();
         let minute = dataDate.getMinutes();
-        td[0].innerHTML = `<img src='${getImageSrc(data[i].type)}'>`;
+        td[0].innerHTML = hideIcons ? `<div class="div-height"></div>` : `<img src='${getImageSrc(data[i].type)}'>`;
         td[1].innerHTML = data[i].number;
+        if(hideIcons) {
+            td[1].classList.add("td-padding-left-3");
+        }
+
         td[2].innerHTML = data[i].from;
 
         td[3].innerHTML = data[i].to;

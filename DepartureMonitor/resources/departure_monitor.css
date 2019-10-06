@@ -25,8 +25,23 @@ body {
     padding: 0 1%;
 }
 
-#table-main .tr-content td {
+.tr-content td {
     font-size: 135%;
+}
+
+.div-no-icon {
+    position: relative;
+    height: 9.2vh;
+}
+
+.td-empty {
+    width: 0%;
+    padding: 0 !important;
+}
+
+.div-height {
+    height: 9.2vh;
+    width: 0;
 }
 
 .tr-content td:first-child img {
@@ -35,13 +50,17 @@ body {
     display: block;
 }
 
-#table-main tr .td-align-center {
+.td-align-center {
     text-align: center;
 }
 
-#table-main tr .td-align-right-padding-3 {
+.td-align-right-padding-3 {
     text-align: right;
-    padding-right: 3%;
+    padding-right: 3% !important;
+}
+
+.td-padding-left-3 {
+    padding-left: 3% !important;
 }
 
 .row-10 {
@@ -58,4 +77,8 @@ body {
 
 .row-26 {
     width: 26%;
+}
+
+.row-27-5 {
+    width: 27.5%;
 }
