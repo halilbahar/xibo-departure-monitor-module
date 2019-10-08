@@ -74,6 +74,26 @@
                         {% set title %}{% trans "Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color for the head" %}{% endset %}
                         {{ forms.input("theadBackgroundColor", title, module.getOption("theadBackgroundColor", "#36304a"), helpText, "", "required") }}
+
+                        {% set title %}{% trans "Line Header" %}{% endset %}
+                        {% set helpText %}{% trans "Change the header-label for the column where the lines are listed" %}{% endset %}
+                        {{ forms.input("lineHeader", title, module.getOption("lineHeader", "Line"), helpText, "required") }}
+
+                        {% set title %}{% trans "From Header" %}{% endset %}
+                        {% set helpText %}{% trans "Change the header-label for the column where the public transport is coming from" %}{% endset %}
+                        {{ forms.input("fromHeader", title, module.getOption("fromHeader", "From"), helpText, "required") }}
+
+                        {% set title %}{% trans "To Header" %}{% endset %}
+                        {% set helpText %}{% trans "Change the header-label for the column where the public transport is going to" %}{% endset %}
+                        {{ forms.input("toHeader", title, module.getOption("toHeader", "To"), helpText, "required") }}
+
+                        {% set title %}{% trans "Start Header" %}{% endset %}
+                        {% set helpText %}{% trans "Change the header-label for the column where the public transport is setting of" %}{% endset %}
+                        {{ forms.input("startHeader", title, module.getOption("startHeader", "Start"), helpText, "required") }}
+
+                        {% set title %}{% trans "Remaining Header" %}{% endset %}
+                        {% set helpText %}{% trans "Change the header-label for the column where the public transport is setting of (remaining minutes)" %}{% endset %}
+                        {{ forms.input("remainingHeader", title, module.getOption("remainingHeader", "Remaining"), helpText, "required") }}
                     </div>
                     <div class="tab-pane" id="tableBodyTab">
                         {% set title %}{% trans "Font" %}{% endset %}

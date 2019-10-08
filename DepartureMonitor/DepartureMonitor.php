@@ -79,6 +79,11 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('headFont', $this->getSanitizer()->getString('headFont'));
         $this->setOption('hideIcons', $this->getSanitizer()->getCheckbox('hideIcons'));
         $this->setOption('reverseIcons', $this->getSanitizer()->getCheckbox('reverseIcons'));
+        $this->setOption('lineHeader', $this->getSanitizer()->getString('lineHeader'));
+        $this->setOption('fromHeader', $this->getSanitizer()->getString('fromHeader'));
+        $this->setOption('toHeader', $this->getSanitizer()->getString('toHeader'));
+        $this->setOption('startHeader', $this->getSanitizer()->getString('startHeader'));
+        $this->setOption('remainingHeader', $this->getSanitizer()->getString('remainingHeader'));
     }
 
     public function layoutDesignerJavaScript() {
@@ -123,20 +128,20 @@ class DepartureMonitor extends ModuleWidget {
 
         $tableHeadIcons = '
             <td class="row-10"></td>
-            <td class="row-10">Linie</td>
-            <td class="row-24">von</td>
-            <td class="row-26 td-align-right-padding-3">Bis</td>
-            <td class="row-15 td-align-center">Ab</td>
-            <td class="row-15 td-align-right-padding-3">verbleibend</td>
+            <td class="row-10">' . $this->getOption('lineHeader') . '</td>
+            <td class="row-24">' . $this->getOption('fromHeader') . '</td>
+            <td class="row-26 td-align-right-padding-3">' . $this->getOption('toHeader') . '</td>
+            <td class="row-15 td-align-center">' . $this->getOption('startHeader') . '</td>
+            <td class="row-15 td-align-right-padding-3">' . $this->getOption('remainingHeader') . '</td>
         ';
 
         $tableHeadNoIcons = '
             <td class="td-empty"></td>
-            <td class="row-15 td-padding-left-3">Linie</td>
-            <td class="row-27-5">von</td>
-            <td class="row-27-5 td-align-right-padding-3">Bis</td>
-            <td class="row-15 td-align-center">Ab</td>
-            <td class="row-15 td-align-right-padding-3">verbleibend</td>
+            <td class="row-15 td-padding-left-3">' . $this->getOption('lineHeader') . '</td>
+            <td class="row-27-5">' . $this->getOption('fromHeader') . '</td>
+            <td class="row-27-5 td-align-right-padding-3">' . $this->getOption('toHeader') . '</td>
+            <td class="row-15 td-align-center">' . $this->getOption('startHeader') . '</td>
+            <td class="row-15 td-align-right-padding-3">' . $this->getOption('remainingHeader') . '</td>
         ';
 
         // Start building the template
