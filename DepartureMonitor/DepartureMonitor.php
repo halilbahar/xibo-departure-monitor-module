@@ -125,10 +125,6 @@ class DepartureMonitor extends ModuleWidget {
             return $timeA < $timeB ? -1 : 1;
         });
 
-        $bodyFont = $this->getOption('bodyFont');
-        $headFont = $this->getOption('headFont');
-
-
         $tableHeadIcons = '
             <td class="row-10"></td>
             <td class="row-10">' . $this->getOption('lineHeader') . '</td>
@@ -167,7 +163,7 @@ class DepartureMonitor extends ModuleWidget {
             ->appendCssFile('departure_monitor.css')
             ->appendCss('                
                 #table-main tbody {
-                    font-family: ' . (!empty($bodyFont) ? $bodyFont . ',' : '') . ' Arial, sans-serif;
+                    font-family: ' . $this->getOption('bodyFont') . ', sans-serif;
                     color: ' . $this->getOption('tbodyFontColor') . ';
                     font-size: ' . $this->getOption('tbodyFontScale') . 'em;
                 }
@@ -177,7 +173,7 @@ class DepartureMonitor extends ModuleWidget {
                 }
                 
                 #table-main thead {
-                    font-family: ' . (!empty($headFont) ? $headFont . ',' : '') . ' Arial, sans-serif;
+                    font-family: ' . $this->getOption('headFont') . ', sans-serif;
                     color: ' . $this->getOption('theadFontColor') . ';
                     font-size: ' . $this->getOption('theadFontScale') . 'em;
                 }

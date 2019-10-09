@@ -64,8 +64,8 @@
                             { name: "data-search-url", value: urlFor("library.font.list") },
                             { name: "data-value", value: module.getOption("headFont") }
                         ] %}
-                        {% set helpText %}{% trans "Select a font for the head - leave empty to use the default font" %}{% endset %}
-                        {{ forms.dropdown("headFont", "single", title, "", [{id: "", value: ""}], "id", "value", helpText, "", "", "", "", attributes) }}
+                        {% set helpText %}{% trans "Select a font for the head" %}{% endset %}
+                        {{ forms.dropdown("headFont", "single", title, "", [{id: "arial", value: "Arial"}], "id", "value", helpText, "", "", "", "", attributes) }}
 
                         {% set title %}{% trans "Font Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the color of your font" %}{% endset %}
@@ -105,8 +105,8 @@
                             { name: "data-search-url", value: urlFor("library.font.list") },
                             { name: "data-value", value: module.getOption("bodyFont") }
                         ] %}
-                        {% set helpText %}{% trans "Select a font for the body - leave empty to use the default font" %}{% endset %}
-                        {{ forms.dropdown("bodyFont", "single", title, "", [{id: "", value: ""}], "id", "value", helpText, "", "", "", "", attributes) }}
+                        {% set helpText %}{% trans "Select a font for the body" %}{% endset %}
+                        {{ forms.dropdown("bodyFont", "single", title, "", [{id: "arial", value: "Arial"}], "id", "value", helpText, "", "", "", "", attributes) }}
 
                         {% set title %}{% trans "Font Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the color of your font" %}{% endset %}
