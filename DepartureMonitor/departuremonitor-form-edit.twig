@@ -71,6 +71,10 @@
                         {% set helpText %}{% trans "Select the color of your font" %}{% endset %}
                         {{ forms.input("theadFontColor", title, module.getOption("theadFontColor", "#f5f5f5"), helpText, "", "required") }}
 
+                        {% set title %}{% trans "Font Size Multiplier" %}{% endset %}
+                        {% set helpText %}{% trans "Scale your font size" %}{% endset %}
+                        {{ forms.input("theadFontScale", title, module.getOption("theadFontScale", "1"), "", "required") }}
+
                         {% set title %}{% trans "Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color for the head" %}{% endset %}
                         {{ forms.input("theadBackgroundColor", title, module.getOption("theadBackgroundColor", "#36304a"), helpText, "", "required") }}

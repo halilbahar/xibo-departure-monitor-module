@@ -84,6 +84,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('toHeader', $this->getSanitizer()->getString('toHeader'));
         $this->setOption('startHeader', $this->getSanitizer()->getString('startHeader'));
         $this->setOption('remainingHeader', $this->getSanitizer()->getString('remainingHeader'));
+        $this->setOption('theadFontScale', $this->getSanitizer()->getString('theadFontScale'));
     }
 
     public function layoutDesignerJavaScript() {
@@ -125,6 +126,8 @@ class DepartureMonitor extends ModuleWidget {
 
         $bodyFont = $this->getOption('bodyFont');
         $headFont = $this->getOption('headFont');
+
+
 
         $tableHeadIcons = '
             <td class="row-10"></td>
@@ -175,6 +178,7 @@ class DepartureMonitor extends ModuleWidget {
                 #table-main thead {
                     font-family: ' . (!empty($headFont) ? $headFont . ',' : '') . ' Arial, sans-serif;
                     color: ' . $this->getOption('theadFontColor') . ';
+                    font-size: ' . $this->getOption('theadFontScale') . 'em;
                 }
                 
                 #table-main thead tr {
@@ -198,6 +202,14 @@ class DepartureMonitor extends ModuleWidget {
         if ($this->getUseDuration() == 1 && $this->getDuration() <= 0) {
             throw new InvalidArgumentException(__('You must enter a duration.'), 'duration');
         }
+
+        $theadFontScale = str_replace(",", ".", $this->getOption('theadFontScale'));
+        if(!is_numeric($theadFontScale)) {
+            throw new InvalidArgumentException(__('You must enter a number for the font multiplier'), 'theadFontScale');
+        } else if ($theadFontScale < 0) {
+            throw new InvalidArgumentException(__('You must enter a positiv scale for the font multiplier'), 'theadFontScale');
+        }
+
         return self::$STATUS_PLAYER;
     }
 
