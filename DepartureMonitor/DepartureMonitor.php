@@ -85,6 +85,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('startHeader', $this->getSanitizer()->getString('startHeader'));
         $this->setOption('remainingHeader', $this->getSanitizer()->getString('remainingHeader'));
         $this->setOption('theadFontScale', $this->getSanitizer()->getString('theadFontScale'));
+        $this->setOption('tbodyFontScale', $this->getSanitizer()->getString('tbodyFontScale'));
     }
 
     public function layoutDesignerJavaScript() {
@@ -128,7 +129,6 @@ class DepartureMonitor extends ModuleWidget {
         $headFont = $this->getOption('headFont');
 
 
-
         $tableHeadIcons = '
             <td class="row-10"></td>
             <td class="row-10">' . $this->getOption('lineHeader') . '</td>
@@ -169,6 +169,7 @@ class DepartureMonitor extends ModuleWidget {
                 #table-main tbody {
                     font-family: ' . (!empty($bodyFont) ? $bodyFont . ',' : '') . ' Arial, sans-serif;
                     color: ' . $this->getOption('tbodyFontColor') . ';
+                    font-size: ' . $this->getOption('tbodyFontScale') . 'em;
                 }
                 
                 #table-main .tr-content {
@@ -204,10 +205,17 @@ class DepartureMonitor extends ModuleWidget {
         }
 
         $theadFontScale = str_replace(",", ".", $this->getOption('theadFontScale'));
-        if(!is_numeric($theadFontScale)) {
+        if (!is_numeric($theadFontScale)) {
             throw new InvalidArgumentException(__('You must enter a number for the font multiplier'), 'theadFontScale');
         } else if ($theadFontScale < 0) {
             throw new InvalidArgumentException(__('You must enter a positiv scale for the font multiplier'), 'theadFontScale');
+        }
+
+        $tbodyFontScale = str_replace(",", ".", $this->getOption('tbodyFontScale'));
+        if (!is_numeric($tbodyFontScale)) {
+            throw new InvalidArgumentException(__('You must enter a number for the body font multiplier'), 'tbodyFontScale');
+        } else if ($tbodyFontScale < 0) {
+            throw new InvalidArgumentException(__('You must enter a positiv scale for the body font multiplier'), 'tbodyFontScale');
         }
 
         return self::$STATUS_PLAYER;

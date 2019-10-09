@@ -112,6 +112,10 @@
                         {% set helpText %}{% trans "Select the color of your font" %}{% endset %}
                         {{ forms.input("tbodyFontColor", title, module.getOption("tbodyFontColor", "#000000"), helpText, "", "required") }}
 
+                        {% set title %}{% trans "Font Size Multiplier" %}{% endset %}
+                        {% set helpText %}{% trans "Scale your font size" %}{% endset %}
+                        {{ forms.input("tbodyFontScale", title, module.getOption("tbodyFontScale", "1"), "", "required") }}
+
                         {% set title %}{% trans "Odd Row Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of the odd rows" %}{% endset %}
                         {{ forms.input("tbodyBackgroundColor", title, module.getOption("tbodyBackgroundColor", "#ffffff"), helpText, "", "required") }}
