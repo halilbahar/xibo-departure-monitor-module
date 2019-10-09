@@ -206,9 +206,9 @@ class DepartureMonitor extends ModuleWidget {
 
         $theadFontScale = str_replace(",", ".", $this->getOption('theadFontScale'));
         if (!is_numeric($theadFontScale)) {
-            throw new InvalidArgumentException(__('You must enter a number for the font multiplier'), 'theadFontScale');
+            throw new InvalidArgumentException(__('You must enter a number for the head font multiplier'), 'theadFontScale');
         } else if ($theadFontScale < 0) {
-            throw new InvalidArgumentException(__('You must enter a positiv scale for the font multiplier'), 'theadFontScale');
+            throw new InvalidArgumentException(__('You must enter a positiv scale for the head font multiplier'), 'theadFontScale');
         }
 
         $tbodyFontScale = str_replace(",", ".", $this->getOption('tbodyFontScale'));
