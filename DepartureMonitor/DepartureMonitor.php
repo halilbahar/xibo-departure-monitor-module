@@ -86,6 +86,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('remainingHeader', $this->getSanitizer()->getString('remainingHeader'));
         $this->setOption('theadFontScale', $this->getSanitizer()->getString('theadFontScale'));
         $this->setOption('tbodyFontScale', $this->getSanitizer()->getString('tbodyFontScale'));
+        $this->setOption('rowCount', $this->getSanitizer()->getString('rowCount'));
     }
 
     public function layoutDesignerJavaScript() {
@@ -143,6 +144,8 @@ class DepartureMonitor extends ModuleWidget {
             <td class="row-15 td-align-right-padding-3">' . $this->getOption('remainingHeader') . '</td>
         ';
 
+        $rowHeight = $this->getOption('rowCount') ? (100 - 8) / $this->getOption('rowCount') : 0;
+
         // Start building the template
         $this
             ->initialiseGetResource()
@@ -181,6 +184,17 @@ class DepartureMonitor extends ModuleWidget {
                 #table-main thead tr {
                     background-color: ' . $this->getOption('theadBackgroundColor') . ';
                 }
+                
+                .div-height {
+                    height: ' . $rowHeight . 'vh;
+                    width: 0;
+                }
+                
+                .tr-content td:first-child img {
+                    margin: 0.6vh auto;
+                    height: ' . ($rowHeight - 1.2) . 'vh;
+                    display: block;
+                }
             ')
             ->appendBody('
                 <table id="table-main">
@@ -212,6 +226,17 @@ class DepartureMonitor extends ModuleWidget {
             throw new InvalidArgumentException(__('You must enter a number for the body font multiplier'), 'tbodyFontScale');
         } else if ($tbodyFontScale < 0) {
             throw new InvalidArgumentException(__('You must enter a positiv scale for the body font multiplier'), 'tbodyFontScale');
+        }
+
+        $rowCount = $this->getOption('rowCount');
+        if (!is_numeric($rowCount)) {
+            throw new InvalidArgumentException(__('You must enter a number for the row count'), 'tbodyFontScale');
+        }else if(!ctype_digit($rowCount)) {
+            if($rowCount[0] == '-') {
+                throw new InvalidArgumentException(__('You must enter a positiv number for the row count'), 'rowCount');
+            } else {
+                throw new InvalidArgumentException(__('You must enter an integer for the row count'), 'rowCount');
+            }
         }
 
         return self::$STATUS_PLAYER;

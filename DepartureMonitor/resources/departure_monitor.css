@@ -28,25 +28,9 @@ body {
     font-size: 135%;
 }
 
-.div-no-icon {
-    position: relative;
-    height: 9.2vh;
-}
-
 .td-empty {
     width: 0%;
     padding: 0 !important;
-}
-
-.div-height {
-    height: 9.2vh;
-    width: 0;
-}
-
-.tr-content td:first-child img {
-    margin: 0.6vh auto;
-    height: 8vh;
-    display: block;
 }
 
 .td-align-center {

@@ -123,6 +123,10 @@
                         {% set title %}{% trans "Even Row Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of the even rows" %}{% endset %}
                         {{ forms.input("tbodySecondBackgroundColor", title, module.getOption("tbodySecondBackgroundColor", "#f5f5f5"), helpText, "", "required") }}
+
+                        {% set title %}{% trans "Row Count" %}{% endset %}
+                        {% set helpText %}{% trans "Specify the how many rows should be displayed at the same time" %}{% endset %}
+                        {{ forms.input("rowCount", title, module.getOption("rowCount", "10"), helpText, "", "required") }}
                     </div>
                     <div class="tab-pane" id="iconsTab">
                         {% set title %}{% trans "Hide Icons" %}{% endset %}
