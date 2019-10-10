@@ -87,6 +87,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('theadFontScale', $this->getSanitizer()->getString('theadFontScale'));
         $this->setOption('tbodyFontScale', $this->getSanitizer()->getString('tbodyFontScale'));
         $this->setOption('rowCount', $this->getSanitizer()->getString('rowCount'));
+        $this->setOption('hideHeader', $this->getSanitizer()->getCheckbox('hideHeader'));
     }
 
     public function layoutDesignerJavaScript() {
@@ -144,7 +145,12 @@ class DepartureMonitor extends ModuleWidget {
             <td class="row-15 td-align-right-padding-3">' . $this->getOption('remainingHeader') . '</td>
         ';
 
-        $rowHeight = $this->getOption('rowCount') ? (100 - 8) / $this->getOption('rowCount') : 0;
+        $headerHeight = $this->getOption('hideHeader') ? 0 : 8;
+        $rowHeight = $this->getOption('rowCount') ? (100 - $headerHeight) / $this->getOption('rowCount') : 0;
+
+        $dataClasses = $this->getOption('hideIcons') ?
+            '"td-empty", "row-15", "row-27-5", "row-27-5", "row-15", "row-15"' :
+            '"row-10", "row-10", "row-24", "row-26", "row-15", "row-15"';
 
         // Start building the template
         $this
@@ -160,6 +166,7 @@ class DepartureMonitor extends ModuleWidget {
                 let underground = "' . $underground . '";
                 let tbodySecondBackgroundColor = "' . $this->getOption('tbodySecondBackgroundColor') . '";
                 let hideIcons = ' . ($this->getOption('hideIcons') == 0 ? 'false' : 'true') . ';
+                let dataClasses = [' . $dataClasses . '];
             ')
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
@@ -179,6 +186,7 @@ class DepartureMonitor extends ModuleWidget {
                     font-family: ' . $this->getOption('headFont') . ', sans-serif;
                     color: ' . $this->getOption('theadFontColor') . ';
                     font-size: ' . $this->getOption('theadFontScale') . 'em;
+                    display: ' . ($this->getOption('hideHeader') ? 'none' : '') .';
                 }
                 
                 #table-main thead tr {
@@ -231,8 +239,8 @@ class DepartureMonitor extends ModuleWidget {
         $rowCount = $this->getOption('rowCount');
         if (!is_numeric($rowCount)) {
             throw new InvalidArgumentException(__('You must enter a number for the row count'), 'tbodyFontScale');
-        }else if(!ctype_digit($rowCount)) {
-            if($rowCount[0] == '-') {
+        } else if (!ctype_digit($rowCount)) {
+            if ($rowCount[0] == '-') {
                 throw new InvalidArgumentException(__('You must enter a positiv number for the row count'), 'rowCount');
             } else {
                 throw new InvalidArgumentException(__('You must enter an integer for the row count'), 'rowCount');

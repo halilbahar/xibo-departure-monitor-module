@@ -23,22 +23,31 @@ $(function () {
         let dataDate = new Date(filteredData[i].arrivalTime);
         let hour = dataDate.getHours();
         let minute = dataDate.getMinutes();
+
         td[0].innerHTML = hideIcons ? `<div class="div-height"></div>` : `<img src='${getImageSrc(data[i].type)}'>`;
+        td[0].classList.add(dataClasses[0]);
+
         td[1].innerHTML = data[i].number;
+        td[1].classList.add(dataClasses[1]);
         if(hideIcons) {
             td[1].classList.add("td-padding-left-3");
         }
 
         td[2].innerHTML = data[i].from;
+        td[2].classList.add(dataClasses[2]);
 
         td[3].innerHTML = data[i].to;
         td[3].classList.add("td-align-right-padding-3");
+        td[3].classList.add(dataClasses[3]);
+
 
         td[4].innerHTML = getLeadingZero(hour) + ":" + getLeadingZero(minute);
         td[4].classList.add("td-align-center");
+        td[4].classList.add(dataClasses[4]);
 
         td[5].innerHTML = Math.ceil((dataDate.getTime() - currentDate.getTime()) / 1000 / 60);
         td[5].classList.add("td-align-right-padding-3");
+        td[5].classList.add(dataClasses[5]);
     }
 
     //Set the backgroundcolor of every second row

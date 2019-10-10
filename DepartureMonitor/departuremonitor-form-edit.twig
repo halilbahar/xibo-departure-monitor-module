@@ -59,6 +59,11 @@
                         {{ forms.number("duration", title, module.getDuration(), helpText, "duration-fields", "required") }}
                     </div>
                     <div class="tab-pane" id="tableHeadTab">
+                        {% set title %}{% trans "Hide Header?" %}{% endset %}
+                        {% set helpText %}{% trans "Select to hide the header of the monitor" %}{% endset %}
+                        {{ forms.checkbox("hideHeader", title, module.getOption("hideHeader"), helpText) }}
+
+
                         {% set title %}{% trans "Font" %}{% endset %}
                         {% set attributes = [
                             { name: "data-search-url", value: urlFor("library.font.list") },
