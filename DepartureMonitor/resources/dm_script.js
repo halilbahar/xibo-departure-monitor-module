@@ -3,7 +3,7 @@ $(function () {
     //Copy only the valid data to the new Array
     let currentDate = new Date();
     let currenDateWithoutSeconds = new Date();
-    currenDateWithoutSeconds.setSeconds(0, 0);
+    currenDateWithoutSeconds.setMinutes(currenDateWithoutSeconds.getMinutes() + minuteLimit, 0, 0);
     let filteredData = [];
     for (let i = 0; i < data.length; i++) {
         if (currenDateWithoutSeconds <= new Date(data[i].arrivalTime)) {
@@ -68,7 +68,7 @@ function countDown() {
     let tableRows = document.getElementById("table-main").rows;
     let minuteIndex = 5;
     for (let i = 1; i < tableRows.length; i++) {
-        if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === 0) {
+        if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === minuteLimit) {
             $(`#table-main tr:eq(${i})`)
                 .children("td")
                 .animate({paddingBottom: 0, paddingTop: 0})

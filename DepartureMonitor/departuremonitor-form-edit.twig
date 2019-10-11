@@ -132,6 +132,10 @@
                         {% set title %}{% trans "Row Count" %}{% endset %}
                         {% set helpText %}{% trans "Specify the how many rows should be displayed at the same time" %}{% endset %}
                         {{ forms.input("rowCount", title, module.getOption("rowCount", "10"), helpText, "", "required") }}
+
+                        {% set title %}{% trans "Minute Limit" %}{% endset %}
+                        {% set helpText %}{% trans "Specify the limit when the entries should be removed from the table" %}{% endset %}
+                        {{ forms.input("minuteLimit", title, module.getOption("minuteLimit", "5"), helpText, "", "required") }}
                     </div>
                     <div class="tab-pane" id="iconsTab">
                         {% set title %}{% trans "Hide Icons" %}{% endset %}

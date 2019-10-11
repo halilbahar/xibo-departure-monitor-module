@@ -88,6 +88,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('tbodyFontScale', $this->getSanitizer()->getString('tbodyFontScale'));
         $this->setOption('rowCount', $this->getSanitizer()->getString('rowCount'));
         $this->setOption('hideHeader', $this->getSanitizer()->getCheckbox('hideHeader'));
+        $this->setOption('minuteLimit', $this->getSanitizer()->getString('minuteLimit'));
     }
 
     public function layoutDesignerJavaScript() {
@@ -167,6 +168,7 @@ class DepartureMonitor extends ModuleWidget {
                 let tbodySecondBackgroundColor = "' . $this->getOption('tbodySecondBackgroundColor') . '";
                 let hideIcons = ' . ($this->getOption('hideIcons') == 0 ? 'false' : 'true') . ';
                 let dataClasses = [' . $dataClasses . '];
+                let minuteLimit = ' . $this->getOption('minuteLimit') . ';
             ')
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
@@ -244,6 +246,17 @@ class DepartureMonitor extends ModuleWidget {
                 throw new InvalidArgumentException(__('You must enter a positiv number for the row count'), 'rowCount');
             } else {
                 throw new InvalidArgumentException(__('You must enter an integer for the row count'), 'rowCount');
+            }
+        }
+
+        $minuteLimit = $this->getOption('minuteLimit');
+        if (!is_numeric($minuteLimit)) {
+            throw new InvalidArgumentException(__('You must enter a number for the minute limit'), 'minuteLimit');
+        } else if (!ctype_digit($rowCount)) {
+            if ($rowCount[0] == '-') {
+                throw new InvalidArgumentException(__('You must enter a positiv number for the minute limit'), 'minuteLimit');
+            } else {
+                throw new InvalidArgumentException(__('You must enter an integer for the minute limit'), 'minuteLimit');
             }
         }
 
