@@ -70,39 +70,39 @@
                             { name: "data-value", value: module.getOption("headFont") }
                         ] %}
                         {% set helpText %}{% trans "Select a font for the head" %}{% endset %}
-                        {{ forms.dropdown("headFont", "single", title, "", [{id: "arial", value: "Arial"}], "id", "value", helpText, "", "", "", "", attributes) }}
+                        {{ forms.dropdown("headFont", "single", title, "", [{id: "arial", value: "Arial"}], "id", "value", helpText, "header-fields", "", "", "", attributes) }}
 
                         {% set title %}{% trans "Font Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the color of your font" %}{% endset %}
-                        {{ forms.input("theadFontColor", title, module.getOption("theadFontColor", "#f5f5f5"), helpText, "", "required") }}
+                        {{ forms.input("theadFontColor", title, module.getOption("theadFontColor", "#f5f5f5"), helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Font Size Multiplier" %}{% endset %}
                         {% set helpText %}{% trans "Scale your font size" %}{% endset %}
-                        {{ forms.input("theadFontScale", title, module.getOption("theadFontScale", "1"), "", "required") }}
+                        {{ forms.input("theadFontScale", title, module.getOption("theadFontScale", "1"), helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color for the head" %}{% endset %}
-                        {{ forms.input("theadBackgroundColor", title, module.getOption("theadBackgroundColor", "#36304a"), helpText, "", "required") }}
+                        {{ forms.input("theadBackgroundColor", title, module.getOption("theadBackgroundColor", "#36304a"), helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Line Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the lines are listed" %}{% endset %}
-                        {{ forms.input("lineHeader", title, module.getOption("lineHeader", "Line"), helpText, "required") }}
+                        {{ forms.input("lineHeader", title, module.getOption("lineHeader", "Line"), helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "From Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the public transport is coming from" %}{% endset %}
-                        {{ forms.input("fromHeader", title, module.getOption("fromHeader", "From"), helpText, "required") }}
+                        {{ forms.input("fromHeader", title, module.getOption("fromHeader", "From"), helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "To Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the public transport is going to" %}{% endset %}
-                        {{ forms.input("toHeader", title, module.getOption("toHeader", "To"), helpText, "required") }}
+                        {{ forms.input("toHeader", title, module.getOption("toHeader", "To"), helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Start Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the public transport is setting of" %}{% endset %}
-                        {{ forms.input("startHeader", title, module.getOption("startHeader", "Start"), helpText, "required") }}
+                        {{ forms.input("startHeader", title, module.getOption("startHeader", "Start"), helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Remaining Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the public transport is setting of (remaining minutes)" %}{% endset %}
-                        {{ forms.input("remainingHeader", title, module.getOption("remainingHeader", "Remaining"), helpText, "required") }}
+                        {{ forms.input("remainingHeader", title, module.getOption("remainingHeader", "Remaining"), helpText, "header-fields", "required") }}
                     </div>
                     <div class="tab-pane" id="tableBodyTab">
                         {% set title %}{% trans "Font" %}{% endset %}

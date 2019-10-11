@@ -1,7 +1,8 @@
 <script type="text/javascript">
     function departuremonitor_form_edit_open() {
 
-        formHelpers.setupCheckboxInputFields($(this).find('form'), '#useDuration', '.duration-fields');
+        setupCheckboxFields($(this).find('form'), '#useDuration', '.duration-fields');
+        setupCheckboxFields($(this).find('form'), '#hideHeader', '', '.header-fields');
 
         $(this).find("#theadBackgroundColor").colorpicker({format: 'rgba'});
         $(this).find("#theadFontColor").colorpicker({format: 'rgba'});
@@ -33,5 +34,28 @@
                 }
             }
         });
+    }
+
+    function setupCheckboxFields(form, checkBoxSelector, inputFieldsSelector, inputFieldsSelectorOpposite) {
+        const checkboxObj = $(form).find(checkBoxSelector);
+        const inputFieldsObj = $(form).find(inputFieldsSelector);
+        const inputFieldsObjOpposite = $(form).find(inputFieldsSelectorOpposite);
+
+        function displayInputFields() {
+            // Init
+            if(checkboxObj.is(':checked') === false) {
+                inputFieldsObj.css('display', 'none');
+                inputFieldsObjOpposite.css('display', 'block');
+            } else if(checkboxObj.is(':checked') === true) {
+                inputFieldsObj.css('display', 'block');
+                inputFieldsObjOpposite.css('display', 'none');
+            }
+        }
+
+        // Init
+        displayInputFields();
+
+        // Change
+        checkboxObj.on('change', displayInputFields);
     }
 </script>
