@@ -144,7 +144,7 @@
 
                         {% set title %}{% trans "Reverse Icons" %}{% endset %}
                         {% set helpText %}{% trans "Check if Icons should appear white instead of black" %}{% endset %}
-                        {{ forms.checkbox("reverseIcons", title, module.getOption('reverseIcons'), helpText) }}
+                        {{ forms.checkbox("reverseIcons", title, module.getOption('reverseIcons'), helpText, "icon-fields") }}
                     </div>
                 </div>
             </form>
