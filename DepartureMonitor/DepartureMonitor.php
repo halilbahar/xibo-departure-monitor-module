@@ -197,14 +197,11 @@ class DepartureMonitor extends ModuleWidget {
                 
                 .div-height {
                     height: ' . $rowHeight . 'vh;
-                    width: 0;
+                    padding: 5% 0;
+                    display: flex;
+                    align-items: center;
                 }
                 
-                .tr-content td:first-child img {
-                    margin: 0.6vh auto;
-                    height: ' . ($rowHeight - 1.2) . 'vh;
-                    display: block;
-                }
             ')
             ->appendBody('
                 <table id="table-main">

@@ -24,7 +24,7 @@ $(function () {
         let hour = dataDate.getHours();
         let minute = dataDate.getMinutes();
 
-        td[0].innerHTML = hideIcons ? `<div class="div-height"></div>` : `<img src='${getImageSrc(data[i].type)}'>`;
+        td[0].innerHTML = `<div class='div-height'>${hideIcons ? "" : "<img src='" + getImageSrc(data[i].type) + "'>"}</div>`;
         td[0].classList.add(dataClasses[0]);
 
         td[1].innerHTML = data[i].number;
