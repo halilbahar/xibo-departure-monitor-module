@@ -177,8 +177,7 @@ class DepartureMonitor extends ModuleWidget {
                 #table-main tbody {
                     font-family: ' . $this->getOption('bodyFont') . ', sans-serif;
                     color: ' . $this->getOption('tbodyFontColor') . ';
-                    font-size: ' . ($rowHeight * 0.2) . 'vh;
-                    line-height: ' . ($rowHeight * 0.2) . 'vh;
+                    font-size: ' . ($rowHeight * 0.3) . 'vh;
                 }
                 
                 #table-main .tr-content {

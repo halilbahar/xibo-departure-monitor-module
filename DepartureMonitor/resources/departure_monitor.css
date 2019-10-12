@@ -16,8 +16,8 @@ body {
 }
 
 #table-main thead tr {
-    font-size: 150%;
     height: 8vh;
+    font-size: 4.4vh;
 }
 
 #table-main tr td {
@@ -31,10 +31,6 @@ body {
     max-height: 90%;
     display: block;
     margin: 0 auto;
-}
-
-.tr-content td {
-    font-size: 135%;
 }
 
 .td-empty {
