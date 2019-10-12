@@ -140,11 +140,11 @@
                     <div class="tab-pane" id="iconsTab">
                         {% set title %}{% trans "Hide Icons" %}{% endset %}
                         {% set helpText %}{% trans "Check if you don't want the icons to appear" %}{% endset %}
-                        {{ forms.checkbox("hideIcons", title, module.getOption('hideIcons'), helpText) }}
+                        {{ forms.checkbox("hideIcons", title, module.getOption("hideIcons"), helpText) }}
 
                         {% set title %}{% trans "Reverse Icons" %}{% endset %}
                         {% set helpText %}{% trans "Check if Icons should appear white instead of black" %}{% endset %}
-                        {{ forms.checkbox("reverseIcons", title, module.getOption('reverseIcons'), helpText, "icon-fields") }}
+                        {{ forms.checkbox("reverseIcons", title, module.getOption("reverseIcons"), helpText, "icon-fields") }}
                     </div>
                 </div>
             </form>
