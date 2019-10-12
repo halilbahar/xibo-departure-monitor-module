@@ -22,8 +22,6 @@ body {
 
 #table-main tr td {
     padding: 0 1%;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 #table-main tbody tr td:first-child img {

@@ -183,6 +183,8 @@ class DepartureMonitor extends ModuleWidget {
                 #table-main .tr-content {
                     background-color: ' . $this->getOption('tbodyBackgroundColor') . ';
                     font-size: ' . $this->getOption('tbodyFontScale') . 'em;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
                 
                 #table-main thead {
