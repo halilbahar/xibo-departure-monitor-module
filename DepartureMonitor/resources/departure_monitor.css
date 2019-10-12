@@ -6,7 +6,6 @@
 
 body {
     font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
     white-space: nowrap;
 }
 
@@ -39,7 +38,7 @@ body {
 }
 
 .td-empty {
-    width: 0%;
+    width: 0;
     padding: 0 !important;
 }
 
