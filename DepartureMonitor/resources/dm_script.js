@@ -34,11 +34,9 @@ $(function () {
         }
 
         td[2].innerHTML = data[i].from;
-        createMarquee(td[2], (i + 1) % 2 === 0);
         td[2].classList.add(dataClasses[2]);
 
         td[3].innerHTML = data[i].to;
-        createMarquee(td[3], (i + 1) % 2 === 0);
         td[3].classList.add("td-align-right-padding-3");
         td[3].classList.add(dataClasses[3]);
 
@@ -50,6 +48,10 @@ $(function () {
         td[5].innerHTML = Math.ceil((dataDate.getTime() - currentDate.getTime()) / 1000 / 60);
         td[5].classList.add("td-align-right-padding-3");
         td[5].classList.add(dataClasses[5]);
+
+        const isEven = (i + 1) % 2 === 0;
+        createMarquee(td[2], isEven);
+        createMarquee(td[3], isEven);
     }
 
     //Set the backgroundcolor of every second row
@@ -133,5 +135,5 @@ function createMarquee(td, isEven) {
 }
 
 function isOverflown(element) {
-    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+    return element.scrollWidth > element.clientWidth;
 }
