@@ -128,30 +128,13 @@ class DepartureMonitor extends ModuleWidget {
             return $timeA < $timeB ? -1 : 1;
         });
 
-        $tableHeadIcons = '
-            <td class="row-10"></td>
-            <td class="row-10">' . $this->getOption('lineHeader') . '</td>
-            <td class="row-24">' . $this->getOption('fromHeader') . '</td>
-            <td class="row-26 td-align-right-padding-3">' . $this->getOption('toHeader') . '</td>
-            <td class="row-15 td-align-center">' . $this->getOption('startHeader') . '</td>
-            <td class="row-15 td-align-right-padding-3">' . $this->getOption('remainingHeader') . '</td>
-        ';
-
-        $tableHeadNoIcons = '
-            <td class="td-empty"></td>
-            <td class="row-15 td-padding-left-3">' . $this->getOption('lineHeader') . '</td>
-            <td class="row-27-5">' . $this->getOption('fromHeader') . '</td>
-            <td class="row-27-5 td-align-right-padding-3">' . $this->getOption('toHeader') . '</td>
-            <td class="row-15 td-align-center">' . $this->getOption('startHeader') . '</td>
-            <td class="row-15 td-align-right-padding-3">' . $this->getOption('remainingHeader') . '</td>
-        ';
+        //Classes for every column in a row
+        $dataClasses = $this->getOption('hideIcons')
+            ? array('td-empty', 'row-15', 'row-27-5', 'row-27-5', 'row-15', 'row-15')
+            : array('row-10', 'row-10', 'row-24', 'row-26', 'row-15', 'row-15');
 
         $headerHeight = $this->getOption('hideHeader') ? 0 : 8;
         $rowHeight = $this->getOption('rowCount') ? (100 - $headerHeight) / $this->getOption('rowCount') : 0;
-
-        $dataClasses = $this->getOption('hideIcons') ?
-            '"td-empty", "row-15", "row-27-5", "row-27-5", "row-15", "row-15"' :
-            '"row-10", "row-10", "row-24", "row-26", "row-15", "row-15"';
 
         // Start building the template
         $this
@@ -167,7 +150,7 @@ class DepartureMonitor extends ModuleWidget {
                 let underground = "' . $underground . '";
                 let tbodySecondBackgroundColor = "' . $this->getOption('tbodySecondBackgroundColor') . '";
                 let hideIcons = ' . ($this->getOption('hideIcons') == 0 ? 'false' : 'true') . ';
-                let dataClasses = [' . $dataClasses . '];
+                let dataClasses = ' . json_encode($dataClasses) . ';
                 let minuteLimit = ' . $this->getOption('minuteLimit') . ';
             ')
             ->appendJavaScriptFile('dm_script.js')
@@ -181,7 +164,7 @@ class DepartureMonitor extends ModuleWidget {
                     --tbody-background-color: ' . $this->getOption('tbodyBackgroundColor') . ';
                     --tobdy-even-background-color: ' . $this->getOption('tbodySecondBackgroundColor') . ';
                     --tbody-font-size: ' . ($rowHeight * 0.3) . 'vh;
-                    --thead-font-family: ' . $this->getOption('headFont') .';
+                    --thead-font-family: ' . $this->getOption('headFont') . ';
                     --thead-font-color: ' . $this->getOption('theadFontColor') . ';
                     --thead-font-scale: ' . $this->getOption('theadFontScale') . 'em;
                     --thead-background-color: ' . $this->getOption('theadBackgroundColor') . ';
@@ -193,7 +176,12 @@ class DepartureMonitor extends ModuleWidget {
                 <table id="table-main">
                     <thead>
                         <tr>
-                            ' . ($this->getOption('hideIcons') ? $tableHeadNoIcons : $tableHeadIcons) . '
+                            <td class="' . $dataClasses[0] . '"></td>
+                            <td class="' . $dataClasses[1] . '">' . $this->getOption('lineHeader') . '</td>
+                            <td class="' . $dataClasses[2] . '">' . $this->getOption('fromHeader') . '</td>
+                            <td class="' . $dataClasses[3] . ' td-align-right-padding-3">' . $this->getOption('toHeader') . '</td>
+                            <td class="' . $dataClasses[4] . ' td-align-center">' . $this->getOption('startHeader') . '</td>
+                            <td class="' . $dataClasses[5] . ' td-align-right-padding-3">' . $this->getOption('remainingHeader') . '</td>
                         </tr>
                     </thead>
                     <tbody></tbody>
