@@ -15,7 +15,28 @@ body {
     table-layout: fixed;
 }
 
+#table-main tbody {
+    font-family: var(--tbody-font-family), sans-serif;
+    color: var(--tbody-font-color);
+    font-size: var(--tbody-font-size);
+}
+
+#table-main .tr-content {
+    background-color: var(--tbody-background-color);
+    font-size: var(--tbody-font-scale);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#table-main thead {
+    font-family: var(--thead-font-family), sans-serif;
+    color: var(--thead-font-color);
+    font-size: var(--thead-font-scale);
+    display: var(--thead-display);
+}
+
 #table-main thead tr {
+    background-color: var(--thead-background-color);
     height: 8vh;
     font-size: 4.4vh;
 }
@@ -49,6 +70,13 @@ body {
     padding-left: 3% !important;
 }
 
+.div-height {
+    height: var(--row-height);
+    padding: 5% 0;
+    display: flex;
+    align-items: center;
+}
+
 .fade-out {
     position: relative;
     overflow: hidden;
@@ -79,6 +107,16 @@ body {
     100% {
         transform: translate(-100%, 0);
     }
+}
+
+.fade-out-odd {
+    background-image: linear-gradient(to right, var(--tbody-background-color) 0%,
+    rgba(0, 0, 0, 0) 3%, rgba(0, 0, 0, 0) 97%, var(--tbody-background-color) 100%);
+}
+
+.fade-out-even {
+    background-image: linear-gradient(to right, var(--tbody-even-background-color) 0%,
+    rgba(0, 0, 0, 0) 3%, rgba(0, 0, 0, 0) 97%, var(--tbody-even-background-color) 100%);
 }
 
 .row-10 {

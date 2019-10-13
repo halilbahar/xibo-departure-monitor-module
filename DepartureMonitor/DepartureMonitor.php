@@ -174,45 +174,19 @@ class DepartureMonitor extends ModuleWidget {
             ->appendFontCss()
             ->appendCssFile('departure_monitor.css')
             ->appendCss('                
-                #table-main tbody {
-                    font-family: ' . $this->getOption('bodyFont') . ', sans-serif;
-                    color: ' . $this->getOption('tbodyFontColor') . ';
-                    font-size: ' . ($rowHeight * 0.3) . 'vh;
-                }
-                
-                #table-main .tr-content {
-                    background-color: ' . $this->getOption('tbodyBackgroundColor') . ';
-                    font-size: ' . $this->getOption('tbodyFontScale') . 'em;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-                
-                #table-main thead {
-                    font-family: ' . $this->getOption('headFont') . ', sans-serif;
-                    color: ' . $this->getOption('theadFontColor') . ';
-                    font-size: ' . $this->getOption('theadFontScale') . 'em;
-                    display: ' . ($this->getOption('hideHeader') ? 'none' : '') .';
-                }
-                
-                #table-main thead tr {
-                    background-color: ' . $this->getOption('theadBackgroundColor') . ';
-                }
-                
-                .div-height {
-                    height: ' . $rowHeight . 'vh;
-                    padding: 5% 0;
-                    display: flex;
-                    align-items: center;
-                }
-
-                .fade-out-odd {
-                    background-image: linear-gradient(to right, ' . $this->getOption('tbodyBackgroundColor') . ' 0%,
-                        rgba(0, 0, 0, 0) 3%, rgba(0, 0, 0, 0) 97%, ' . $this->getOption('tbodyBackgroundColor') . ' 100%);
-                }
-
-                .fade-out-even {
-                    background-image: linear-gradient(to right, ' . $this->getOption('tbodySecondBackgroundColor') . ' 0%,
-                        rgba(0, 0, 0, 0) 3%, rgba(0, 0, 0, 0) 97%, ' . $this->getOption('tbodySecondBackgroundColor') . ' 100%);
+                :root {
+                    --tbody-font-family: ' . $this->getOption('bodyFont') . ';
+                    --tbody-font-color: ' . $this->getOption('tbodyFontColor') . ';
+                    --tbody-font-scale: ' . $this->getOption('tbodyFontScale') . 'em;
+                    --tbody-background-color: ' . $this->getOption('tbodyBackgroundColor') . ';
+                    --tobdy-even-background-color: ' . $this->getOption('tbodySecondBackgroundColor') . ';
+                    --tbody-font-size: ' . ($rowHeight * 0.3) . 'vh;
+                    --thead-font-family: ' . $this->getOption('headFont') .';
+                    --thead-font-color: ' . $this->getOption('theadFontColor') . ';
+                    --thead-font-scale: ' . $this->getOption('theadFontScale') . 'em;
+                    --thead-background-color: ' . $this->getOption('theadBackgroundColor') . ';
+                    --thead-display: ' . ($this->getOption('hideHeader') ? 'none' : 'table-header-group') . ';
+                    --row-height: ' . $rowHeight . 'vh;
                 }
             ')
             ->appendBody('
