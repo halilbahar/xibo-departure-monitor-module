@@ -74,7 +74,7 @@ class DepartureMonitor extends ModuleWidget {
 
         //Table Head tab
         $this->setOption('hideHeader', $this->getSanitizer()->getCheckbox('hideHeader'));
-        $this->setOption('headFont', $this->getSanitizer()->getString('headFont'));
+        $this->setOption('theadFont', $this->getSanitizer()->getString('theadFont'));
         $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
         $this->setOption('theadFontScale', $this->getSanitizer()->getString('theadFontScale'));
         $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
@@ -85,7 +85,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('remainingHeader', $this->getSanitizer()->getString('remainingHeader'));
 
         //Table Body tab
-        $this->setOption('bodyFont', $this->getSanitizer()->getString('bodyFont'));
+        $this->setOption('tbodyFont', $this->getSanitizer()->getString('tbodyFont'));
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
         $this->setOption('tbodyFontScale', $this->getSanitizer()->getString('tbodyFontScale'));
         $this->setOption('tbodyBackgroundColor', $this->getSanitizer()->getString('tbodyBackgroundColor'));
@@ -164,13 +164,13 @@ class DepartureMonitor extends ModuleWidget {
             ->appendFontCss()
             ->appendCss('
                 :root {
-                    --tbody-font-family: ' . $this->getOption('bodyFont') . ';
+                    --tbody-font-family: ' . $this->getOption('tbodyFont') . ';
                     --tbody-font-color: ' . $this->getOption('tbodyFontColor') . ';
                     --tbody-font-scale: ' . $this->getOption('tbodyFontScale') . 'em;
                     --tbody-background-color: ' . $this->getOption('tbodyBackgroundColor') . ';
                     --tobdy-even-background-color: ' . $this->getOption('tbodySecondBackgroundColor') . ';
                     --tbody-font-size: ' . ($rowHeight * 0.3) . 'vh;
-                    --thead-font-family: ' . $this->getOption('headFont') . ';
+                    --thead-font-family: ' . $this->getOption('theadFont') . ';
                     --thead-font-color: ' . $this->getOption('theadFontColor') . ';
                     --thead-font-scale: ' . $this->getOption('theadFontScale') . 'em;
                     --thead-background-color: ' . $this->getOption('theadBackgroundColor') . ';

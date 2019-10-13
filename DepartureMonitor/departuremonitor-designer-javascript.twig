@@ -11,8 +11,8 @@
         $(this).find("#tbodyBackgroundColor").colorpicker({format: 'rgba'});
         $(this).find("#tbodySecondBackgroundColor").colorpicker({format: 'rgba'});
 
-        var bodyFont = $(this).find("#bodyFont");
-        var headFont = $(this).find("#headFont");
+        var bodyFont = $(this).find("#tbodyFont");
+        var headFont = $(this).find("#theadFont");
         $.ajax({
             method: "GET",
             url: bodyFont.data('searchUrl'),
