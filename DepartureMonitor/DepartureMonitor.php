@@ -146,6 +146,9 @@ class DepartureMonitor extends ModuleWidget {
         $headerHeight = $this->getOption('hideHeader') ? 0 : 8;
         //Height of a single row
         $rowHeight = $this->getOption('rowCount') ? (100 - $headerHeight) / $this->getOption('rowCount') : 0;
+        $rowFontSize = $rowHeight * 0.3;
+        $finalRowFontSize = $rowFontSize < 4.4 ? $rowFontSize : 4.4;
+
 
         //Animation speed in seconds
         $animationSpeed = '';
@@ -188,7 +191,7 @@ class DepartureMonitor extends ModuleWidget {
                     --tbody-font-scale: ' . $this->getOption('tbodyFontScale') . 'em;
                     --tbody-background-color: ' . $this->getOption('tbodyOddBackgroundColor') . ';
                     --tbody-even-background-color: ' . $this->getOption('tbodyEvenBackgroundColor') . ';
-                    --tbody-font-size: ' . ($rowHeight * 0.3) . 'vh;
+                    --tbody-font-size: ' . $finalRowFontSize . 'vh;
                     --thead-font-family: ' . $this->getOption('theadFont') . ';
                     --thead-font-color: ' . $this->getOption('theadFontColor') . ';
                     --thead-font-scale: ' . $this->getOption('theadFontScale') . 'em;
