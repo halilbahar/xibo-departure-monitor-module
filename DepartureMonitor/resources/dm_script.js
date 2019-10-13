@@ -36,10 +36,12 @@ $(function () {
             createMarquee(td[2], isEven);
             createMarquee(td[3], isEven);
         }
-    }
 
-    //Set the backgroundcolor of every second row
-    colorBackground(table.rows);
+        //Set the backgroundcolor of every second row
+        if ((i + 1) % 2 === 0) {
+            tr.style.backgroundColor = tbodySecondBackgroundColor;
+        }
+    }
 
     let nextMinuteDate = new Date();
     nextMinuteDate.setMinutes(currentDate.getMinutes() + 1, 0, 0);
@@ -67,14 +69,6 @@ function countDown() {
                 });
         } else {
             tableRows[i].cells[minuteIndex].innerHTML--;
-        }
-    }
-}
-
-function colorBackground(rows) {
-    for (let i = 1; i < rows.length; i++) {
-        if (i % 2 === 0) {
-            rows[i].style.backgroundColor = tbodySecondBackgroundColor;
         }
     }
 }
