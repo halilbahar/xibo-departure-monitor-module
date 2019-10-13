@@ -66,7 +66,7 @@ class DepartureMonitor extends ModuleWidget {
     private function setCommonOptions() {
         //General tab
         $this->setOption('name', $this->getSanitizer()->getString('name'));
-        $this->setOption('serviceId', $this->getSanitizer()->getInt('serviceId', 1));
+        $this->setOption('serviceId', $this->getSanitizer()->getInt('serviceId'));
         $this->setOption('apiKey', $this->getSanitizer()->getString('apiKey'));
         $this->setOption('destination', $this->getSanitizer()->getString('destination'));
         $this->setUseDuration($this->getSanitizer()->getCheckbox('useDuration'));
@@ -119,7 +119,7 @@ class DepartureMonitor extends ModuleWidget {
 
         //Look up what api was selected. Get JSON array from that api
         $jsonData = "";
-        switch ($this->getOption('serviceId', 1)) {
+        switch ($this->getOption('serviceId')) {
             //LinzAG
             case 1:
                 $jsonData = $this->getLinzAGData($destinations);
