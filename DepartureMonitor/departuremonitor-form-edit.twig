@@ -60,7 +60,7 @@
                     </div>
                     <div class="tab-pane" id="tableHeadTab">
                         {% set title %}{% trans "Hide Header?" %}{% endset %}
-                        {% set helpText %}{% trans "Select to hide the header of the monitor" %}{% endset %}
+                        {% set helpText %}{% trans "Check to hide the header of the monitor" %}{% endset %}
                         {{ forms.checkbox("hideHeader", title, module.getOption("hideHeader"), helpText) }}
 
 
@@ -130,14 +130,14 @@
                         {{ forms.input("tbodySecondBackgroundColor", title, module.getOption("tbodySecondBackgroundColor", "#f5f5f5"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Row Count" %}{% endset %}
-                        {% set helpText %}{% trans "Specify the how many rows should be displayed at the same time" %}{% endset %}
+                        {% set helpText %}{% trans "Specify how many rows should be displayed at the same time" %}{% endset %}
                         {{ forms.number("rowCount", title, module.getOption("rowCount", 10), helpText, "", "required") }}
 
                         {% set title %}{% trans "Minute Limit" %}{% endset %}
                         {% set helpText %}{% trans "Specify the limit when the entries should be removed from the table" %}{% endset %}
                         {{ forms.number("minuteLimit", title, module.getOption("minuteLimit", 5), helpText, "", "required") }}
 
-                        {% set title %}{% trans "Disable Animation" %}{% endset %}
+                        {% set title %}{% trans "Disable Animation?" %}{% endset %}
                         {% set helpText %}{% trans "Check if you don't want the text to animate if it doesn't fit" %}{% endset %}
                         {{ forms.checkbox("disableAnimation", title, module.getOption("disableAnimation"), helpText) }}
 
@@ -151,11 +151,11 @@
                         {{ forms.dropdown("animationSpeed", "single", title, module.getOption("animationSpeed", 2), options, "id", "value", helpText, "animation-fields") }}
                     </div>
                     <div class="tab-pane" id="iconsTab">
-                        {% set title %}{% trans "Hide Icons" %}{% endset %}
+                        {% set title %}{% trans "Hide Icons?" %}{% endset %}
                         {% set helpText %}{% trans "Check if you don't want the icons to appear" %}{% endset %}
                         {{ forms.checkbox("hideIcons", title, module.getOption("hideIcons"), helpText) }}
 
-                        {% set title %}{% trans "Reverse Icons" %}{% endset %}
+                        {% set title %}{% trans "Reverse Icons?" %}{% endset %}
                         {% set helpText %}{% trans "Check if Icons should appear white instead of black" %}{% endset %}
                         {{ forms.checkbox("reverseIcons", title, module.getOption("reverseIcons"), helpText, "icon-fields") }}
                     </div>
