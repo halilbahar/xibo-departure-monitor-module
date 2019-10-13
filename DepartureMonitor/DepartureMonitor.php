@@ -140,7 +140,7 @@ class DepartureMonitor extends ModuleWidget {
         //Classes for every column in a row
         $dataClasses = $this->getOption('hideIcons')
             ? array('td-empty', 'row-15', 'row-27-5', 'row-27-5', 'row-15', 'row-15')
-            : array('row-10', 'row-10', 'row-24', 'row-26', 'row-15', 'row-15');
+            : array('row-10', 'row-10', 'row-25', 'row-25', 'row-15', 'row-15');
 
         $headerHeight = $this->getOption('hideHeader') ? 0 : 8;
         $rowHeight = $this->getOption('rowCount') ? (100 - $headerHeight) / $this->getOption('rowCount') : 0;
