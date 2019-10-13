@@ -155,8 +155,7 @@ class DepartureMonitor extends ModuleWidget {
             ')
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
-            ->appendCssFile('departure_monitor.css')
-            ->appendCss('                
+            ->appendCss('
                 :root {
                     --tbody-font-family: ' . $this->getOption('bodyFont') . ';
                     --tbody-font-color: ' . $this->getOption('tbodyFontColor') . ';
@@ -172,6 +171,7 @@ class DepartureMonitor extends ModuleWidget {
                     --row-height: ' . $rowHeight . 'vh;
                 }
             ')
+            ->appendCssFile('departure_monitor.css')
             ->appendBody('
                 <table id="table-main">
                     <thead>
