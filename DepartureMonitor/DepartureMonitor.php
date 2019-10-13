@@ -76,7 +76,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('hideHeader', $this->getSanitizer()->getCheckbox('hideHeader'));
         $this->setOption('theadFont', $this->getSanitizer()->getString('theadFont'));
         $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
-        $this->setOption('theadFontScale', $this->getSanitizer()->getString('theadFontScale'));
+        $this->setOption('theadFontScale', $this->getSanitizer()->getDouble('theadFontScale'));
         $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
         $this->setOption('lineHeader', $this->getSanitizer()->getString('lineHeader'));
         $this->setOption('fromHeader', $this->getSanitizer()->getString('fromHeader'));
@@ -87,11 +87,11 @@ class DepartureMonitor extends ModuleWidget {
         //Table Body tab
         $this->setOption('tbodyFont', $this->getSanitizer()->getString('tbodyFont'));
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
-        $this->setOption('tbodyFontScale', $this->getSanitizer()->getString('tbodyFontScale'));
+        $this->setOption('tbodyFontScale', $this->getSanitizer()->getDouble('tbodyFontScale'));
         $this->setOption('tbodyBackgroundColor', $this->getSanitizer()->getString('tbodyBackgroundColor'));
         $this->setOption('tbodySecondBackgroundColor', $this->getSanitizer()->getString('tbodySecondBackgroundColor'));
-        $this->setOption('rowCount', $this->getSanitizer()->getString('rowCount'));
-        $this->setOption('minuteLimit', $this->getSanitizer()->getString('minuteLimit'));
+        $this->setOption('rowCount', $this->getSanitizer()->getInt('rowCount'));
+        $this->setOption('minuteLimit', $this->getSanitizer()->getInt('minuteLimit'));
         $this->setOption('disableAnimation', $this->getSanitizer()->getCheckbox('disableAnimation'));
         $this->setOption('animationSpeed', $this->getSanitizer()->getInt('animationSpeed'));
 
@@ -228,40 +228,20 @@ class DepartureMonitor extends ModuleWidget {
             throw new InvalidArgumentException(__('You must enter a duration.'), 'duration');
         }
 
-        $theadFontScale = str_replace(",", ".", $this->getOption('theadFontScale'));
-        if (!is_numeric($theadFontScale)) {
-            throw new InvalidArgumentException(__('You must enter a number for the head font multiplier'), 'theadFontScale');
-        } else if ($theadFontScale < 0) {
-            throw new InvalidArgumentException(__('You must enter a positiv scale for the head font multiplier'), 'theadFontScale');
+        if ($this->getOption('theadFontScale') < 0) {
+            throw new InvalidArgumentException(__('You must enter a positiv number for the head font multiplier'), 'theadFontScale');
         }
 
-        $tbodyFontScale = str_replace(",", ".", $this->getOption('tbodyFontScale'));
-        if (!is_numeric($tbodyFontScale)) {
-            throw new InvalidArgumentException(__('You must enter a number for the body font multiplier'), 'tbodyFontScale');
-        } else if ($tbodyFontScale < 0) {
-            throw new InvalidArgumentException(__('You must enter a positiv scale for the body font multiplier'), 'tbodyFontScale');
+        if ($this->getOption('tbodyFontScale') < 0) {
+            throw new InvalidArgumentException(__('You must enter a positiv number for the body font multiplier'), 'tbodyFontScale');
         }
 
-        $rowCount = $this->getOption('rowCount');
-        if (!is_numeric($rowCount)) {
-            throw new InvalidArgumentException(__('You must enter a number for the row count'), 'tbodyFontScale');
-        } else if (!ctype_digit($rowCount)) {
-            if ($rowCount[0] == '-') {
-                throw new InvalidArgumentException(__('You must enter a positiv number for the row count'), 'rowCount');
-            } else {
-                throw new InvalidArgumentException(__('You must enter an integer for the row count'), 'rowCount');
-            }
+        if ($this->getOption('rowCount') < 0) {
+            throw new InvalidArgumentException(__('You must enter a positiv number for the row count'), 'rowCount');
         }
 
-        $minuteLimit = $this->getOption('minuteLimit');
-        if (!is_numeric($minuteLimit)) {
-            throw new InvalidArgumentException(__('You must enter a number for the minute limit'), 'minuteLimit');
-        } else if (!ctype_digit($rowCount)) {
-            if ($rowCount[0] == '-') {
-                throw new InvalidArgumentException(__('You must enter a positiv number for the minute limit'), 'minuteLimit');
-            } else {
-                throw new InvalidArgumentException(__('You must enter an integer for the minute limit'), 'minuteLimit');
-            }
+        if ($this->getOption('minuteLimit') < 0) {
+            throw new InvalidArgumentException(__('You must enter a positiv number for the minute limit'), 'minuteLimit');
         }
 
         return self::$STATUS_PLAYER;
