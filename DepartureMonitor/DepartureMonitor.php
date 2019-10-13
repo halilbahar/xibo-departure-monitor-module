@@ -196,6 +196,7 @@ class DepartureMonitor extends ModuleWidget {
                     --thead-display: ' . ($this->getOption('hideHeader') ? 'none' : 'table-header-group') . ';
                     --row-height: ' . $rowHeight . 'vh;
                     --td-first-padding: ' . ($this->getOption('hideIcons') ? '3' : '1') . '%;
+                    --td-first-align: ' . ($this->getOption('hideIcons') ? 'left' : 'center') . ';
                     --text-animation-speed: ' . $animationSpeed . 's;
                 }
             ')

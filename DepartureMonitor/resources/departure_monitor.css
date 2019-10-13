@@ -47,6 +47,7 @@ body {
 
 #table-main tr td:nth-child(2) {
     padding-left: var(--td-first-padding) !important;
+    text-align: var(--td-first-align);
 }
 
 #table-main tr td:nth-child(5) {
