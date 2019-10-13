@@ -35,7 +35,7 @@
                         {% set title %}{% trans "Departure Monitor Service" %}{% endset %}
                         {% set helpText %}{% trans "Please select the service you want to use." %}{% endset %}
                         {% set linzag %}{% trans "LinzAG" %}{% endset %}
-                        {% set wienerlinien %}{% trans "Wiener Linien" %}{% endset %}
+                        {% set wienerlinien %}{% trans "Wiener Linien*" %}{% endset %}
                         {% set options = [
                             { id: 1, value: linzag },
                             { id: 2, value: wienerlinien },
@@ -43,7 +43,7 @@
                         {{ forms.dropdown("serviceId", "single", title, module.getOption("serviceId"), options, "id", "value", helpText) }}
 
                         {% set title %}{% trans "API-Key" %}{% endset %}
-                        {% set helpText %}{% trans "Please specify a key if the service needs one" %}{% endset %}
+                        {% set helpText %}{% trans "Please specify a key if the selected service has an asterisk" %}{% endset %}
                         {{ forms.input("apiKey", title, module.getOption("apiKey"), helpText, "") }}
 
                         {% set title %}{% trans "Destination" %}{% endset %}
