@@ -31,14 +31,14 @@ body {
 #table-main thead {
     font-family: var(--thead-font-family), sans-serif;
     color: var(--thead-font-color);
-    font-size: var(--thead-font-scale);
+    font-size: 4.4vh;
     display: var(--thead-display);
 }
 
 #table-main thead tr {
     background-color: var(--thead-background-color);
     height: 8vh;
-    font-size: 4.4vh;
+    font-size: var(--thead-font-scale);
 }
 
 #table-main tr td {
