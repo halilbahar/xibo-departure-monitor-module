@@ -179,19 +179,28 @@ class DepartureMonitor extends ModuleWidget {
                     --thead-background-color: ' . $this->getOption('theadBackgroundColor') . ';
                     --thead-display: ' . ($this->getOption('hideHeader') ? 'none' : 'table-header-group') . ';
                     --row-height: ' . $rowHeight . 'vh;
+                    --td-first-padding: ' . ($this->getOption('hideIcons') ? '3' : '1') . '%;
                 }
             ')
             ->appendCssFile('departure_monitor.css')
             ->appendBody('
                 <table id="table-main">
+                    <colgroup>
+                    <col class="' . $dataClasses[0] . '">
+                    <col class="' . $dataClasses[1] . '">
+                    <col class="' . $dataClasses[2] . '">
+                    <col class="' . $dataClasses[3] . '">
+                    <col class="' . $dataClasses[4] . '">
+                    <col class="' . $dataClasses[5] . '">
+                    </colgroup>
                     <thead>
                         <tr>
-                            <td class="' . $dataClasses[0] . '"></td>
-                            <td class="' . $dataClasses[1] . '">' . $this->getOption('lineHeader') . '</td>
-                            <td class="' . $dataClasses[2] . '">' . $this->getOption('fromHeader') . '</td>
-                            <td class="' . $dataClasses[3] . ' td-align-right-padding-3">' . $this->getOption('toHeader') . '</td>
-                            <td class="' . $dataClasses[4] . ' td-align-center">' . $this->getOption('startHeader') . '</td>
-                            <td class="' . $dataClasses[5] . ' td-align-right-padding-3">' . $this->getOption('remainingHeader') . '</td>
+                            <td></td>
+                            <td>' . $this->getOption('lineHeader') . '</td>
+                            <td>' . $this->getOption('fromHeader') . '</td>
+                            <td>' . $this->getOption('toHeader') . '</td>
+                            <td>' . $this->getOption('startHeader') . '</td>
+                            <td>' . $this->getOption('remainingHeader') . '</td>
                         </tr>
                     </thead>
                     <tbody></tbody>
