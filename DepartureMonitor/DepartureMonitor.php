@@ -145,6 +145,19 @@ class DepartureMonitor extends ModuleWidget {
         $headerHeight = $this->getOption('hideHeader') ? 0 : 8;
         $rowHeight = $this->getOption('rowCount') ? (100 - $headerHeight) / $this->getOption('rowCount') : 0;
 
+        $animationSpeed = '';
+        switch ($this->getOption('animationSpeed')) {
+            case 1:
+                $animationSpeed = 15;
+                break;
+            case 2:
+                $animationSpeed = 10;
+                break;
+            case 3:
+                $animationSpeed = 5;
+                break;
+        }
+
         // Start building the template
         $this
             ->initialiseGetResource()
@@ -180,6 +193,7 @@ class DepartureMonitor extends ModuleWidget {
                     --thead-display: ' . ($this->getOption('hideHeader') ? 'none' : 'table-header-group') . ';
                     --row-height: ' . $rowHeight . 'vh;
                     --td-first-padding: ' . ($this->getOption('hideIcons') ? '3' : '1') . '%;
+                    --text-animation-speed: ' . $animationSpeed . 's;
                 }
             ')
             ->appendCssFile('departure_monitor.css')
