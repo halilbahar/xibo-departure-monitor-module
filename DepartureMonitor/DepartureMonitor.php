@@ -88,8 +88,8 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('tbodyFont', $this->getSanitizer()->getString('tbodyFont'));
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
         $this->setOption('tbodyFontScale', $this->getSanitizer()->getDouble('tbodyFontScale'));
-        $this->setOption('tbodyBackgroundColor', $this->getSanitizer()->getString('tbodyBackgroundColor'));
-        $this->setOption('tbodySecondBackgroundColor', $this->getSanitizer()->getString('tbodySecondBackgroundColor'));
+        $this->setOption('tbodyOddBackgroundColor', $this->getSanitizer()->getString('tbodyOddBackgroundColor'));
+        $this->setOption('tbodyEvenBackgroundColor', $this->getSanitizer()->getString('tbodyEvenBackgroundColor'));
         $this->setOption('rowCount', $this->getSanitizer()->getInt('rowCount'));
         $this->setOption('minuteLimit', $this->getSanitizer()->getInt('minuteLimit'));
         $this->setOption('disableAnimation', $this->getSanitizer()->getCheckbox('disableAnimation'));
@@ -173,7 +173,7 @@ class DepartureMonitor extends ModuleWidget {
                 let citybus = "' . $citybus . '";
                 let train = "' . $train . '";
                 let underground = "' . $underground . '";
-                let tbodySecondBackgroundColor = "' . $this->getOption('tbodySecondBackgroundColor') . '";
+                let tbodySecondBackgroundColor = "' . $this->getOption('tbodyEvenBackgroundColor') . '";
                 let hideIcons = ' . ($this->getOption('hideIcons') == 0 ? 'false' : 'true') . ';
                 let dataClasses = ' . json_encode($dataClasses) . ';
                 let minuteLimit = ' . $this->getOption('minuteLimit') . ';
@@ -186,8 +186,8 @@ class DepartureMonitor extends ModuleWidget {
                     --tbody-font-family: ' . $this->getOption('tbodyFont') . ';
                     --tbody-font-color: ' . $this->getOption('tbodyFontColor') . ';
                     --tbody-font-scale: ' . $this->getOption('tbodyFontScale') . 'em;
-                    --tbody-background-color: ' . $this->getOption('tbodyBackgroundColor') . ';
-                    --tobdy-even-background-color: ' . $this->getOption('tbodySecondBackgroundColor') . ';
+                    --tbody-background-color: ' . $this->getOption('tbodyOddBackgroundColor') . ';
+                    --tbody-even-background-color: ' . $this->getOption('tbodyEvenBackgroundColor') . ';
                     --tbody-font-size: ' . ($rowHeight * 0.3) . 'vh;
                     --thead-font-family: ' . $this->getOption('theadFont') . ';
                     --thead-font-color: ' . $this->getOption('theadFontColor') . ';

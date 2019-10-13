@@ -123,11 +123,11 @@
 
                         {% set title %}{% trans "Odd Row Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of the odd rows" %}{% endset %}
-                        {{ forms.input("tbodyBackgroundColor", title, module.getOption("tbodyBackgroundColor", "#ffffff"), helpText, "", "required") }}
+                        {{ forms.input("tbodyOddBackgroundColor", title, module.getOption("tbodyOddBackgroundColor", "#ffffff"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Even Row Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of the even rows" %}{% endset %}
-                        {{ forms.input("tbodySecondBackgroundColor", title, module.getOption("tbodySecondBackgroundColor", "#f5f5f5"), helpText, "", "required") }}
+                        {{ forms.input("tbodyEvenBackgroundColor", title, module.getOption("tbodyEvenBackgroundColor", "#f5f5f5"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Row Count" %}{% endset %}
                         {% set helpText %}{% trans "Specify how many rows should be displayed at the same time" %}{% endset %}
