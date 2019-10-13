@@ -92,6 +92,8 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('tbodySecondBackgroundColor', $this->getSanitizer()->getString('tbodySecondBackgroundColor'));
         $this->setOption('rowCount', $this->getSanitizer()->getString('rowCount'));
         $this->setOption('minuteLimit', $this->getSanitizer()->getString('minuteLimit'));
+        $this->setOption('disableAnimation', $this->getSanitizer()->getCheckbox('disableAnimation'));
+        $this->setOption('animationSpeed', $this->getSanitizer()->getInt('animationSpeed'));
 
         //Icons tab
         $this->setOption('hideIcons', $this->getSanitizer()->getCheckbox('hideIcons'));
@@ -159,6 +161,7 @@ class DepartureMonitor extends ModuleWidget {
                 let hideIcons = ' . ($this->getOption('hideIcons') == 0 ? 'false' : 'true') . ';
                 let dataClasses = ' . json_encode($dataClasses) . ';
                 let minuteLimit = ' . $this->getOption('minuteLimit') . ';
+                let disableAnimation = ' . ($this->getOption('disableAnimation') == 0 ? 'false' : 'true') . ';
             ')
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()

@@ -136,6 +136,19 @@
                         {% set title %}{% trans "Minute Limit" %}{% endset %}
                         {% set helpText %}{% trans "Specify the limit when the entries should be removed from the table" %}{% endset %}
                         {{ forms.input("minuteLimit", title, module.getOption("minuteLimit", "5"), helpText, "", "required") }}
+
+                        {% set title %}{% trans "Disable Animation" %}{% endset %}
+                        {% set helpText %}{% trans "Check if you don't want the text to animate if it doesn't fit" %}{% endset %}
+                        {{ forms.checkbox("disableAnimation", title, module.getOption("disableAnimation"), helpText) }}
+
+                        {% set title %}{% trans "Animation Speed" %}{% endset %}
+                        {% set options = [
+                            {id: 1, value: "slow"},
+                            {id: 2, value: "normal"},
+                            {id: 3, value: "fast"}
+                        ] %}
+                        {% set helpText %}{% trans "Select a font for the body" %}{% endset %}
+                        {{ forms.dropdown("animationSpeed", "single", title, module.getOption("animationSpeed", 2), options, "id", "value", helpText, "animation-fields") }}
                     </div>
                     <div class="tab-pane" id="iconsTab">
                         {% set title %}{% trans "Hide Icons" %}{% endset %}

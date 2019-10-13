@@ -49,9 +49,11 @@ $(function () {
         td[5].classList.add("td-align-right-padding-3");
         td[5].classList.add(dataClasses[5]);
 
-        const isEven = (i + 1) % 2 === 0;
-        createMarquee(td[2], isEven);
-        createMarquee(td[3], isEven);
+        if(!disableAnimation) {
+            const isEven = (i + 1) % 2 === 0;
+            createMarquee(td[2], isEven);
+            createMarquee(td[3], isEven);
+        }
     }
 
     //Set the backgroundcolor of every second row
