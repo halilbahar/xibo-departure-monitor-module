@@ -34,9 +34,11 @@ $(function () {
         }
 
         td[2].innerHTML = data[i].from;
+        createMarquee(td[2], (i + 1) % 2 === 0);
         td[2].classList.add(dataClasses[2]);
 
         td[3].innerHTML = data[i].to;
+        createMarquee(td[3], (i + 1) % 2 === 0);
         td[3].classList.add("td-align-right-padding-3");
         td[3].classList.add(dataClasses[3]);
 
@@ -117,4 +119,19 @@ function getImageSrc(type) {
 
 function getLeadingZero(number) {
     return number < 10 ? "0" + number : number;
+}
+
+function createMarquee(td, isEven) {
+    if (isOverflown(td)) {
+        td.innerHTML = `
+            <div class="fade-out">
+                <span class='marquee'>${td.innerHTML}</span>
+                <div class="${isEven ? "fade-out-even" : "fade-out-odd"}"></div>
+            </div>
+        `;
+    }
+}
+
+function isOverflown(element) {
+    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 }

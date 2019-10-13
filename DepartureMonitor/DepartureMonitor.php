@@ -204,7 +204,16 @@ class DepartureMonitor extends ModuleWidget {
                     display: flex;
                     align-items: center;
                 }
-                
+
+                .fade-out-odd {
+                    background-image: linear-gradient(to right, ' . $this->getOption('tbodyBackgroundColor') . ' 0%,
+                        rgba(0, 0, 0, 0) 3%, rgba(0, 0, 0, 0) 97%, ' . $this->getOption('tbodyBackgroundColor') . ' 100%);
+                }
+
+                .fade-out-even {
+                    background-image: linear-gradient(to right, ' . $this->getOption('tbodySecondBackgroundColor') . ' 0%,
+                        rgba(0, 0, 0, 0) 3%, rgba(0, 0, 0, 0) 97%, ' . $this->getOption('tbodySecondBackgroundColor') . ' 100%);
+                }
             ')
             ->appendBody('
                 <table id="table-main">
