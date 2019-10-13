@@ -64,31 +64,38 @@ class DepartureMonitor extends ModuleWidget {
 
 
     private function setCommonOptions() {
-        $this->setDuration($this->getSanitizer()->getInt('duration', $this->getDuration()));
-        $this->setUseDuration($this->getSanitizer()->getCheckbox('useDuration'));
-        $this->setOption('serviceId', $this->getSanitizer()->getInt('serviceId', 1));
+        //General tab
         $this->setOption('name', $this->getSanitizer()->getString('name'));
-        $this->setOption('destination', $this->getSanitizer()->getString('destination'));
+        $this->setOption('serviceId', $this->getSanitizer()->getInt('serviceId', 1));
         $this->setOption('apiKey', $this->getSanitizer()->getString('apiKey'));
-        $this->setOption('bodyFont', $this->getSanitizer()->getString('bodyFont'));
-        $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
-        $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
-        $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
-        $this->setOption('tbodyBackgroundColor', $this->getSanitizer()->getString('tbodyBackgroundColor'));
-        $this->setOption('tbodySecondBackgroundColor', $this->getSanitizer()->getString('tbodySecondBackgroundColor'));
+        $this->setOption('destination', $this->getSanitizer()->getString('destination'));
+        $this->setUseDuration($this->getSanitizer()->getCheckbox('useDuration'));
+        $this->setDuration($this->getSanitizer()->getInt('duration', $this->getDuration()));
+
+        //Table Head tab
+        $this->setOption('hideHeader', $this->getSanitizer()->getCheckbox('hideHeader'));
         $this->setOption('headFont', $this->getSanitizer()->getString('headFont'));
-        $this->setOption('hideIcons', $this->getSanitizer()->getCheckbox('hideIcons'));
-        $this->setOption('reverseIcons', $this->getSanitizer()->getCheckbox('reverseIcons'));
+        $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
+        $this->setOption('theadFontScale', $this->getSanitizer()->getString('theadFontScale'));
+        $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
         $this->setOption('lineHeader', $this->getSanitizer()->getString('lineHeader'));
         $this->setOption('fromHeader', $this->getSanitizer()->getString('fromHeader'));
         $this->setOption('toHeader', $this->getSanitizer()->getString('toHeader'));
         $this->setOption('startHeader', $this->getSanitizer()->getString('startHeader'));
         $this->setOption('remainingHeader', $this->getSanitizer()->getString('remainingHeader'));
-        $this->setOption('theadFontScale', $this->getSanitizer()->getString('theadFontScale'));
+
+        //Table Body tab
+        $this->setOption('bodyFont', $this->getSanitizer()->getString('bodyFont'));
+        $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
         $this->setOption('tbodyFontScale', $this->getSanitizer()->getString('tbodyFontScale'));
+        $this->setOption('tbodyBackgroundColor', $this->getSanitizer()->getString('tbodyBackgroundColor'));
+        $this->setOption('tbodySecondBackgroundColor', $this->getSanitizer()->getString('tbodySecondBackgroundColor'));
         $this->setOption('rowCount', $this->getSanitizer()->getString('rowCount'));
-        $this->setOption('hideHeader', $this->getSanitizer()->getCheckbox('hideHeader'));
         $this->setOption('minuteLimit', $this->getSanitizer()->getString('minuteLimit'));
+
+        //Icons tab
+        $this->setOption('hideIcons', $this->getSanitizer()->getCheckbox('hideIcons'));
+        $this->setOption('reverseIcons', $this->getSanitizer()->getCheckbox('reverseIcons'));
     }
 
     public function layoutDesignerJavaScript() {
