@@ -142,9 +142,12 @@ class DepartureMonitor extends ModuleWidget {
             ? array('td-empty', 'row-15', 'row-27-5', 'row-27-5', 'row-15', 'row-15')
             : array('row-10', 'row-10', 'row-25', 'row-25', 'row-15', 'row-15');
 
+        //Height of the thead
         $headerHeight = $this->getOption('hideHeader') ? 0 : 8;
+        //Height of a single row
         $rowHeight = $this->getOption('rowCount') ? (100 - $headerHeight) / $this->getOption('rowCount') : 0;
 
+        //Animation speed in seconds
         $animationSpeed = '';
         switch ($this->getOption('animationSpeed')) {
             case 1:
