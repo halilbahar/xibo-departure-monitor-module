@@ -185,22 +185,48 @@ class DepartureMonitor extends ModuleWidget {
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
             ->appendCss('
-                :root {
-                    --tbody-font-family: ' . $this->getOption('tbodyFont') . ';
-                    --tbody-font-color: ' . $this->getOption('tbodyFontColor') . ';
-                    --tbody-font-scale: ' . $this->getOption('tbodyFontScale') . 'em;
-                    --tbody-background-color: ' . $this->getOption('tbodyOddBackgroundColor') . ';
-                    --tbody-even-background-color: ' . $this->getOption('tbodyEvenBackgroundColor') . ';
-                    --tbody-font-size: ' . $finalRowFontSize . 'vh;
-                    --thead-font-family: ' . $this->getOption('theadFont') . ';
-                    --thead-font-color: ' . $this->getOption('theadFontColor') . ';
-                    --thead-font-scale: ' . $this->getOption('theadFontScale') . 'em;
-                    --thead-background-color: ' . $this->getOption('theadBackgroundColor') . ';
-                    --thead-display: ' . ($this->getOption('hideHeader') ? 'none' : 'table-header-group') . ';
-                    --row-height: ' . $rowHeight . 'vh;
-                    --td-first-padding: ' . ($this->getOption('hideIcons') ? '3' : '1') . '%;
-                    --td-first-align: ' . ($this->getOption('hideIcons') ? 'left' : 'center') . ';
-                    --text-animation-speed: ' . $animationSpeed . 's;
+                #table-main tbody {
+                    font-family: ' . $this->getOption('tbodyFont') . ', sans-serif;
+                    color: ' . $this->getOption('tbodyFontColor') . ';
+                    font-size: ' . $finalRowFontSize . 'vh;
+                }
+                #table-main .tr-content {
+                    background-color: ' . $this->getOption('tbodyOddBackgroundColor') . ';
+                    font-size: ' . $this->getOption('tbodyFontScale') . 'em;
+                }
+                
+                #table-main thead {
+                    font-family: ' . $this->getOption('theadFont') . ', sans-serif;
+                    color: ' . $this->getOption('theadFontColor') . ';
+                    display: ' . ($this->getOption('hideHeader') ? 'none' : 'table-header-group') . ';
+                }
+                
+                #table-main thead tr {
+                    background-color: ' . $this->getOption('theadBackgroundColor') . ';
+                    font-size: ' . $this->getOption('theadFontScale') . 'em;
+                }
+ 
+                #table-main tr td:nth-child(2) {
+                    padding-left: ' . ($this->getOption('hideIcons') ? '3' : '1') . '% !important;
+                    text-align: ' . ($this->getOption('hideIcons') ? 'left' : 'center') . ';
+                }
+                
+                .div-height {
+                    height: ' . $rowHeight . 'vh;
+                }
+                
+                .marquee {
+                    animation: marquee ' . $animationSpeed . ' linear infinite;
+                }
+                
+                .fade-out-odd {
+                    background-image: linear-gradient(to right, ' . $this->getOption('tbodyOddBackgroundColor') . ' 0%,
+                    rgba(0, 0, 0, 0) 3%, rgba(0, 0, 0, 0) 97%, ' . $this->getOption('tbodyOddBackgroundColor') . ' 100%);
+                }
+                
+                .fade-out-even {
+                    background-image: linear-gradient(to right, ' . $this->getOption('tbodyEvenBackgroundColor') . ' 0%,
+                    rgba(0, 0, 0, 0) 3%, rgba(0, 0, 0, 0) 97%, ' . $this->getOption('tbodyEvenBackgroundColor') . ' 100%);
                 }
             ')
             ->appendCssFile('departure_monitor.css')

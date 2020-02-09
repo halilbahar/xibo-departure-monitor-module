@@ -1,38 +1,42 @@
 $(function () {
 
     //Copy only the valid data to the new Array
-    let currentDate = new Date();
-    let currenDateWithoutSeconds = new Date();
+    var currentDate = new Date();
+    var currenDateWithoutSeconds = new Date();
     currenDateWithoutSeconds.setMinutes(currenDateWithoutSeconds.getMinutes() + minuteLimit, 0, 0);
-    let filteredData = [];
-    for (let i = 0; i < data.length; i++) {
+    var filteredData = [];
+    for (var i = 0; i < data.length; i++) {
         if (currenDateWithoutSeconds <= new Date(data[i].arrivalTime)) {
             filteredData.push(data[i]);
         }
     }
 
     //Generate rows for every entry
-    let table = document.getElementById("table-main");
-    for (let i = 0; i < filteredData.length; i++) {
-        let tr = table.getElementsByTagName("tbody")[0].insertRow(-1);
+    var table = document.getElementById("table-main");
+    for (var i = 0; i < filteredData.length; i++) {
+        var tr = table.getElementsByTagName("tbody")[0].insertRow(-1);
         tr.classList.add("tr-content");
-        let td = [];
-        for (let j = 0; j < 6; j++) {
+        var td = [];
+        for (var j = 0; j < 6; j++) {
             td[j] = tr.insertCell(j);
         }
-        let dataDate = new Date(filteredData[i].arrivalTime);
-        let hour = dataDate.getHours();
-        let minute = dataDate.getMinutes();
+        var dataDate = new Date(filteredData[i].arrivalTime);
+        var hour = dataDate.getHours();
+        var minute = dataDate.getMinutes();
 
-        td[0].innerHTML = `<div class='div-height'>${hideIcons ? "" : "<img src='" + getImageSrc(data[i].type) + "'>"}</div>`;
+        var content = "";
+        if (!hideIcons) {
+            content = "<img src='" + getImageSrc(data[i].type) + "'>";
+        }
+        td[0].innerHTML = "<div class='div-height'>" + content + "</div>";
         td[1].innerHTML = data[i].number;
         td[2].innerHTML = data[i].from;
         td[3].innerHTML = data[i].to;
         td[4].innerHTML = getLeadingZero(hour) + ":" + getLeadingZero(minute);
         td[5].innerHTML = Math.ceil((dataDate.getTime() - currentDate.getTime()) / 1000 / 60);
 
-        if(!disableAnimation) {
-            const isEven = (i + 1) % 2 === 0;
+        if (!disableAnimation) {
+            var isEven = (i + 1) % 2 === 0;
             createMarquee(td[2], isEven);
             createMarquee(td[3], isEven);
         }
@@ -43,11 +47,11 @@ $(function () {
         }
     }
 
-    let nextMinuteDate = new Date();
+    var nextMinuteDate = new Date();
     nextMinuteDate.setMinutes(currentDate.getMinutes() + 1, 0, 0);
-    let waitTime = nextMinuteDate.getTime() - currentDate.getTime();
+    var waitTime = nextMinuteDate.getTime() - currentDate.getTime();
     //Wait for the minute to finish and count down
-    setTimeout(() => {
+    setTimeout(function () {
         countDown();
         //Count down every minute if entry has been expired, animate it out
         setInterval(countDown, 1000 * 60);
@@ -55,11 +59,11 @@ $(function () {
 });
 
 function countDown() {
-    let tableRows = document.getElementById("table-main").rows;
-    let minuteIndex = 5;
-    for (let i = 1; i < tableRows.length; i++) {
+    var tableRows = document.getElementById("table-main").rows;
+    var minuteIndex = 5;
+    for (var i = 1; i < tableRows.length; i++) {
         if (parseInt(tableRows[i].cells[minuteIndex].innerHTML) === minuteLimit) {
-            $(`#table-main tr:eq(${i})`)
+            $("#table-main tr:eq(" + i + ")")
                 .children("td")
                 .animate({paddingBottom: 0, paddingTop: 0})
                 .wrapInner("<div />")
@@ -74,7 +78,7 @@ function countDown() {
 }
 
 function getImageSrc(type) {
-    let src = "";
+    var src;
     switch (type) {
         case "tram":
             src = tram;
@@ -103,12 +107,15 @@ function getLeadingZero(number) {
 
 function createMarquee(td, isEven) {
     if (isOverflown(td)) {
-        td.innerHTML = `
-            <div class="fade-out">
-                <span class='marquee'>${td.innerHTML}</span>
-                <div class="${isEven ? "fade-out-even" : "fade-out-odd"}"></div>
-            </div>
-        `;
+        var cssClass = "fade-out-odd";
+        if (isEven) {
+            cssClass = "fade-out-even";
+        }
+        td.innerHTML =
+            "<div class='fade-out'>" +
+            "<span class='marquee'>" + td.innerHTML + "</span>" +
+            "<div class='" + cssClass + "'></div>" +
+            "</div>";
     }
 }
 
