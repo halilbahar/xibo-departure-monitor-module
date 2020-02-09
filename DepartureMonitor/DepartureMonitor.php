@@ -195,6 +195,10 @@ class DepartureMonitor extends ModuleWidget {
                     font-size: ' . $this->getOption('tbodyFontScale') . 'em;
                 }
                 
+                #table-main .tr-content td {
+                    text-overflow: ' . ($this->getOption('disableAnimation') == 0 ? 'clip' : 'ellipsis') . ';
+                }
+                
                 #table-main thead {
                     font-family: ' . $this->getOption('theadFont') . ', sans-serif;
                     color: ' . $this->getOption('theadFontColor') . ';
@@ -216,7 +220,7 @@ class DepartureMonitor extends ModuleWidget {
                 }
                 
                 .marquee {
-                    animation: marquee ' . $animationSpeed . ' linear infinite;
+                    animation: marquee ' . $animationSpeed . 's linear infinite;
                 }
                 
                 .fade-out-odd {

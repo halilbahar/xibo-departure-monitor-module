@@ -1,5 +1,22 @@
 $(function () {
-
+    if(!disableAnimation) {
+        window.addEventListener("resize", function() {
+            var rows = document.getElementById("table-main").rows;
+            for(var i = 1; i < rows.length; i++) {
+                var tr = rows.item(i);
+                var tds = tr.cells;
+                var isEven = i % 2 === 0;
+                for(var j = 0; j < tds.length; j++) {
+                    var td2 = tds[2];
+                    var td3 = tds[3];
+                    removeMarquee(td2);
+                    removeMarquee(td3);
+                    createMarquee(td2, isEven);
+                    createMarquee(td3, isEven);
+                }
+            }
+        });
+    }
     //Copy only the valid data to the new Array
     var currentDate = new Date();
     var currenDateWithoutSeconds = new Date();
@@ -44,6 +61,14 @@ $(function () {
         //Set the backgroundcolor of every second row
         if ((i + 1) % 2 === 0) {
             tr.style.backgroundColor = tbodySecondBackgroundColor;
+        }
+    }
+
+    // Create images from canvas for ie
+    if (window.document.documentMode) {
+        var images = table.getElementsByTagName("img");
+        for (var i = 0; i < images.length; i++) {
+            drawImageFromCanvas(images.item(i));
         }
     }
 
@@ -117,8 +142,39 @@ function createMarquee(td, isEven) {
             "<div class='" + cssClass + "'></div>" +
             "</div>";
     }
+
+    function isOverflown(element) {
+        return element.scrollWidth > element.clientWidth;
+    }
 }
 
-function isOverflown(element) {
-    return element.scrollWidth > element.clientWidth;
+function removeMarquee(td) {
+    var marqueeSpan = td.getElementsByClassName("marquee")[0];
+    if(marqueeSpan) {
+        td.innerHTML = marqueeSpan.innerHTML;
+    }
+}
+
+function drawImageFromCanvas(imgElement) {
+    var src = imgElement.src;
+    var w = imgElement.offsetWidth * 6;
+    var h = imgElement.offsetHeight * 6;
+    var image = new Image();
+
+    image.onload = function () {
+        var canvas = document.createElement('canvas');
+        var canvas2 = document.createElement('canvas');
+        canvas.width = w / 6;
+        canvas.height = h / 6;
+        canvas2.width = w;
+        canvas2.height = h;
+        var ctx = canvas.getContext('2d');
+        var ctx2 = canvas2.getContext('2d');
+
+        ctx2.drawImage(image, 0, 0, w / 2, h / 2);
+        ctx2.drawImage(canvas2, 0, 0, w / 2, h / 2, w / 2, h / 2, w / 4, h / 4);
+        ctx.drawImage(canvas2, w / 2, h / 2, w / 4, h / 4, 0, 0, w / 6, h / 6);
+        imgElement.src = canvas.toDataURL("iamge/png");
+    };
+    image.src = src;
 }
