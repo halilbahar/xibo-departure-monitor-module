@@ -78,7 +78,7 @@
 
                         {% set title %}{% trans "Font Size Multiplier" %}{% endset %}
                         {% set helpText %}{% trans "Scale your font size" %}{% endset %}
-                        {{ forms.number("theadFontScale", title, module.getOption("theadFontScale", 1), helpText, "header-fields", "required") }}
+                        {{ forms.input("theadFontScale", title, module.getOption("theadFontScale", "1"), helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color for the head" %}{% endset %}
@@ -119,7 +119,7 @@
 
                         {% set title %}{% trans "Font Size Multiplier" %}{% endset %}
                         {% set helpText %}{% trans "Scale your font size" %}{% endset %}
-                        {{ forms.number("tbodyFontScale", title, module.getOption("tbodyFontScale", 1), "", "required") }}
+                        {{ forms.input("tbodyFontScale", title, module.getOption("tbodyFontScale", "1"), helpText, "", "required") }}
 
                         {% set title %}{% trans "Odd Row Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of the odd rows" %}{% endset %}
