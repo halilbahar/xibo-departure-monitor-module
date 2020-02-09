@@ -60,7 +60,7 @@ Repeat the first [installation](#installation) step. After downloading and extra
 ## Development
 This section only demonstrates how to add a service for your monitor not extend the module.
 
-First add your service to the [edit-form](DepartureMonitor/departuremonitor-form-edit.twig).
+First add your service to the [edit-form](DepartureMonitor/departuremonitor-form-edit.twig) and [add-form](DepartureMonitor/departuremonitor-form-add.twig).
 
 Under the part **Departure Monitor Service** you have to add a variable and assign it to the options and increment the id:
 ```twig
