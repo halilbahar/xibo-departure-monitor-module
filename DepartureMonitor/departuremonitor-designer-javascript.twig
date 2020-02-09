@@ -1,19 +1,20 @@
 <script type="text/javascript">
-    function departuremonitor_form_edit_open() {
+    function departuremonitor_form_edit_open(dialog) {
+        let form = $(dialog).find('form');
+        setupCheckboxFields(form, '#useDuration', '.duration-fields');
+        setupCheckboxFields(form, '#hideHeader', '', '.header-fields');
+        setupCheckboxFields(form, '#hideIcons', '', '.icon-fields');
+        setupCheckboxFields(form, '#disableAnimation', '', '.animation-fields');
 
-        setupCheckboxFields($(this).find('form'), '#useDuration', '.duration-fields');
-        setupCheckboxFields($(this).find('form'), '#hideHeader', '', '.header-fields');
-        setupCheckboxFields($(this).find('form'), '#hideIcons', '', '.icon-fields');
-        setupCheckboxFields($(this).find('form'), '#disableAnimation', '', '.animation-fields');
+        var options = {format: 'rgba'};
+        $(dialog).find("#theadBackgroundColor").colorpicker(options);
+        $(dialog).find("#theadFontColor").colorpicker(options);
+        $(dialog).find("#tbodyFontColor").colorpicker(options);
+        $(dialog).find("#tbodyOddBackgroundColor").colorpicker(options);
+        $(dialog).find("#tbodyEvenBackgroundColor").colorpicker(options);
 
-        $(this).find("#theadBackgroundColor").colorpicker({format: 'rgba'});
-        $(this).find("#theadFontColor").colorpicker({format: 'rgba'});
-        $(this).find("#tbodyFontColor").colorpicker({format: 'rgba'});
-        $(this).find("#tbodyOddBackgroundColor").colorpicker({format: 'rgba'});
-        $(this).find("#tbodyEvenBackgroundColor").colorpicker({format: 'rgba'});
-
-        var bodyFont = $(this).find("#tbodyFont");
-        var headFont = $(this).find("#theadFont");
+        var bodyFont = $(dialog).find("#tbodyFont");
+        var headFont = $(dialog).find("#theadFont");
         $.ajax({
             method: "GET",
             url: bodyFont.data('searchUrl'),

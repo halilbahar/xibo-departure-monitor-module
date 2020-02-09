@@ -20,6 +20,7 @@ class DepartureMonitor extends ModuleWidget {
             $module->type = 'departuremonitor';
             $module->class = 'Xibo\Custom\DepartureMonitor\DepartureMonitor';
             $module->description = 'A module for displaying Departure-Monitors.';
+            $module->imageUri = 'forms/library.gif';
             $module->enabled = 1;
             $module->previewEnabled = 1;
             $module->assignable = 1;
@@ -55,7 +56,15 @@ class DepartureMonitor extends ModuleWidget {
         }
     }
 
+    public function add() {
+        $this->change();
+    }
+
     public function edit() {
+        $this->change();
+    }
+
+    public function change() {
         $this->setCommonOptions();
         // Save the widget
         $this->isValid();
@@ -76,7 +85,7 @@ class DepartureMonitor extends ModuleWidget {
         $this->setOption('hideHeader', $this->getSanitizer()->getCheckbox('hideHeader'));
         $this->setOption('theadFont', $this->getSanitizer()->getString('theadFont'));
         $this->setOption('theadFontColor', $this->getSanitizer()->getString('theadFontColor'));
-        $this->setOption('theadFontScale', $this->getSanitizer()->getString('theadFontScale'));
+        $this->setOption('theadFontScale', str_replace(",", ".", $this->getSanitizer()->getString('theadFontScale')));
         $this->setOption('theadBackgroundColor', $this->getSanitizer()->getString('theadBackgroundColor'));
         $this->setOption('lineHeader', $this->getSanitizer()->getString('lineHeader'));
         $this->setOption('fromHeader', $this->getSanitizer()->getString('fromHeader'));
@@ -87,7 +96,7 @@ class DepartureMonitor extends ModuleWidget {
         //Table Body tab
         $this->setOption('tbodyFont', $this->getSanitizer()->getString('tbodyFont'));
         $this->setOption('tbodyFontColor', $this->getSanitizer()->getString('tbodyFontColor'));
-        $this->setOption('tbodyFontScale', $this->getSanitizer()->getString('tbodyFontScale'));
+        $this->setOption('tbodyFontScale', str_replace(",", ".", $this->getSanitizer()->getString('tbodyFontScale')));
         $this->setOption('tbodyOddBackgroundColor', $this->getSanitizer()->getString('tbodyOddBackgroundColor'));
         $this->setOption('tbodyEvenBackgroundColor', $this->getSanitizer()->getString('tbodyEvenBackgroundColor'));
         $this->setOption('rowCount', $this->getSanitizer()->getInt('rowCount'));
@@ -265,12 +274,12 @@ class DepartureMonitor extends ModuleWidget {
             throw new InvalidArgumentException(__('You must enter a duration.'), 'duration');
         }
 
-        $theadFontScale = str_replace(",", ".", $this->getOption('theadFontScale'));
+        $theadFontScale = $this->getOption('theadFontScale');
         if (!is_numeric($theadFontScale) || $theadFontScale <= 0) {
             throw new InvalidArgumentException(__('You must enter a positiv number for the head font multiplier ' . $theadFontScale), 'theadFontScale');
         }
 
-        $tbodyFontScale = str_replace(",", ".", $this->getOption('tbodyFontScale'));
+        $tbodyFontScale = $this->getOption('tbodyFontScale');
         if (!is_numeric($tbodyFontScale) || $tbodyFontScale <= 0) {
             throw new InvalidArgumentException(__('You must enter a positiv number for the body font multiplier'), 'tbodyFontScale');
         }
@@ -283,7 +292,7 @@ class DepartureMonitor extends ModuleWidget {
             throw new InvalidArgumentException(__('You must enter a positiv number for the minute limit'), 'minuteLimit');
         }
 
-        return self::$STATUS_PLAYER;
+        return 1;
     }
 
     public function getCacheDuration() {

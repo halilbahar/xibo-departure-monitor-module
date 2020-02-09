@@ -7,8 +7,7 @@
 
 {% block formButtons %}
     {% trans "Cancel" %}, XiboDialogClose()
-    {% trans "Apply" %}, XiboDialogApply("#departureMonitorEditForm")
-    {% trans "Save" %}, $("#departureMonitorEditForm").submit()
+    {% trans "Save" %}, $("#departureMonitorAddForm").submit()
 {% endblock %}
 
 {% block callBack %}departuremonitor_form_edit_open{% endblock %}
@@ -30,13 +29,13 @@
                     <a href="#iconsTab" role="tab" data-toggle="tab"><span>{% trans "Icons" %}</span></a>
                 </li>
             </ul>
-            <form id="departureMonitorEditForm" class="XiboForm form-horizontal" method="put"
-                  action="{{ urlFor("module.widget.edit", {id: module.widget.widgetId}) }}">
+            <form id="departureMonitorAddForm" class="XiboForm form-horizontal" method="post"
+                  action="{{ urlFor("module.widget.add", {type: module.widget.type, id: playlist.playlistId}) }}">
                 <div class="tab-content">
                     <div class="tab-pane active" id="generalTab">
                         {% set title %}{% trans "Name" %}{% endset %}
                         {% set helpText %}{% trans "An optional name for this widget" %}{% endset %}
-                        {{ forms.input("name", title, module.getOption("name"), helpText, "") }}
+                        {{ forms.input("name", title, "", helpText, "") }}
 
                         {% set title %}{% trans "Departure Monitor Service" %}{% endset %}
                         {% set helpText %}{% trans "Please select the service you want to use." %}{% endset %}
@@ -46,28 +45,28 @@
                             { id: 1, value: linzag },
                             { id: 2, value: wienerlinien },
                         ] %}
-                        {{ forms.dropdown("serviceId", "single", title, module.getOption("serviceId"), options, "id", "value", helpText) }}
+                        {{ forms.dropdown("serviceId", "single", title, "", options, "id", "value", helpText) }}
 
                         {% set title %}{% trans "API-Key" %}{% endset %}
                         {% set helpText %}{% trans "Please specify a key if the selected service has an asterisk" %}{% endset %}
-                        {{ forms.input("apiKey", title, module.getOption("apiKey"), helpText, "") }}
+                        {{ forms.input("apiKey", title, "", helpText, "") }}
 
                         {% set title %}{% trans "Destination" %}{% endset %}
                         {% set helpText %}{% trans "The Departure Monitor of you desired Location. Separate by ; for multiple destinations" %}{% endset %}
-                        {{ forms.input("destination", title, module.getOption("destination"), helpText, "", "required") }}
+                        {{ forms.input("destination", title, "", helpText, "", "required") }}
 
                         {% set title %}{% trans "Set a duration?" %}{% endset %}
                         {% set helpText %}{% trans "Select to provide a specific duration for this Widget" %}{% endset %}
-                        {{ forms.checkbox("useDuration", title, module.getUseDuration(), helpText) }}
+                        {{ forms.checkbox("useDuration", title, 0, helpText) }}
 
                         {% set title %}{% trans "Duration" %}{% endset %}
                         {% set helpText %}{% trans "The duration in seconds this should be displayed" %}{% endset %}
-                        {{ forms.number("duration", title, module.getDuration(), helpText, "duration-fields", "required") }}
+                        {{ forms.number("duration", title, module.getModule().defaultDuration, helpText, "duration-fields", "required") }}
                     </div>
                     <div class="tab-pane" id="tableHeadTab">
                         {% set title %}{% trans "Hide Header?" %}{% endset %}
                         {% set helpText %}{% trans "Check to hide the header of the monitor" %}{% endset %}
-                        {{ forms.checkbox("hideHeader", title, module.getOption("hideHeader"), helpText) }}
+                        {{ forms.checkbox("hideHeader", title, 0, helpText) }}
 
 
                         {% set title %}{% trans "Font" %}{% endset %}
@@ -80,35 +79,35 @@
 
                         {% set title %}{% trans "Font Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the color of your font" %}{% endset %}
-                        {{ forms.input("theadFontColor", title, module.getOption("theadFontColor"), helpText, "header-fields", "required") }}
+                        {{ forms.input("theadFontColor", title, "#f5f5f5", helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Font Size Multiplier" %}{% endset %}
                         {% set helpText %}{% trans "Scale your font size" %}{% endset %}
-                        {{ forms.input("theadFontScale", title, module.getOption("theadFontScale"), helpText, "header-fields", "required") }}
+                        {{ forms.input("theadFontScale", title, "1", helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color for the head" %}{% endset %}
-                        {{ forms.input("theadBackgroundColor", title, module.getOption("theadBackgroundColor"), helpText, "header-fields", "required") }}
+                        {{ forms.input("theadBackgroundColor", title, "#36304a", helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Line Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the lines are listed" %}{% endset %}
-                        {{ forms.input("lineHeader", title, module.getOption("lineHeader"), helpText, "header-fields", "required") }}
+                        {{ forms.input("lineHeader", title, "Line", helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "From Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the public transport is coming from" %}{% endset %}
-                        {{ forms.input("fromHeader", title, module.getOption("fromHeader"), helpText, "header-fields", "required") }}
+                        {{ forms.input("fromHeader", title, "From", helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "To Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the public transport is going to" %}{% endset %}
-                        {{ forms.input("toHeader", title, module.getOption("toHeader"), helpText, "header-fields", "required") }}
+                        {{ forms.input("toHeader", title, "To", helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Start Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the public transport is setting of" %}{% endset %}
-                        {{ forms.input("startHeader", title, module.getOption("startHeader"), helpText, "header-fields", "required") }}
+                        {{ forms.input("startHeader", title, "Start", helpText, "header-fields", "required") }}
 
                         {% set title %}{% trans "Remaining Header" %}{% endset %}
                         {% set helpText %}{% trans "Change the header-label for the column where the public transport is setting of (remaining minutes)" %}{% endset %}
-                        {{ forms.input("remainingHeader", title, module.getOption("remainingHeader"), helpText, "header-fields", "required") }}
+                        {{ forms.input("remainingHeader", title, "Remaining", helpText, "header-fields", "required") }}
                     </div>
                     <div class="tab-pane" id="tableBodyTab">
                         {% set title %}{% trans "Font" %}{% endset %}
@@ -121,31 +120,31 @@
 
                         {% set title %}{% trans "Font Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the color of your font" %}{% endset %}
-                        {{ forms.input("tbodyFontColor", title, module.getOption("tbodyFontColor"), helpText, "", "required") }}
+                        {{ forms.input("tbodyFontColor", title, "#000000", helpText, "", "required") }}
 
                         {% set title %}{% trans "Font Size Multiplier" %}{% endset %}
                         {% set helpText %}{% trans "Scale your font size" %}{% endset %}
-                        {{ forms.input("tbodyFontScale", title, module.getOption("tbodyFontScale"), helpText, "", "required") }}
+                        {{ forms.input("tbodyFontScale", title, "1", helpText, "", "required") }}
 
                         {% set title %}{% trans "Odd Row Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of the odd rows" %}{% endset %}
-                        {{ forms.input("tbodyOddBackgroundColor", title, module.getOption("tbodyOddBackgroundColor"), helpText, "", "required") }}
+                        {{ forms.input("tbodyOddBackgroundColor", title, "#ffffff", helpText, "", "required") }}
 
                         {% set title %}{% trans "Even Row Background Color" %}{% endset %}
                         {% set helpText %}{% trans "Select the background color of the even rows" %}{% endset %}
-                        {{ forms.input("tbodyEvenBackgroundColor", title, module.getOption("tbodyEvenBackgroundColor"), helpText, "", "required") }}
+                        {{ forms.input("tbodyEvenBackgroundColor", title, "#f5f5f5", helpText, "", "required") }}
 
                         {% set title %}{% trans "Row Count" %}{% endset %}
                         {% set helpText %}{% trans "Specify how many rows should be displayed at the same time" %}{% endset %}
-                        {{ forms.number("rowCount", title, module.getOption("rowCount"), helpText, "", "required") }}
+                        {{ forms.number("rowCount", title, 10, helpText, "", "required") }}
 
                         {% set title %}{% trans "Minute Limit" %}{% endset %}
                         {% set helpText %}{% trans "Specify the limit when the entries should be removed from the table" %}{% endset %}
-                        {{ forms.number("minuteLimit", title, module.getOption("minuteLimit"), helpText, "", "required") }}
+                        {{ forms.number("minuteLimit", title, 5, helpText, "", "required") }}
 
                         {% set title %}{% trans "Disable Animation?" %}{% endset %}
                         {% set helpText %}{% trans "Check if you don't want the text to animate if it doesn't fit" %}{% endset %}
-                        {{ forms.checkbox("disableAnimation", title, module.getOption("disableAnimation"), helpText) }}
+                        {{ forms.checkbox("disableAnimation", title, 0, helpText) }}
 
                         {% set title %}{% trans "Animation Speed" %}{% endset %}
                         {% set options = [
@@ -154,16 +153,16 @@
                             {id: 3, value: "fast"}
                         ] %}
                         {% set helpText %}{% trans "Select a font for the body" %}{% endset %}
-                        {{ forms.dropdown("animationSpeed", "single", title, module.getOption("animationSpeed"), options, "id", "value", helpText, "animation-fields") }}
+                        {{ forms.dropdown("animationSpeed", "single", title, 2, options, "id", "value", helpText, "animation-fields") }}
                     </div>
                     <div class="tab-pane" id="iconsTab">
                         {% set title %}{% trans "Hide Icons?" %}{% endset %}
                         {% set helpText %}{% trans "Check if you don't want the icons to appear" %}{% endset %}
-                        {{ forms.checkbox("hideIcons", title, module.getOption("hideIcons"), helpText) }}
+                        {{ forms.checkbox("hideIcons", title, 0, helpText) }}
 
                         {% set title %}{% trans "Reverse Icons?" %}{% endset %}
                         {% set helpText %}{% trans "Check if Icons should appear white instead of black" %}{% endset %}
-                        {{ forms.checkbox("reverseIcons", title, module.getOption("reverseIcons"), helpText, "icon-fields") }}
+                        {{ forms.checkbox("reverseIcons", title, 0, helpText, "icon-fields") }}
                     </div>
                 </div>
             </form>
