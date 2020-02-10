@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function departuremonitor_form_edit_open(dialog) {
-        let form = $(dialog).find('form');
+        var form = $(dialog).find('form');
         setupCheckboxFields(form, '#useDuration', '.duration-fields');
         setupCheckboxFields(form, '#hideHeader', '', '.header-fields');
         setupCheckboxFields(form, '#hideIcons', '', '.icon-fields');
@@ -40,9 +40,9 @@
     }
 
     function setupCheckboxFields(form, checkBoxSelector, inputFieldsSelector, inputFieldsSelectorOpposite) {
-        const checkboxObj = $(form).find(checkBoxSelector);
-        const inputFieldsObj = $(form).find(inputFieldsSelector);
-        const inputFieldsObjOpposite = $(form).find(inputFieldsSelectorOpposite);
+        var checkboxObj = $(form).find(checkBoxSelector);
+        var inputFieldsObj = $(form).find(inputFieldsSelector);
+        var inputFieldsObjOpposite = $(form).find(inputFieldsSelectorOpposite);
 
         function displayInputFields() {
             // Init
