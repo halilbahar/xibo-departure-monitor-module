@@ -335,9 +335,7 @@ class DepartureMonitor extends ModuleWidget {
             $client = new Client($this->getConfig()->getGuzzleProxy());
             $response = $client->request('GET', $url);
 
-            $result = json_decode($response->getBody()->getContents());
-
-            return $result;
+            return json_decode($response->getBody()->getContents());
 
         } catch (RequestException $requestException) {
             $this->getLog()->error('Departure-Monitor returned ' . $requestException->getMessage() . ' status. Unable to proceed.');
