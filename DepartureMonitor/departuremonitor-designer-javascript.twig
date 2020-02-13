@@ -23,16 +23,14 @@
                     $.each(res.data, function (index, element) {
                         if (headFont.data('value') === element.familyName) {
                             headFont.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
-                            return;
-                        }
-
-                        if (bodyFont.data('value') === element.familyName) {
+                            bodyFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                        } else if (bodyFont.data('value') === element.familyName) {
                             bodyFont.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
-                            return;
+                            headFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                        } else {
+                            headFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                            bodyFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
                         }
-
-                        headFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
-                        bodyFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
                     });
                 }
             }
@@ -46,10 +44,10 @@
 
         function displayInputFields() {
             // Init
-            if(checkboxObj.is(':checked') === false) {
+            if (checkboxObj.is(':checked') === false) {
                 inputFieldsObj.css('display', 'none');
                 inputFieldsObjOpposite.css('display', 'block');
-            } else if(checkboxObj.is(':checked') === true) {
+            } else if (checkboxObj.is(':checked') === true) {
                 inputFieldsObj.css('display', 'block');
                 inputFieldsObjOpposite.css('display', 'none');
             }
