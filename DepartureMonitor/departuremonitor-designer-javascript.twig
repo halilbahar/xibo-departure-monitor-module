@@ -46,9 +46,9 @@
     }
 
     function setupCheckboxFields(form, checkBoxSelector, inputFieldsSelector, inputFieldsSelectorOpposite) {
-        const checkboxObj = $(form).find(checkBoxSelector);
-        const inputFieldsObj = $(form).find(inputFieldsSelector);
-        const inputFieldsObjOpposite = $(form).find(inputFieldsSelectorOpposite);
+        var checkboxObj = $(form).find(checkBoxSelector);
+        var inputFieldsObj = $(form).find(inputFieldsSelector);
+        var inputFieldsObjOpposite = $(form).find(inputFieldsSelectorOpposite);
 
         function displayInputFields() {
             // Init

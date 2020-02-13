@@ -179,17 +179,17 @@ class DepartureMonitor extends ModuleWidget {
             ->appendViewPortWidth($this->region->width)
             ->appendJavaScriptFile('vendor/jquery-1.11.1.min.js')
             ->appendJavaScript('
-                let data = ' . json_encode($jsonData) . ';
-                let tram = "' . $tram . '";
-                let motorbus = "' . $bus . '";
-                let citybus = "' . $citybus . '";
-                let train = "' . $train . '";
-                let underground = "' . $underground . '";
-                let tbodySecondBackgroundColor = "' . $this->getOption('tbodyEvenBackgroundColor') . '";
-                let hideIcons = ' . ($this->getOption('hideIcons') == 0 ? 'false' : 'true') . ';
-                let dataClasses = ' . json_encode($dataClasses) . ';
-                let minuteLimit = ' . $this->getOption('minuteLimit') . ';
-                let disableAnimation = ' . ($this->getOption('disableAnimation') == 0 ? 'false' : 'true') . ';
+                var data = ' . json_encode($jsonData) . ';
+                var tram = "' . $tram . '";
+                var motorbus = "' . $bus . '";
+                var citybus = "' . $citybus . '";
+                var train = "' . $train . '";
+                var underground = "' . $underground . '";
+                var tbodySecondBackgroundColor = "' . $this->getOption('tbodyEvenBackgroundColor') . '";
+                var hideIcons = ' . ($this->getOption('hideIcons') == 0 ? 'false' : 'true') . ';
+                var dataClasses = ' . json_encode($dataClasses) . ';
+                var minuteLimit = ' . $this->getOption('minuteLimit') . ';
+                var disableAnimation = ' . ($this->getOption('disableAnimation') == 0 ? 'false' : 'true') . ';
             ')
             ->appendJavaScriptFile('dm_script.js')
             ->appendFontCss()
