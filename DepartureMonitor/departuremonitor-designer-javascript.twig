@@ -1,6 +1,6 @@
 <script type="text/javascript">
     function departuremonitor_form_edit_open(dialog) {
-        let form = $(dialog).find('form');
+        var form = $(dialog).find('form');
         setupCheckboxFields(form, '#useDuration', '.duration-fields');
         setupCheckboxFields(form, '#hideHeader', '', '.header-fields');
         setupCheckboxFields(form, '#hideIcons', '', '.icon-fields');
@@ -19,20 +19,26 @@
             method: "GET",
             url: bodyFont.data('searchUrl'),
             success: function (res) {
-                if (res.success) {
-                    $.each(res.data, function (index, element) {
+                var regex = /font-family: '(.+)'/g;
+
+                var matches;
+                var data = [];
+                while (matches = regex.exec(res)) {
+                    var value = matches[1];
+                    data.push({displayName: titleCase(value), familyName: value});
+                }
+                if (res) {
+                    $.each(data, function (index, element) {
                         if (headFont.data('value') === element.familyName) {
                             headFont.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
-                            return;
-                        }
-
-                        if (bodyFont.data('value') === element.familyName) {
+                            bodyFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                        } else if (bodyFont.data('value') === element.familyName) {
                             bodyFont.append($('<option value="' + element.familyName + '" selected>' + element.displayName + '</option>'));
-                            return;
+                            headFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                        } else {
+                            headFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
+                            bodyFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
                         }
-
-                        headFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
-                        bodyFont.append($('<option value="' + element.familyName + '">' + element.displayName + '</option>'));
                     });
                 }
             }
@@ -46,10 +52,10 @@
 
         function displayInputFields() {
             // Init
-            if(checkboxObj.is(':checked') === false) {
+            if (checkboxObj.is(':checked') === false) {
                 inputFieldsObj.css('display', 'none');
                 inputFieldsObjOpposite.css('display', 'block');
-            } else if(checkboxObj.is(':checked') === true) {
+            } else if (checkboxObj.is(':checked') === true) {
                 inputFieldsObj.css('display', 'block');
                 inputFieldsObjOpposite.css('display', 'none');
             }
@@ -61,4 +67,13 @@
         // Change
         checkboxObj.on('change', displayInputFields);
     }
+
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+        }
+        return splitStr.join(' ');
+    }
+
 </script>

@@ -71,7 +71,7 @@
 
                         {% set title %}{% trans "Font" %}{% endset %}
                         {% set attributes = [
-                            { name: "data-search-url", value: urlFor("library.font.list") },
+                            { name: "data-search-url", value: urlFor("library.font.css") },
                             { name: "data-value", value: module.getOption("theadFont") }
                         ] %}
                         {% set helpText %}{% trans "Select a font for the head" %}{% endset %}
@@ -112,7 +112,7 @@
                     <div class="tab-pane" id="tableBodyTab">
                         {% set title %}{% trans "Font" %}{% endset %}
                         {% set attributes = [
-                            { name: "data-search-url", value: urlFor("library.font.list") },
+                            { name: "data-search-url", value: urlFor("library.font.css") },
                             { name: "data-value", value: module.getOption("tbodyFont") }
                         ] %}
                         {% set helpText %}{% trans "Select a font for the body" %}{% endset %}
